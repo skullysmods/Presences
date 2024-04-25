@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.premid.app/metadata/1.9",
+	"author": {
+		"id": "742094194956304505",
+		"name": "skullysmods"
+	},
+	"service": "MineStrator",
+	"description": {
+		"en": "MineStrator is a high-end Minecraft hosting brand designed for demanding administrators who seek quality hosting for their Minecraft servers."
+	},
+	"url": "minestrator.com",
+	"version": "1.0.0",
+	"logo": "https://i.imgur.com/Bog8yIL.png",
+	"thumbnail": "https://i.imgur.com/QukLj1d.png",
+	"color": "#009B72",
+	"category": "games",
+	"tags": [
+		"host",
+		"games",
+		"minecraft"
+	]
+}
