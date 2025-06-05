@@ -14,7 +14,7 @@ presence.on('UpdateData', () => {
     if (pathname === '/') {
       presenceData.details = 'Viewing the home page'
     }
-    else if (pathname.includes('/explore')) {
+    else if (pathname.includes('/discover')) {
       presenceData.details = 'Exploring lyrics'
     }
     else if (pathname.includes('/community')) {
@@ -36,15 +36,18 @@ presence.on('UpdateData', () => {
       if (pathname === '/profile/me') {
         presenceData.details = 'Viewing their profile'
       }
+      else if (pathname === '/profile/me/badges') {
+        presenceData.details = 'Viewing their badges'
+      }
       else {
         presenceData.details = `Viewing ${
-          document.querySelector('#site h1')?.textContent
+          document.querySelector('h1')?.textContent
         }'s profile`
       }
     }
     else if (pathname.includes('/search')) {
       presenceData.details = 'Searching'
-      presenceData.state = pathname.split('/')[2]?.replaceAll('%20', ' ')
+      presenceData.state = new URLSearchParams(document.location.search).get('query')
     }
     else if (
       pathname.includes('/lyrics')
@@ -67,21 +70,15 @@ presence.on('UpdateData', () => {
       presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/Musixmatch/assets/0.png'
       presenceData.details = 'Reading lyrics'
       presenceData.state = `${
-        document.querySelector('#site h2 > span > a')?.textContent
-        || document.querySelector('#site h2 > span > span > a')?.textContent
-      } - ${document.querySelector('#site h1')?.childNodes[1]?.textContent}`
+        document.querySelector('h2[data-testid=lyrics-track-description]')?.textContent
+      } - ${document.querySelector('h1[data-testid=lyrics-track-title]')?.textContent}`
     }
     else if (pathname.includes('/artist')) {
-      const avatar = document.querySelector<HTMLMetaElement>(
-        '[property="og:image"]',
-      )?.content
-      if (!avatar?.includes('avatar-placeholder.png')) {
-        presenceData.largeImageKey = avatar
-        presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/Musixmatch/assets/0.png'
-      }
+      presenceData.largeImageKey = document.querySelector<HTMLImageElement>('.r-1sp8lnq img')?.src
+      presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/Musixmatch/assets/0.png'
       presenceData.details = 'Browsing artist'
       presenceData.state = document.querySelector(
-        '#site > #artist-page > #content h1',
+        'h1',
       )?.textContent
     }
   }
