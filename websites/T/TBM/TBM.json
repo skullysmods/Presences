@@ -78,5 +78,21 @@
   "tbm.to": {
     "description": "Displayed when the user is viewing the 'to' location",
     "message": "To:"
+  },
+  "tbm.viewTrafficInfos": {
+    "description": "Displayed when the user is viewing traffic informations",
+    "message": "Viewing traffic informations"
+  },
+  "tbm.viewTrafficInfo": {
+    "description": "Displayed when the user is viewing traffic information",
+    "message": "Viewing traffic information:"
+  },
+  "tbm.viewLines": {
+    "description": "Displayed when the user is viewing lines",
+    "message": "Viewing lines"
+  },
+  "tbm.viewLineInfos": {
+    "description": "Displayed when the user is viewing line informations",
+    "message": "Viewing line informations"
   }
 }

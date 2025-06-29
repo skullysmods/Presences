@@ -26,6 +26,10 @@ async function getStrings() {
     noData: 'tbm.noData',
     from: 'tbm.from',
     to: 'tbm.to',
+    viewTrafficInfos: 'tbm.viewTrafficInfos',
+    viewTrafficInfo: 'tbm.viewTrafficInfo',
+    viewLines: 'tbm.viewLines',
+    viewLineInfos: 'tbm.viewLineInfos',
   })
 }
 const browsingTimestamp = Math.floor(Date.now() / 1000)
@@ -35,6 +39,9 @@ enum ActivityAssets {
   OldLogo = 'https://i.imgur.com/eCEEw2y.jpeg',
   NewLogo = 'https://i.imgur.com/k3THrqd.png',
   TBMFid = 'https://i.imgur.com/N7EXvDG.png',
+  Routes = 'https://i.imgur.com/8nhzMN3.png',
+  Schedules = 'https://i.imgur.com/85krl3t.png',
+  Traffic = 'https://i.imgur.com/QyNoz05.png',
 }
 
 async function svgToPng(svgUrl: string): Promise<string | undefined> {
@@ -82,6 +89,7 @@ async function svgToPng(svgUrl: string): Promise<string | undefined> {
 presence.on('UpdateData', async () => {
   const logo = await presence.getSetting<number>('logo')
   const presenceData: PresenceData = {
+    details: 'null',
     largeImageKey: [ActivityAssets.Logo, ActivityAssets.OldLogo, ActivityAssets.NewLogo][logo] || ActivityAssets.Logo,
     startTimestamp: browsingTimestamp,
   }
@@ -91,36 +99,74 @@ presence.on('UpdateData', async () => {
 
   switch (document.location.hostname) {
     case 'www.infotbm.com': {
-      const regex = /^(?:fr|en|es)$/
-      if (regex.test(path[1]!) && !path[2]) {
+      if (document.querySelector('main > div.homepage')) {
         presenceData.details = strings.viewHome
       }
-      else if (document.querySelector('.schedules')) {
+      else if (document.querySelector('main > div.schedules')) {
         presenceData.details = strings.viewLinesSchedules
+        presenceData.smallImageKey = ActivityAssets.Schedules
       }
-      else if (document.querySelector('.tbm-lines-name-wrapper')) {
-        if (document.querySelector('.schedules-results')) {
-          presenceData.details = strings.searchStop
-          presenceData.state = `${strings.direction} ${document.querySelector('.direction-wrapper > a.active p:nth-of-type(2)')?.textContent || ''}`
-        }
-        else if (document.querySelector('.schedules-detail')) {
-          presenceData.details = strings.viewSchedules
-          presenceData.state = `${strings.stop} ${document.querySelector('.tbm-lines-name-wrapper')?.textContent} - ${strings.direction} ${document.querySelector('svg[aria-label="Direction"]')?.nextElementSibling?.textContent}`
-        }
+      if (document.querySelector('main > div.schedules-results')) {
+        presenceData.details = strings.searchStop
+        presenceData.state = `${strings.direction} ${document.querySelector('.direction-wrapper > a.active p:nth-of-type(2)')?.textContent || ''}`
         svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
         if (svgImg) {
           presenceData.smallImageKey = await svgToPng(svgImg?.src)
           presenceData.smallImageText = svgImg?.alt
         }
       }
-      else if (document.querySelector('.routes')) {
-        presenceData.details = strings.searchRoutes
-        presenceData.state = `${strings.from} ${document.querySelector<HTMLInputElement>('.route-search-input input#autosuggest_route\\.search\\.from')?.value || strings.noData} → ${strings.to} ${document.querySelector<HTMLInputElement>('.route-search-input input#autosuggest_route\\.search\\.to')?.value || strings.noData}`
-        svgImg = document.querySelector<HTMLImageElement>('.traffic-wrapper button.active')
-        /* if (svgImg) {
+      else if (document.querySelector('main > div.schedules-detail')) {
+        presenceData.details = strings.viewSchedules
+        presenceData.state = `${strings.stop} ${document.querySelector('.tbm-lines-name-wrapper')?.textContent} - ${strings.direction} ${document.querySelector('svg[aria-label="Direction"]')?.nextElementSibling?.textContent}`
+        svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
+        if (svgImg) {
           presenceData.smallImageKey = await svgToPng(svgImg?.src)
           presenceData.smallImageText = svgImg?.alt
-        } */
+        }
+      }
+      else if (document.querySelector('main > div.routes') || document.querySelector('main > div.routes-results') || document.querySelector('main > div.route-roadmap')) {
+        presenceData.details = strings.searchRoutes
+        presenceData.state = `${strings.from} ${document.querySelector<HTMLInputElement>('.route-search-input input#autosuggest_route\\.search\\.from')?.value || strings.noData} → ${strings.to} ${document.querySelector<HTMLInputElement>('.route-search-input input#autosuggest_route\\.search\\.to')?.value || strings.noData}`
+        presenceData.smallImageKey = ActivityAssets.Routes
+        svgImg = document.querySelector('.traffic-wrapper button.active > svg')
+        if (svgImg) {
+          presenceData.smallImageText = svgImg?.getAttribute('aria-label')
+        }
+      }
+      else if (document.querySelector('.traffic-global')) {
+        presenceData.details = strings.viewTrafficInfos
+        presenceData.state = document.querySelector('.tab-wrapper > a.active')?.textContent
+        presenceData.smallImageKey = ActivityAssets.Traffic
+      }
+      else if (document.querySelector('.traffic-list')) {
+        presenceData.details = strings.viewTrafficInfos
+        presenceData.state = `${document.querySelector('.traffic-list > h3')?.firstChild?.textContent} : ${document.querySelector('.traffic-list > h3 > span')?.textContent}`
+        svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
+        if (svgImg) {
+          presenceData.smallImageKey = await svgToPng(svgImg?.src)
+          presenceData.smallImageText = svgImg?.alt
+        }
+      }
+      else if (document.querySelector('.traffic-detail')) {
+        presenceData.details = strings.viewTrafficInfo
+        presenceData.state = document.querySelector('.tbm-lines-name-wrapper > span.lh-xbig')?.textContent || document.querySelector('.tbm-lines-name-wrapper > span:nth-of-type(2)')?.textContent
+        svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
+        if (svgImg) {
+          presenceData.smallImageKey = await svgToPng(svgImg?.src)
+          presenceData.smallImageText = svgImg?.alt
+        }
+      }
+      else if (document.querySelector('.lines')) {
+        presenceData.details = strings.viewLines
+        if (document.querySelector('.title-line')) {
+          presenceData.details = strings.viewLineInfos
+          presenceData.state = `${document.querySelector('.lines > h2:nth-of-type(1)')} - ${document.querySelector('.lines > h2:nth-of-type(2)')}`
+          svgImg = document.querySelector<HTMLImageElement>('.tbm-icon-picto > img')
+          if (svgImg) {
+            presenceData.smallImageKey = await svgToPng(svgImg?.src)
+            presenceData.smallImageText = svgImg?.alt
+          }
+        }
       }
       break
     }
@@ -180,5 +226,7 @@ presence.on('UpdateData', async () => {
     }
   }
 
-  presence.setActivity(presenceData)
+  if (presenceData.details)
+    presence.setActivity(presenceData)
+  else presence.setActivity()
 })
