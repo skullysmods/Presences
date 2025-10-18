@@ -1,0 +1,46 @@
+{
+  "sncfconnect.departure": {
+    "description": "Displayed when the user is viewing a departure.",
+    "message": "Departure: {0}"
+  },
+  "sncfconnect.arrival": {
+    "description": "Displayed when the user is viewing an arrival.",
+    "message": "Arrival: {0}"
+  },
+  "sncfconnect.searchingItinerariesInterstitial": {
+    "description": "Displayed when the user is searching for offers for an itinerary.",
+    "message": "Searching for offers for this itinerary..."
+  },
+  "sncfconnect.searchingItineraries": {
+    "description": "Displayed when the user is searching for itineraries.",
+    "message": "Searching for itineraries:"
+  },
+  "sncfconnect.searchingItinerariesToALocation": {
+    "description": "Displayed when the user is searching for itineraries to a location.",
+    "message": "Searching for itineraries to a location"
+  },
+  "sncfconnect.viewingDetailsOfTheItinerary": {
+    "description": "Displayed when the user is viewing itinerary details.",
+    "message": "Viewing the details of the itinerary:"
+  },
+  "sncfconnect.viewingDetailsOfAnItinerary": {
+    "description": "Displayed when the user is viewing details of an itinerary.",
+    "message": "Viewing details of an itinerary"
+  },
+  "sncfconnect.rateOutbound": {
+    "description": "Displayed when the user is rating outbound journey options.",
+    "message": "Viewing the rate for the outbound journey:"
+  },
+  "sncfconnect.ratesOutbound": {
+    "description": "Displayed when the user is rating outbound journey options.",
+    "message": "Viewing the rates for an outbound journey"
+  },
+  "sncfconnect.rateInbound": {
+    "description": "Displayed when the user is rating inbound journey options.",
+    "message": "Viewing the rate for the inbound journey:"
+  },
+  "sncfconnect.ratesInbound": {
+    "description": "Displayed when the user is rating inbound journey options.",
+    "message": "Viewing the rates for an inbound journey"
+  }
+}
