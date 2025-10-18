@@ -41,7 +41,10 @@ enum ActivityAssets {
   TBMFid = 'https://i.imgur.com/N7EXvDG.png',
   Routes = 'https://i.imgur.com/8nhzMN3.png',
   Schedules = 'https://i.imgur.com/85krl3t.png',
-  Traffic = 'https://i.imgur.com/QyNoz05.png',
+  Traffic = 'https://i.imgur.com/Y0blXna.png',
+  Lines = 'https://i.imgur.com/bjGzNRG.png',
+  Bike = 'https://i.imgur.com/MFFwTFg.png',
+  Parking = 'https://i.imgur.com/ERKYYEB.png',
 }
 
 async function svgToPng(svgUrl: string): Promise<string | undefined> {
@@ -86,45 +89,52 @@ async function svgToPng(svgUrl: string): Promise<string | undefined> {
   return png
 }
 
+function isValidUUID(uuid: string) {
+  const regex = /^[a-f0-9]{8}-[a-f0-9]{4}-1[a-f0-9]{3}-[a-f0-9]{4}-[a-f0-9]{12}$/i
+  return regex.test(uuid)
+}
+
 presence.on('UpdateData', async () => {
   const logo = await presence.getSetting<number>('logo')
   const presenceData: PresenceData = {
-    details: 'null',
+    details: 'null', // TODO : Remove this
     largeImageKey: [ActivityAssets.Logo, ActivityAssets.OldLogo, ActivityAssets.NewLogo][logo] || ActivityAssets.Logo,
     startTimestamp: browsingTimestamp,
   }
   const strings = await getStrings()
   const path = document.location.pathname?.split('/')
+  const completePath = document.location.pathname
   let svgImg: HTMLImageElement | null = null
 
   switch (document.location.hostname) {
     case 'www.infotbm.com': {
-      if (document.querySelector('main > div.homepage')) {
+      if (/^\/(?:fr|en|es)$/.test(completePath)) {
         presenceData.details = strings.viewHome
       }
-      else if (document.querySelector('main > div.schedules')) {
+      else if (/\/(?:horaires|schedules|horarios)(?:\/|$)/.test(completePath)) {
         presenceData.details = strings.viewLinesSchedules
         presenceData.smallImageKey = ActivityAssets.Schedules
-      }
-      if (document.querySelector('main > div.schedules-results')) {
-        presenceData.details = strings.searchStop
-        presenceData.state = `${strings.direction} ${document.querySelector('.direction-wrapper > a.active p:nth-of-type(2)')?.textContent || ''}`
-        svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
-        if (svgImg) {
-          presenceData.smallImageKey = await svgToPng(svgImg?.src)
-          presenceData.smallImageText = svgImg?.alt
+
+        if (/\/(?:recherche|search|buscar)$/.test(completePath)) {
+          presenceData.details = strings.searchStop
+          presenceData.state = `${strings.direction} ${document.querySelector('.direction-wrapper > a.active p:nth-of-type(2)')?.textContent || ''}`
+          svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
+          if (svgImg) {
+            presenceData.smallImageKey = await svgToPng(svgImg?.src)
+            presenceData.smallImageText = svgImg?.alt
+          }
+        }
+        else if (/\/(?:detail|detalle)(?:\/|$)/.test(completePath)) {
+          presenceData.details = strings.viewSchedules
+          presenceData.state = `${strings.stop} ${document.querySelector('.tbm-lines-name-wrapper')?.textContent} - ${strings.direction} ${document.querySelector('svg[aria-label="Direction"]')?.nextElementSibling?.textContent}`
+          svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
+          if (svgImg) {
+            presenceData.smallImageKey = await svgToPng(svgImg?.src)
+            presenceData.smallImageText = svgImg?.alt
+          }
         }
       }
-      else if (document.querySelector('main > div.schedules-detail')) {
-        presenceData.details = strings.viewSchedules
-        presenceData.state = `${strings.stop} ${document.querySelector('.tbm-lines-name-wrapper')?.textContent} - ${strings.direction} ${document.querySelector('svg[aria-label="Direction"]')?.nextElementSibling?.textContent}`
-        svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
-        if (svgImg) {
-          presenceData.smallImageKey = await svgToPng(svgImg?.src)
-          presenceData.smallImageText = svgImg?.alt
-        }
-      }
-      else if (document.querySelector('main > div.routes') || document.querySelector('main > div.routes-results') || document.querySelector('main > div.route-roadmap')) {
+      else if (/\/(?:itineraires|routes|rutas)(?:\/|$)/.test(completePath)) {
         presenceData.details = strings.searchRoutes
         presenceData.state = `${strings.from} ${document.querySelector<HTMLInputElement>('.route-search-input input#autosuggest_route\\.search\\.from')?.value || strings.noData} → ${strings.to} ${document.querySelector<HTMLInputElement>('.route-search-input input#autosuggest_route\\.search\\.to')?.value || strings.noData}`
         presenceData.smallImageKey = ActivityAssets.Routes
@@ -133,34 +143,62 @@ presence.on('UpdateData', async () => {
           presenceData.smallImageText = svgImg?.getAttribute('aria-label')
         }
       }
-      else if (document.querySelector('.traffic-global')) {
+      else if (/\/(?:perturbations|traffic-info|perturbaciones)(?:\/|$)/.test(completePath)) {
         presenceData.details = strings.viewTrafficInfos
         presenceData.state = document.querySelector('.tab-wrapper > a.active')?.textContent
         presenceData.smallImageKey = ActivityAssets.Traffic
-      }
-      else if (document.querySelector('.traffic-list')) {
-        presenceData.details = strings.viewTrafficInfos
-        presenceData.state = `${document.querySelector('.traffic-list > h3')?.firstChild?.textContent} : ${document.querySelector('.traffic-list > h3 > span')?.textContent}`
-        svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
-        if (svgImg) {
-          presenceData.smallImageKey = await svgToPng(svgImg?.src)
-          presenceData.smallImageText = svgImg?.alt
+
+        if (/\/(?:ligne|line|linea)(?:\/|$)/.test(completePath) && isValidUUID(path[path.length - 1]!)) {
+          presenceData.details = strings.viewTrafficInfo
+          presenceData.state = document.querySelector('.tbm-lines-name-wrapper > span.lh-xbig')?.textContent || document.querySelector('.tbm-lines-name-wrapper > span:nth-of-type(2)')?.textContent
+          svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper img')
+          if (svgImg) {
+            presenceData.smallImageKey = await svgToPng(svgImg?.src)
+            presenceData.smallImageText = svgImg?.alt
+          }
         }
-      }
-      else if (document.querySelector('.traffic-detail')) {
-        presenceData.details = strings.viewTrafficInfo
-        presenceData.state = document.querySelector('.tbm-lines-name-wrapper > span.lh-xbig')?.textContent || document.querySelector('.tbm-lines-name-wrapper > span:nth-of-type(2)')?.textContent
-        svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
-        if (svgImg) {
-          presenceData.smallImageKey = await svgToPng(svgImg?.src)
-          presenceData.smallImageText = svgImg?.alt
+        else if (/\/(?:ligne|line|linea)(?:\/|$)/.test(completePath)) {
+          presenceData.state = `${document.querySelector('.traffic-list > h3')?.firstChild?.textContent} : ${document.querySelector('.traffic-list > h3 > span')?.textContent}`
+          svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper > img')
+          if (svgImg) {
+            presenceData.smallImageKey = await svgToPng(svgImg?.src)
+            presenceData.smallImageText = svgImg?.alt
+          }
+        }
+        // velo
+        else if (/\/(?:stations|estaciones)(?:\/|$)/.test(completePath) && isValidUUID(path[path.length - 1]!)) {
+          presenceData.details = strings.viewTrafficInfo
+          presenceData.state = document.querySelector('.tbm-lines-name-wrapper span.lh-xbig')?.textContent
+          presenceData.smallImageKey = ActivityAssets.Bike
+          presenceData.smallImageText = document.querySelector('.tbm-lines-name-wrapper p')?.textContent || ''
+        }
+        else if (/\/(?:stations|estaciones)\//.test(completePath)) {
+          presenceData.state = `${document.querySelector('.traffic-list > h3')?.firstChild?.textContent} : ${document.querySelector('.traffic-list > h3 > span')?.textContent}`
+          presenceData.smallImageKey = ActivityAssets.Bike
+          presenceData.smallImageText = document.querySelector('.tbm-lines-name-wrapper > span.lh-xbig')?.textContent || ''
+        }
+        else if (/\/(?:stations|estaciones)$/.test(completePath)) {
+          presenceData.state = document.querySelector('.traffic-list > h3 > p')?.textContent
+          presenceData.smallImageKey = ActivityAssets.Bike
+          presenceData.smallImageText = document.querySelector('div.tbm-block > h2')?.textContent || ''
+        }
+        // parking relais
+        else if (/\/(?:parc-relais|park-and-rides|aparcamientos-disuasorios)(?:\/|$)/.test(completePath) && isValidUUID(path[path.length - 1]!)) {
+          presenceData.details = strings.viewTrafficInfo
+          presenceData.state = document.querySelector('.tbm-lines-name-wrapper > span.lh-xbig')?.textContent || document.querySelector('.tbm-lines-name-wrapper > span:nth-of-type(2)')?.textContent
+          svgImg = document.querySelector<HTMLImageElement>('.tbm-lines-name-wrapper img')
+          if (svgImg) {
+            presenceData.smallImageKey = await svgToPng(svgImg?.src)
+            presenceData.smallImageText = svgImg?.alt
+          }
         }
       }
       else if (document.querySelector('.lines')) {
         presenceData.details = strings.viewLines
+        presenceData.smallImageKey = ActivityAssets.Lines
         if (document.querySelector('.title-line')) {
           presenceData.details = strings.viewLineInfos
-          presenceData.state = `${document.querySelector('.lines > h2:nth-of-type(1)')} - ${document.querySelector('.lines > h2:nth-of-type(2)')}`
+          presenceData.state = `${document.querySelector('.lines > h2:nth-of-type(1)')?.textContent} ↔ ${document.querySelector('.lines > h2:nth-of-type(2)')?.textContent}`
           svgImg = document.querySelector<HTMLImageElement>('.tbm-icon-picto > img')
           if (svgImg) {
             presenceData.smallImageKey = await svgToPng(svgImg?.src)
