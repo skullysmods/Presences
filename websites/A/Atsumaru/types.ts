@@ -1,5 +1,5 @@
 export enum Images {
-  Logo = 'https://mido.anlayana.com/premid/images/atsumaru/logo.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/A/Atsumaru/assets/logo.png',
 }
 
 export interface Settings {
