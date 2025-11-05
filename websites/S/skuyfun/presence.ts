@@ -4,7 +4,7 @@ const presence = new Presence({
   clientId: '1369034572859445399',
 })
 
-const LOGO_IMAGE_URL = 'https://i.ibb.co.com/cXMm9zNY/logo.png' // largeImage Logo if title not detected
+const LOGO_IMAGE_URL = 'https://cdn.rcd.gg/PreMiD/websites/S/skuyfun/assets/logo.png' // largeImage Logo if title not detected
 
 presence.on('UpdateData', async () => {
   const title = document.querySelector('h1.text-base')?.textContent?.trim()
