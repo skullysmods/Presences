@@ -4,12 +4,12 @@ const presence = new Presence({
   clientId: '1369034572859445399',
 })
 
-const LOGO_IMAGE_URL = 'https://cdn.rcd.gg/PreMiD/websites/S/skuyfun/assets/logo.png' // largeImage Logo if title not detected
+const LOGO_IMAGE_URL = 'https://i.ibb.co.com/cXMm9zNY/logo.png' // largeImage Logo if title not detected
 
 presence.on('UpdateData', async () => {
-  const title = document.querySelector('title')?.textContent?.trim()
-  const episode = document.querySelector('h4 span:nth-child(2)')?.textContent
-  const imgElement = document.querySelector<HTMLImageElement>('img.rounded-md')
+  const title = document.querySelector('h1.text-base')?.textContent?.trim()
+  const episode = document.querySelector('p.text-sm.font-semibold.text-white')?.textContent
+  const imgElement = document.querySelector<HTMLImageElement>('img.object-cover')
 
   let presenceData
 
