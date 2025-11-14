@@ -8,7 +8,7 @@ export const divisionIcons: Record<string, string> = {
   'Master II': 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/6.png',
   'Master I': 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/7.png',
   'Champion': 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/8.png',
-  'Unranked': 'https://github.com/Rawblocky/geoguessr-image-assets/blob/main/divisions/placement-games-badge.png?raw=true',
+  'Unranked': 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/3375.png',
 }
 
 export const gameModeIcons: Record<string, string> = {
@@ -23,7 +23,7 @@ export const gameModeIcons: Record<string, string> = {
   solo_duels: 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/17.png',
   team_duels: 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/18.png',
   streaks: 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/19.png',
-  halloween: 'https://github.com/Rawblocky/geoguessr-image-assets/blob/main/gameModes/halloween.png?raw=true',
+  halloween: 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/3376.png',
 }
 export const movementIcons: Record<string, string> = {
   moving: 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/20.png',
@@ -149,7 +149,7 @@ export const mapAvatarOfficial: Record<string, string> = {
   'namibia': 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/3372.png',
   'vietnam': 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/3373.png',
   'nepal': 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/3374.png',
-  'costa-rica': 'https://github.com/Rawblocky/geoguessr-image-assets/blob/main/map/official/costa-rica.png?raw=true',
+  'costa-rica': 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/3377.png',
 }
 
 export const logo = 'https://cdn.rcd.gg/PreMiD/websites/G/GeoGuessr/assets/137.png'
