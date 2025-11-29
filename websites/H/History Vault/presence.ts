@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '1047847313118351421',
@@ -10,18 +10,15 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      home: 'general.viewHome',
-      paused: 'general.paused',
-      play: 'general.playing',
-      search: 'general.searchFor',
-      viewShow: 'general.viewShow',
-    },
-
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    home: 'general.viewHome',
+    paused: 'general.paused',
+    play: 'general.playing',
+    search: 'general.searchFor',
+    viewShow: 'general.viewShow',
+  })
 }
 async function imgPath(path: string) {
   if (path)
@@ -29,17 +26,13 @@ async function imgPath(path: string) {
   else return ActivityAssets.Logo
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     startTimestamp: browsingStamp,
     largeImageKey: ActivityAssets.Logo,
   }
   const { href, pathname } = document.location
-  const [newLang, privacy, buttons, covers] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons, covers] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('covers'),
@@ -48,10 +41,7 @@ presence.on('UpdateData', async () => {
     'input[class*="Component-input-"]',
   )
   const video = document.querySelectorAll('video')[1] ?? document.querySelector('video')
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
   if (privacy) {
     presenceData.details = strings.browse
     presence.setActivity(presenceData)
@@ -124,7 +114,7 @@ presence.on('UpdateData', async () => {
             '[class*="Component-typeSectionTitleMd"]',
           )?.textContent
           if (video.duration && !video.paused) {
-            [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+            [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
           }
           presenceData.smallImageKey = video.paused
             ? Assets.Pause

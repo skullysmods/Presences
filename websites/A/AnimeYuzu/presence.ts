@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '1213784073458421841',
@@ -6,31 +6,28 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      anime: 'general.anime',
-      pause: 'general.paused',
-      search: 'general.search',
-      episode: 'general.episode',
-      viewPage: 'general.viewPage',
-      browsing: 'general.browsing',
-      watching: 'general.watching',
-      viewHome: 'general.viewHome',
-      viewList: 'general.viewList',
-      searchFor: 'general.searchFor',
-      viewGenre: 'general.viewGenre',
-      viewMovie: 'general.viewMovie',
-      viewAnime: 'general.viewAnime',
-      viewEpisode: 'general.viewEpisode',
-      viewCategory: 'general.viewCategory',
-      watchingMovie: 'general.watchingMovie',
-      searchSomething: 'general.searchSomething',
-      buttonWatchMovie: 'general.buttonWatchMovie',
-      buttonViewEpisode: 'general.buttonViewEpisode',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    anime: 'general.anime',
+    pause: 'general.paused',
+    search: 'general.search',
+    episode: 'general.episode',
+    viewPage: 'general.viewPage',
+    browsing: 'general.browsing',
+    watching: 'general.watching',
+    viewHome: 'general.viewHome',
+    viewList: 'general.viewList',
+    searchFor: 'general.searchFor',
+    viewGenre: 'general.viewGenre',
+    viewMovie: 'general.viewMovie',
+    viewAnime: 'general.viewAnime',
+    viewEpisode: 'general.viewEpisode',
+    viewCategory: 'general.viewCategory',
+    watchingMovie: 'general.watchingMovie',
+    searchSomething: 'general.searchSomething',
+    buttonWatchMovie: 'general.buttonWatchMovie',
+    buttonViewEpisode: 'general.buttonViewEpisode',
+  })
 }
 
 let video = {
@@ -49,12 +46,8 @@ presence.on(
   },
 )
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
-  const [newLang, privacy, showepisode, time, subtitle, buttons] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, showepisode, time, subtitle, buttons] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('showepisode'),
     presence.getSetting<boolean>('timestamps'),
@@ -73,10 +66,7 @@ presence.on('UpdateData', async () => {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/A/AnimeYuzu/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
   if (pathArray[3]?.includes('?s=')) {
     presenceData.details = `${
       privacy ? strings.searchSomething : strings.searchFor
@@ -158,7 +148,7 @@ presence.on('UpdateData', async () => {
           ? strings.pause
           : strings.play
         if (!video.paused) {
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
             Math.floor(video.current),
             Math.floor(video.duration),
           )
@@ -222,7 +212,7 @@ presence.on('UpdateData', async () => {
           ? strings.pause
           : strings.play
         if (!video.paused) {
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
             Math.floor(video.current),
             Math.floor(video.duration),
           )

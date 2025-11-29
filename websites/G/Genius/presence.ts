@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '809133308604055622',
@@ -6,37 +6,26 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      watch: 'general.watching',
-      search: 'general.searchFor',
-      searching: 'general.search',
-      profile: 'general.viewProfile',
-      article: 'general.readingArticle',
-      reading: 'general.reading',
-      lyrics: 'genius.lyrics',
-      viewLyrics: 'genius.viewLyrics',
-      home: 'genius.viewHome',
-      viewAlbum: 'genius.viewAlbum',
-      buttonAlbum: 'general.buttonViewAlbum',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    watch: 'general.watching',
+    search: 'general.searchFor',
+    searching: 'general.search',
+    profile: 'general.viewProfile',
+    article: 'general.readingArticle',
+    reading: 'general.reading',
+    lyrics: 'genius.lyrics',
+    viewLyrics: 'genius.viewLyrics',
+    home: 'genius.viewHome',
+    viewAlbum: 'genius.viewAlbum',
+    buttonAlbum: 'general.buttonViewAlbum',
+  })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
   const buttons = await presence.getSetting<boolean>('buttons')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/G/Genius/assets/logo.png',
@@ -121,7 +110,7 @@ presence.on('UpdateData', async () => {
     presenceData.details = strings.watch
     presenceData.state = title
     if (video && !Number.isNaN(video.duration)) {
-      [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
 
       presenceData.smallImageKey = video.paused ? Assets.Pause : Assets.Play
       presenceData.smallImageText = video.paused ? strings.pause : strings.play

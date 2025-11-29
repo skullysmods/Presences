@@ -8,33 +8,29 @@ const presence = new Presence({
 })
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      page: 'general.page',
-      episode: 'general.episode',
-      watching: 'general.watching',
-      watchingMovie: 'general.watchingMovie',
-      view: 'general.view',
-      viewGenre: 'general.viewGenre',
-      viewCategory: 'general.viewCategory',
-      viewPage: 'general.viewPage',
-      viewMovie: 'general.viewMovie',
-      watchEpisode: 'general.buttonViewEpisode',
-      watchMovie: 'general.buttonViewMovie',
-      latest: 'animepahe.latestRelease',
-      season: 'animepahe.season',
-      special: 'animepahe.special',
-      viewOn: 'animepahe.view',
-      timeSeason: 'animepahe.timeSeason',
-    },
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    page: 'general.page',
+    episode: 'general.episode',
+    watching: 'general.watching',
+    watchingMovie: 'general.watchingMovie',
+    view: 'general.view',
+    viewGenre: 'general.viewGenre',
+    viewCategory: 'general.viewCategory',
+    viewPage: 'general.viewPage',
+    viewMovie: 'general.viewMovie',
+    watchEpisode: 'general.buttonViewEpisode',
+    watchMovie: 'general.buttonViewMovie',
+    latest: 'animepahe.latestRelease',
+    season: 'animepahe.season',
+    special: 'animepahe.special',
+    viewOn: 'animepahe.view',
+    timeSeason: 'animepahe.timeSeason',
+  })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 let iframeResponse = {
   paused: true,
   duration: 0,
@@ -186,12 +182,7 @@ presence.on('UpdateData', async () => {
     details: 'loading',
     startTimestamp: Math.floor(Date.now() / 1000),
   }
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const viewing = strings.view.slice(0, -1)
 

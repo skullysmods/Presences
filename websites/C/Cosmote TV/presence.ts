@@ -1,24 +1,19 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '883446187099840562',
 })
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      live: 'general.live',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    live: 'general.live',
+  })
 }
 
 let channel: string
 let channelTimestamp: number | undefined
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   let presenceData: PresenceData = {
@@ -81,8 +76,7 @@ presence.on('UpdateData', async () => {
       details: 'Browsing Kids Content',
     },
   }
-  const [newLang, logo, timestamps] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [logo, timestamps] = await Promise.all([
     presence.getSetting<boolean>('logo'),
     presence.getSetting<boolean>('timestamps'),
   ])
@@ -91,11 +85,7 @@ presence.on('UpdateData', async () => {
     if (document.location.hash.includes(path))
       presenceData = { ...presenceData, ...data } as PresenceData
   }
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (document.querySelector<HTMLDivElement>('div[ng-if=\'showPlayer\']')) {
     const { paused, currentTime, duration } = document.querySelector<HTMLVideoElement>('video#arxPlayer')!
@@ -132,12 +122,12 @@ presence.on('UpdateData', async () => {
       }
       else {
         // Replay / Timeshift
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
-          presence.timestampFromFormat(
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
+          timestampFromFormat(
             document.querySelector<HTMLSpanElement>('#VcurrentTime')
               ?.textContent ?? '',
           ),
-          presence.timestampFromFormat(
+          timestampFromFormat(
             document.querySelector<HTMLSpanElement>('#Vduration')
               ?.textContent ?? '',
           ),
@@ -198,7 +188,7 @@ presence.on('UpdateData', async () => {
         }
       }
 
-      [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(Math.floor(currentTime), Math.floor(duration))
+      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(Math.floor(currentTime), Math.floor(duration))
 
       presenceData.smallImageKey = paused ? Assets.Pause : Assets.Play
       presenceData.smallImageText = paused ? strings.pause : strings.play

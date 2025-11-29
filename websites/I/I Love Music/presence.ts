@@ -4,18 +4,14 @@ const presence = new Presence({
   clientId: '477919120789078026',
 })
 const browsingStamp = Math.floor(Date.now() / 1000)
+
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      buttonViewPage: 'general.buttonViewPage',
-      search: 'general.searchFor',
-    },
-    await presence.getSetting<string>('lang').catch(() => 'de'),
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    buttonViewPage: 'general.buttonViewPage',
+    search: 'general.searchFor',
+  })
 }
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/I/I%20Love%20Music/assets/logo.png',
@@ -50,11 +46,7 @@ presence.on('UpdateData', async () => {
     ?.querySelector('[class="bottom"]')
     ?.querySelectorAll('h2,h3')
   const search = document.querySelector<HTMLInputElement>('[type="text"]')
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'de')
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
   if (
     search?.value
     && document.querySelector('[class="toggleMenu search display-menu"]')

@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '1051110545723506718',
@@ -10,22 +10,19 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      home: 'general.viewHome',
-      search: 'general.searchFor',
-      browse: 'general.browsing',
-      watchingLive: 'general.watchingLive',
-      live: 'general.live',
-      watchingVid: 'general.watchingVid',
-      buttonViewPage: 'general.buttonViewPage',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      buttonReadArticle: 'general.buttonReadArticle',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    home: 'general.viewHome',
+    search: 'general.searchFor',
+    browse: 'general.browsing',
+    watchingLive: 'general.watchingLive',
+    live: 'general.live',
+    watchingVid: 'general.watchingVid',
+    buttonViewPage: 'general.buttonViewPage',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    buttonReadArticle: 'general.buttonReadArticle',
+  })
 }
 
 function capitaliseFirstLetter(string: string) {
@@ -39,8 +36,6 @@ let video = {
   currentTime: 0,
   paused: true,
 }
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on(
   'iFrameData',
@@ -56,18 +51,13 @@ presence.on('UpdateData', async () => {
   }
 
   const { href, pathname } = document.location
-  const [showTimestamp, showButtons, showAuthor, newLang, privacy] = await Promise.all([
+  const [showTimestamp, showButtons, showAuthor, privacy] = await Promise.all([
     presence.getSetting<boolean>('timestamp'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('author'),
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('privacy'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (privacy) {
     presenceData.details = strings.browse
@@ -176,7 +166,7 @@ presence.on('UpdateData', async () => {
     }
   }
   else if (!Number.isNaN(video.duration) && pathname.includes('/video')) {
-    const [startTimestamp, endTimestamp] = presence.getTimestamps(
+    const [startTimestamp, endTimestamp] = getTimestamps(
       Math.floor(video.currentTime),
       Math.floor(video.duration),
     )

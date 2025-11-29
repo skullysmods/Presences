@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '1266069361928704072',
@@ -9,38 +9,25 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      paused: 'general.paused',
-      play: 'general.playing',
-      search: 'general.searchFor',
-      viewHome: 'general.viewHome',
-      viewShow: 'general.viewShow',
-      viewEpisode: 'general.viewEpisode',
-      buttonViewEpisode: 'general.buttonViewEpisode',
-      buttonViewShow: 'general.buttonViewShow',
-    },
-
-  )
+  return presence.getStrings({
+    paused: 'general.paused',
+    play: 'general.playing',
+    search: 'general.searchFor',
+    viewHome: 'general.viewHome',
+    viewShow: 'general.viewShow',
+    viewEpisode: 'general.viewEpisode',
+    buttonViewEpisode: 'general.buttonViewEpisode',
+    buttonViewShow: 'general.buttonViewShow',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
   }
-  const [newLang, cover] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
-    presence.getSetting<boolean>('cover'),
-  ])
+  const cover = await presence.getSetting<boolean>('cover')
   const { pathname, href } = document.location
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (document.querySelector<HTMLInputElement>('.search-box')?.value) {
     presenceData.details = `${strings.search} ${
@@ -113,7 +100,7 @@ presence.on('UpdateData', async () => {
     presenceData.smallImageText = video?.paused ? strings.paused : strings.play
     presenceData.details = document.querySelector('.text-white.mb-3')?.textContent
     if (video && !Number.isNaN(video.duration) && !video.paused) {
-      [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(video.currentTime, video.duration)
+      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(video.currentTime, video.duration)
     }
     presenceData.buttons = [
       {

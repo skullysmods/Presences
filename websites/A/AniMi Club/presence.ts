@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '503557087041683458',
@@ -60,7 +60,7 @@ presence.on('UpdateData', async () => {
   if (document.location.pathname === '/') {
     presenceData.details = 'На главной странице'
   }
-  else if (document.location.pathname.match(/\/(anime|manga)\//)) {
+  else if (document.location.pathname.match(/\/(?:anime|manga)\//)) {
     const title = document
       .querySelector('meta[property=\'og:title\']')
       ?.getAttribute('content') ?? 'Неизвестное название'
@@ -90,7 +90,7 @@ presence.on('UpdateData', async () => {
           delete presenceData.endTimestamp
         }
         else {
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(video.currentTime, video.duration)
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(video.currentTime, video.duration)
         }
       }
     }

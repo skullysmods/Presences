@@ -8,8 +8,6 @@ enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/H/HIDIVE/assets/logo.png',
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
@@ -151,12 +149,7 @@ async function getEpisodeInfo() {
 presence.on('UpdateData', async () => {
   const { pathname, href } = document.location
   const url = new URL(href)
-
-  const currentLang = navigator.language.toLowerCase().startsWith('es') ? 'es' : 'en'
-  if (!strings || oldLang !== currentLang) {
-    strings = await getStrings()
-    oldLang = currentLang
-  }
+  const strings = await getStrings()
 
   if (pathname === '/') {
     const presenceData: PresenceData = {

@@ -1,23 +1,20 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps, getTimestampsFromMedia, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '1034382710589898882',
 })
 const browingTimestamp = Math.floor(Date.now() / 1000)
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      paused: 'general.paused',
-      play: 'general.playing',
-      search: 'general.searchFor',
-      viewCategory: 'general.viewCategory',
-      viewHome: 'general.viewHome',
-      viewShow: 'general.viewShow',
-    },
-
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    paused: 'general.paused',
+    play: 'general.playing',
+    search: 'general.searchFor',
+    viewCategory: 'general.viewCategory',
+    viewHome: 'general.viewHome',
+    viewShow: 'general.viewShow',
+  })
 }
 async function capitalizeFirstLetter(string: string) {
   const stringTrimmed = string.trim()
@@ -28,8 +25,6 @@ enum ActivityAssets {
   LogoDiscoveryPlus = 'https://cdn.rcd.gg/PreMiD/websites/D/Discovery/assets/1.png',
   LogoDiscovery = 'https://cdn.rcd.gg/PreMiD/websites/D/Discovery/assets/logo.png',
 }
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -39,8 +34,7 @@ presence.on('UpdateData', async () => {
   const video = document.querySelector<HTMLVideoElement>('video')
   const search = document.querySelector<HTMLInputElement>('input[type="text"]')
   const { hostname, href, pathname } = document.location
-  const [newLang, privacy, buttons, covers] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons, covers] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('covers'),
@@ -66,10 +60,7 @@ presence.on('UpdateData', async () => {
         titleSplit2.push(element.trim())
     }
   }
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (privacy) {
     presenceData.details = strings.browse
@@ -187,13 +178,13 @@ presence.on('UpdateData', async () => {
                 presenceData.state = 'Watching an ad'
               }
               else if (!video.paused) {
-                [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
-                  presence.timestampFromFormat(
+                [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
+                  timestampFromFormat(
                     document.querySelectorAll(
                       '[class*="TimeViewFontStyle"]',
                     )[0]?.textContent ?? '',
                   ),
-                  presence.timestampFromFormat(
+                  timestampFromFormat(
                     document.querySelectorAll(
                       '[class*="TimeViewFontStyle"]',
                     )[1]?.textContent ?? '',
@@ -278,7 +269,7 @@ presence.on('UpdateData', async () => {
                     ? strings.paused
                     : strings.play
                   if (!video.paused) {
-                    [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+                    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
                   }
                 }
                 presenceData.buttons = [

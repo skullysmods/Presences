@@ -1,34 +1,28 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '1209858023279820931',
 })
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 async function getStrings() {
-  return presence.getStrings(
-    {
-      buttonWatchStream: 'general.buttonWatchStream',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      live: 'general.live',
-      pause: 'general.paused',
-      paused: 'general.paused',
-      play: 'general.playing',
-      playing: 'general.playing',
-      readingChannel: 'general.readingChannel',
-      searchSomething: 'general.searchSomething',
-      viewAccount: 'general.viewAccount',
-      viewHome: 'general.viewHome',
-      viewPage: 'general.viewPage',
-      viewSeries: 'general.viewSeries',
-      watchingLive: 'general.watchingLive',
-      watchingVid: 'general.watchingVid',
-    },
-
-  )
+  return presence.getStrings({
+    buttonWatchStream: 'general.buttonWatchStream',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    live: 'general.live',
+    pause: 'general.paused',
+    paused: 'general.paused',
+    play: 'general.playing',
+    playing: 'general.playing',
+    readingChannel: 'general.readingChannel',
+    searchSomething: 'general.searchSomething',
+    viewAccount: 'general.viewAccount',
+    viewHome: 'general.viewHome',
+    viewPage: 'general.viewPage',
+    viewSeries: 'general.viewSeries',
+    watchingLive: 'general.watchingLive',
+    watchingVid: 'general.watchingVid',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -37,20 +31,15 @@ presence.on('UpdateData', async () => {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/A/ABEMA/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
-  const [buttons, newLang, privacy, showTimestamps, videoPic] = await Promise.all([
+  const [buttons, privacy, showTimestamps, videoPic] = await Promise.all([
     presence.getSetting<boolean>('buttons'),
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('timestamp'),
     presence.getSetting<boolean>('videoPic'),
   ])
   const { pathname, href } = document.location
   const pageTitle = document.querySelector('.com-a-PageTitle')?.textContent
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   switch (pathname) {
     case '/': {
@@ -125,7 +114,7 @@ presence.on('UpdateData', async () => {
           const { duration, currentTime, paused } = document.querySelector<HTMLVideoElement>('video')!
           delete presenceData.startTimestamp
           if (!paused) {
-            [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(currentTime, duration)
+            [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(currentTime, duration)
           }
           presenceData.smallImageKey = paused ? Assets.Pause : Assets.Play
           presenceData.smallImageText = paused

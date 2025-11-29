@@ -1,39 +1,28 @@
-import { Assets } from 'premid'
+import { Assets, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '808756700022702120',
 })
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      viewPlaylist: 'general.buttonViewPlaylist',
-      viewArtist: 'general.buttonViewArtist',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    viewPlaylist: 'general.buttonViewPlaylist',
+    viewArtist: 'general.buttonViewArtist',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/A/Amazon%20Music/assets/logo.png',
   }
-  const [buttons, newLang, showPlaylist, cover] = await Promise.all([
+  const [buttons, showPlaylist, cover] = await Promise.all([
     presence.getSetting<boolean>('buttons'),
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('showPlaylist'),
     presence.getSetting<boolean>('cover'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (navigator.mediaSession.metadata) {
     const paused = navigator.mediaSession.playbackState === 'paused'
@@ -85,7 +74,7 @@ presence.on('UpdateData', async () => {
     presenceData.smallImageKey = paused ? Assets.Pause : Assets.Play
     presenceData.smallImageText = paused ? strings.pause : strings.play
     presenceData.endTimestamp = Date.now() / 1000
-      + presence.timestampFromFormat(
+      + timestampFromFormat(
         document
           .querySelector('div.sXaGQzYs9WqImj2uxDCBs > span:nth-child(2)')!.textContent!.match(/[0-9:]+/)![0],
       )

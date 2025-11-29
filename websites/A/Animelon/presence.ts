@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '806539630878261328',
@@ -8,15 +8,12 @@ enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/A/Animelon/assets/logo.png',
 }
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      viewSeries: 'general.buttonViewSeries',
-      watchEpisode: 'general.buttonViewEpisode',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    viewSeries: 'general.buttonViewSeries',
+    watchEpisode: 'general.buttonViewEpisode',
+  })
 }
 
 let browsingTimestamp = Math.floor(Date.now() / 1000)
@@ -33,8 +30,6 @@ let playback: boolean
 let currentAnimeWatching: string[]
 let currentAnimeTitle: string | undefined
 let currentAnimeEpisode: string | undefined
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on(
   'iFrameData',
@@ -57,21 +52,14 @@ presence.on('UpdateData', async () => {
     largeImageKey: ActivityAssets.Logo,
     startTimestamp: browsingTimestamp,
   }
-  const [buttons, newLang] = await Promise.all([
-    presence.getSetting<boolean>('buttons'),
-    presence.getSetting<string>('lang').catch(() => 'en'),
-  ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const buttons = await presence.getSetting<boolean>('buttons')
+  const strings = await getStrings()
 
   if (document.location.pathname.includes('/video/')) {
     if (playback === true && !Number.isNaN(duration)) {
       presenceData.smallImageKey = paused ? Assets.Pause : Assets.Play
       presenceData.smallImageText = paused ? strings.pause : strings.play;
-      [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(Math.floor(currentTime), Math.floor(duration))
+      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(Math.floor(currentTime), Math.floor(duration))
       currentAnimeWatching = document.title
         .replace(' - Animelon', '')
         .split(' Episode ');

@@ -26,16 +26,8 @@ async function getStrings() {
   })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const { pathname } = document.location
   const privacy = await presence.getSetting('privacy')

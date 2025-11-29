@@ -1,4 +1,4 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '842112189618978897',
@@ -56,7 +56,7 @@ presence.on('UpdateData', async () => {
       )
     }
 
-    [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
+    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
       Number(timestamp ? timestamp.ariaValueNow : media!.currentTime),
       Number(timestamp ? timestamp.ariaValueMax : media!.duration),
     )

@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '804448815942860821',
@@ -6,21 +6,18 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      buttonViewEpisode: 'general.buttonViewEpisode',
-      buttonWatchMovie: 'general.buttonWatchMovie',
-      play: 'general.playing',
-      pause: 'general.paused',
-      browsing: 'general.browsing',
-      viewHome: 'general.viewHome',
-      viewAMovie: 'general.viewAMovie',
-      viewASeries: 'general.viewASeries',
-      watchingSeries: 'general.watchingSeries',
-      watchingMovie: 'general.watchingMovie',
-    },
-    'es_419',
-  )
+  return presence.getStrings({
+    buttonViewEpisode: 'general.buttonViewEpisode',
+    buttonWatchMovie: 'general.buttonWatchMovie',
+    play: 'general.playing',
+    pause: 'general.paused',
+    browsing: 'general.browsing',
+    viewHome: 'general.viewHome',
+    viewAMovie: 'general.viewAMovie',
+    viewASeries: 'general.viewASeries',
+    watchingSeries: 'general.watchingSeries',
+    watchingMovie: 'general.watchingMovie',
+  })
 }
 
 enum ActivityAssets {
@@ -127,7 +124,7 @@ presence.on('UpdateData', async () => {
           ? strings.pause
           : strings.play
         if (!videoPaused) {
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(video.currentTime, video.duration)
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(video.currentTime, video.duration)
         }
 
         if (buttons) {

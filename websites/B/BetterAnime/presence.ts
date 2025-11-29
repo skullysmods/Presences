@@ -4,26 +4,23 @@ const presence = new Presence({
   clientId: '839409255979155516',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      searchFor: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      viewEpisode: 'general.buttonViewEpisode',
-      viewAnime: 'general.viewAnime',
-      viewSeries: 'general.buttonViewSeries',
-      viewAccount: 'general.viewAccount',
-      viewMovie: 'general.viewMovie',
-      buttonViewMovie: 'general.buttonViewMovie',
-      watchMovie: 'general.watchingMovie',
-      watchSeries: 'general.watchingSeries',
-    },
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    searchFor: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    viewEpisode: 'general.buttonViewEpisode',
+    viewAnime: 'general.viewAnime',
+    viewSeries: 'general.buttonViewSeries',
+    viewAccount: 'general.viewAccount',
+    viewMovie: 'general.viewMovie',
+    buttonViewMovie: 'general.buttonViewMovie',
+    watchMovie: 'general.watchingMovie',
+    watchSeries: 'general.watchingSeries',
+  })
 }
 const data: {
-  oldLang?: string
   startedSince?: number
   meta?: {
     [key: string]: string | undefined
@@ -38,7 +35,6 @@ const data: {
 } = {
   presence: {},
   meta: {},
-  oldLang: '',
   startedSince: ~~(Date.now() / 1000),
   presenceData: {
     type: ActivityType.Watching,
@@ -47,7 +43,6 @@ const data: {
   },
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
 let video: {
   duration: number
   currentTime: number
@@ -89,22 +84,16 @@ presence.on('iFrameData', (data: unknown) => {
 
 presence.on('UpdateData', async () => {
   const [
-    newLang,
     privacy,
     browse,
     timestamp,
   ] = await Promise.all([
-    presence.getSetting<string>('lang'),
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('browse'),
     presence.getSetting<boolean>('timestamp'),
   ])
   const { pathname, search, href } = document.location
-
-  if (data.oldLang !== newLang || !strings) {
-    data.oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (browse)
     data.presenceData.details = strings.browse

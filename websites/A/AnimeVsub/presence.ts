@@ -6,17 +6,11 @@ const presence = new Presence({
 
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 async function getStrings() {
-  return presence.getStrings(
-    {
-      pause: 'general.paused',
-      play: 'general.playing',
-    },
-
-  )
+  return presence.getStrings({
+    pause: 'general.paused',
+    play: 'general.playing',
+  })
 }
 
 enum ActivityAssets {
@@ -32,15 +26,8 @@ async function updatePresence() {
     const { pathname } = document.location
     const splitPath = pathname.split('/')
 
-    const [newLang, _button] = await Promise.all([
-      presence.getSetting<string>('lang').catch(() => 'en'),
-      presence.getSetting<boolean>('buttons'),
-    ])
-
-    if (oldLang !== newLang || !strings) {
-      oldLang = newLang
-      strings = await getStrings()
-    }
+    const buttons = await presence.getSetting<boolean>('buttons')
+    const strings = await getStrings()
 
     const presenceData: PresenceData = {
       type: ActivityType.Watching,
@@ -115,12 +102,14 @@ async function updatePresence() {
       presenceData.details = titleElement?.textContent || 'Đang xem...'
       presenceData.state = `Tập: ${animeEpisode}`
       presenceData.largeImageKey = video?.poster || ActivityAssets.Logo
-      presenceData.buttons = [
-        {
-          label: '📺 Xem Phim',
-          url: document.location.href,
-        },
-      ]
+      if (buttons) {
+        presenceData.buttons = [
+          {
+            label: '📺 Xem Phim',
+            url: document.location.href,
+          },
+        ]
+      }
     }
 
     presence.setActivity(presenceData)

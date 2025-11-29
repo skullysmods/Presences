@@ -6,25 +6,19 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      buttonViewPage: 'general.buttonViewPage',
-      chapter: 'general.chapter',
-      reading: 'general.reading',
-      readingPost: 'general.readingPost',
-      search: 'general.search',
-      searchFor: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      viewHome: 'general.viewHome',
-      view: 'general.view',
-      viewPage: 'general.viewPage',
-    },
-    await presence.getSetting<string>('lang').catch(() => 'ru'),
-  )
+  return presence.getStrings({
+    buttonViewPage: 'general.buttonViewPage',
+    chapter: 'general.chapter',
+    reading: 'general.reading',
+    readingPost: 'general.readingPost',
+    search: 'general.search',
+    searchFor: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    viewHome: 'general.viewHome',
+    view: 'general.view',
+    viewPage: 'general.viewPage',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/H/Habr/assets/logo.png',
@@ -39,8 +33,7 @@ presence.on('UpdateData', async () => {
     details: 'Где-то на сайте',
     largeImageKey: ActivityAssets.Logo,
   }
-  const [newLang, privacy, logo, time, buttons] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'ru'),
+  const [privacy, logo, time, buttons] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('logo'),
     presence.getSetting<boolean>('time'),
@@ -49,10 +42,7 @@ presence.on('UpdateData', async () => {
   const { pathname, href } = document.location
   const path = pathname.split('/')
 
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   switch (path[2]) {
     case 'all':

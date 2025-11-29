@@ -3,21 +3,15 @@ const presence = new Presence({
 })
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 async function getStrings() {
-  return presence.getStrings(
-    {
-      buttonViewPage: 'general.buttonViewPage',
-      listeningMusic: 'general.listeningMusic',
-      readingPost: 'general.readingPost',
-      viewPage: 'general.viewPage',
-      viewUser: 'general.viewUser',
-      watchingVid: 'general.watchingVid',
-    },
-
-  )
+  return presence.getStrings({
+    buttonViewPage: 'general.buttonViewPage',
+    listeningMusic: 'general.listeningMusic',
+    readingPost: 'general.readingPost',
+    viewPage: 'general.viewPage',
+    viewUser: 'general.viewUser',
+    watchingVid: 'general.watchingVid',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 enum ActivityAssets {
   EternalradioLogo = 'https://cdn.rcd.gg/PreMiD/websites/E/EternalNetwork%20TM/assets/0.png',
@@ -32,22 +26,17 @@ enum ActivityAssets {
 }
 
 presence.on('UpdateData', async () => {
-  const newLang: string = await presence
-    .getSetting<string>('lang')
-    .catch(() => 'en')
-  const showTimestamps = await presence.getSetting<boolean>('timestamp')
-  const showSubdomain = await presence.getSetting<boolean>('subdomain')
-  const bigicon = await presence.getSetting<number>('bigicon')
-  const buttons = await presence.getSetting<boolean>('buttons')
+  const [showTimestamps, showSubdomain, bigicon, buttons] = await Promise.all([
+    presence.getSetting<boolean>('timestamp'),
+    presence.getSetting<boolean>('subdomain'),
+    presence.getSetting<number>('bigicon'),
+    presence.getSetting<boolean>('buttons'),
+  ])
   const { hostname, pathname, search, hash } = document.location
   const etrnl = 'eternalnetworktm.com'
   const etrnltm = 'etrnltm.com'
   const ttl = document.title
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const presenceData: PresenceData = {
     details: strings.viewPage,

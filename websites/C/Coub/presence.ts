@@ -6,7 +6,7 @@ interface PageContext {
   exec: (
     context: Presence,
     presenceData: PresenceData,
-    options?: any
+    options?: any,
   ) => Promise<PresenceData | null> | PresenceData | null
 }
 interface ExecutionArguments {
@@ -75,8 +75,8 @@ const pages: PageContext[] = [
         .filter(x => !!x && x.length > 1 && x[1])
         .map(x => capitalizeFirstLetter(x![1]!))
       data.state = `Browsing ${
-        isCoubPicks && activeTabTitle.match(/^(\w+)/g)
-          ? activeTabTitle.match(/^(\w+)/g)?.[0]
+        isCoubPicks && activeTabTitle.match(/^\w+/g)
+          ? activeTabTitle.match(/^\w+/g)?.[0]
           : activeTabTitle
       }${
         (pageType?.length ?? 0) > 0

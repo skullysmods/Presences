@@ -6,19 +6,17 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      buttonViewPage: 'general.buttonViewPage',
-      buttonWatchMovie: 'general.buttonWatchVideo',
-      paused: 'general.paused',
-      play: 'general.playing',
-      search: 'general.searchFor',
-      viewHome: 'general.viewHome',
-      viewShow: 'general.viewShow',
-    },
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    buttonViewPage: 'general.buttonViewPage',
+    buttonWatchMovie: 'general.buttonWatchVideo',
+    paused: 'general.paused',
+    play: 'general.playing',
+    search: 'general.searchFor',
+    viewHome: 'general.viewHome',
+    viewShow: 'general.viewShow',
+  })
 }
 enum ActivityAssets {
   Ad = 'https://cdn.rcd.gg/PreMiD/websites/I/IDLIX/assets/0.png',
@@ -29,7 +27,6 @@ let duration: number
 let paused: boolean
 let isVideo: boolean
 let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('iFrameData', (data: unknown) => {
   ({ current, duration, paused, isVideo } = data as {
@@ -107,8 +104,7 @@ presence.on('UpdateData', async () => {
     name: 'IDLIX',
   }
   const { pathname, href } = document.location
-  const [newLang, privacy, buttons, covers] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons, covers] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('covers'),
@@ -119,10 +115,7 @@ presence.on('UpdateData', async () => {
     ?.textContent
     ?.toLowerCase()
   const search = document.querySelector<HTMLInputElement>('input[type="text"]')
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  strings = await getStrings()
 
   if (privacy) {
     presenceData.details = strings.browse

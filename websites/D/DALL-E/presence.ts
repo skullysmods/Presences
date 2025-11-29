@@ -190,7 +190,7 @@ presence.on('UpdateData', async () => {
   else {
     presenceData.details = 'Browsing'
     // eslint-disable-next-line regexp/no-useless-quantifier, regexp/optimal-quantifier-concatenation
-    presenceData.state = document.title.match(/^(.*)?( \| DALL·E)?$/)?.[1]
+    presenceData.state = document.title.match(/^(.*)?(?: \| DALL·E)?$/)?.[1]
   }
 
   if (presenceData.details) {

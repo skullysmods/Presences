@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '972073369564483584',
@@ -6,30 +6,24 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      search: 'general.search',
-      episode: 'general.episode',
-      browsing: 'general.browsing',
-      viewHome: 'general.viewHome',
-      viewChannel: 'general.viewChannel',
-      watchingVid: 'general.watchingVid',
-      viewCategory: 'general.viewCategory',
-      readingAbout: 'general.readingAbout',
-      searchSomething: 'general.searchSomething',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      buttonViewEpisode: 'general.buttonViewEpisode',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    search: 'general.search',
+    episode: 'general.episode',
+    browsing: 'general.browsing',
+    viewHome: 'general.viewHome',
+    viewChannel: 'general.viewChannel',
+    watchingVid: 'general.watchingVid',
+    viewCategory: 'general.viewCategory',
+    readingAbout: 'general.readingAbout',
+    searchSomething: 'general.searchSomething',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    buttonViewEpisode: 'general.buttonViewEpisode',
+  })
 }
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/B/bilibilitv/assets/logo.png',
     startTimestamp: browsingTimestamp,
@@ -45,10 +39,7 @@ presence.on('UpdateData', async () => {
     ?.content
     ?.split('?')?.[0]
     ?? 'https://cdn.rcd.gg/PreMiD/websites/B/bilibilitv/assets/logo.png'
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
   // Main Site
   if (hostname === 'www.bilibili.tv') {
     const pathKey = Number.isNaN(Number(pathArray[2])) ? pathArray[2] : pathArray[1]
@@ -120,12 +111,12 @@ presence.on('UpdateData', async () => {
       presenceData.largeImageKey = thumbnail
       presenceData.smallImageKey = playing ? Assets.Play : Assets.Pause
       if (playing) {
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
-          presence.timestampFromFormat(
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
+          timestampFromFormat(
             document.querySelector('.player-mobile-time-current-text')
               ?.textContent ?? '00:00',
           ),
-          presence.timestampFromFormat(
+          timestampFromFormat(
             document.querySelector('.player-mobile-time-total-text')
               ?.textContent ?? '00:00',
           ),

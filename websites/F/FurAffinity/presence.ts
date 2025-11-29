@@ -8,16 +8,13 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      search: 'general.searchFor',
-      viewHome: 'general.viewHome',
-      buttonViewPage: 'general.buttonViewPage',
-      buttonViewProfile: 'general.buttonViewProfile',
-    },
-
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    search: 'general.searchFor',
+    viewHome: 'general.viewHome',
+    buttonViewPage: 'general.buttonViewPage',
+    buttonViewProfile: 'general.buttonViewProfile',
+  })
 }
 function imgPath(path: string, hostname: string) {
   if (!path)
@@ -27,9 +24,6 @@ function imgPath(path: string, hostname: string) {
   else return `https://${hostname}${path}`
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
@@ -37,8 +31,7 @@ presence.on('UpdateData', async () => {
   }
   const search = document.querySelector<HTMLInputElement>('input[type="search"]')
   const { pathname, hash, hostname, href } = document.location
-  const [newLang, privacy, buttons, covers] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons, covers] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('covers'),
@@ -54,11 +47,7 @@ presence.on('UpdateData', async () => {
     .querySelectorAll('[class="current"]')?.[1]
     ?.textContent
     ?.toLowerCase()
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (privacy) {
     presenceData.details = strings.browse

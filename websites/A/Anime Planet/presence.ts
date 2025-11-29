@@ -1,34 +1,29 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '818135576074387507',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      viewPage: 'general.viewPage',
-      viewEpisode: 'general.buttonViewEpisode',
-      viewSeries: 'general.buttonViewSeries',
-      viewAnime: 'general.viewAnime',
-      chapter: 'general.chapter',
-      readingAricle: 'general.readingArticle',
-      reading: 'general.reading',
-      viewProfile: 'general.viewProfile',
-      anime: 'general.anime',
-      searchFor: 'general.searchFor',
-      viewManga: 'general.viewManga',
-      buttonViewProfile: 'general.buttonViewProfile',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    viewPage: 'general.viewPage',
+    viewEpisode: 'general.buttonViewEpisode',
+    viewSeries: 'general.buttonViewSeries',
+    viewAnime: 'general.viewAnime',
+    chapter: 'general.chapter',
+    readingAricle: 'general.readingArticle',
+    reading: 'general.reading',
+    viewProfile: 'general.viewProfile',
+    anime: 'general.anime',
+    searchFor: 'general.searchFor',
+    viewManga: 'general.viewManga',
+    buttonViewProfile: 'general.buttonViewProfile',
+  })
 }
 const startsTime = Math.floor(Date.now() / 1000)
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 let playback: boolean
 let duration: number
 let currentTime: number
@@ -44,7 +39,6 @@ presence.on('iFrameData', (data: unknown) => {
 
 presence.on('UpdateData', async () => {
   const [
-    newLang,
     AnimeDetails,
     AnimeState,
     MangaDetails,
@@ -52,7 +46,6 @@ presence.on('UpdateData', async () => {
     timestamp,
     buttons,
   ] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<string>('AnimeDetails'),
     presence.getSetting<string>('AnimeState'),
     presence.getSetting<string>('MangaDetails'),
@@ -60,11 +53,7 @@ presence.on('UpdateData', async () => {
     presence.getSetting<boolean>('timestamp'),
     presence.getSetting<boolean>('buttons'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   let presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/A/Anime%20Planet/assets/logo.jpg',
@@ -249,7 +238,7 @@ presence.on('UpdateData', async () => {
         `EP.${content.episode.ep} ${content.episode.title ?? ''}`,
       );
 
-      [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(currentTime, duration)
+      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(currentTime, duration)
 
       presenceData.smallImageKey = paused ? Assets.Pause : Assets.Play
       presenceData.smallImageText = paused ? strings.pause : strings.play

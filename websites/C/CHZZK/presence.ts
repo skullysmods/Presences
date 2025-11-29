@@ -1,24 +1,21 @@
-import { ActivityType } from 'premid'
+import { ActivityType, getTimestampsFromMedia, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '1232944311415603281',
 })
-let oldLang: string = ''
+
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      live: 'general.live',
-      browse: 'general.browsing',
-      ad: 'youtube.ad',
-      watchingLive: 'general.watchingLive',
-      watchingVid: 'general.watchingVid',
-      watchStream: 'general.buttonWatchStream',
-      watchVideo: 'general.buttonWatchVideo',
-    },
-    oldLang,
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    live: 'general.live',
+    browse: 'general.browsing',
+    ad: 'youtube.ad',
+    watchingLive: 'general.watchingLive',
+    watchingVid: 'general.watchingVid',
+    watchStream: 'general.buttonWatchStream',
+    watchVideo: 'general.buttonWatchVideo',
+  })
 }
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
@@ -33,19 +30,12 @@ enum ChzzkAssets {
   Pause = 'https://cdn.rcd.gg/PreMiD/websites/C/CHZZK/assets/4.png',
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-
 presence.on('UpdateData', async () => {
-  const [newLang, showStreamerLogo, showElapsedTime] = await Promise.all([
-    presence.getSetting<string>('lang'),
+  const [showStreamerLogo, showElapsedTime] = await Promise.all([
     presence.getSetting<boolean>('logo'),
     presence.getSetting<boolean>('time'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const presenceData: PresenceData = {
     details: strings.browse,
@@ -89,7 +79,7 @@ presence.on('UpdateData', async () => {
             presenceData.smallImageText = strings.live
             if (showElapsedTime) {
               presenceData.startTimestamp = Math.floor(Date.now() / 1000)
-                - presence.timestampFromFormat(
+                - timestampFromFormat(
                   document.querySelector('span[class^=video_information_count]')
                     ?.textContent ?? '',
                 )
@@ -99,7 +89,7 @@ presence.on('UpdateData', async () => {
           else {
             presenceData.smallImageKey = ChzzkAssets.Play
             presenceData.smallImageText = strings.play;
-            [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video!)
+            [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video!)
             presenceData.buttons = [{ url: href, label: strings.watchVideo }]
           }
 

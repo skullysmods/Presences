@@ -18,8 +18,6 @@ async function getStrings() {
   })
 }
 const browsingTimestamp = Math.floor(Date.now() / 1000)
-let oldLang: string | null = null
-let strings: Awaited<ReturnType<typeof getStrings>>
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/G/Grok/assets/logo.png',
@@ -27,15 +25,8 @@ enum ActivityAssets {
 }
 
 presence.on('UpdateData', async () => {
-  const [lang, showTitle] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
-    presence.getSetting<boolean>('showTitle'),
-  ])
-
-  if (oldLang !== lang) {
-    oldLang = lang
-    strings = await getStrings()
-  }
+  const showTitle = await presence.getSetting<boolean>('showTitle')
+  const strings = await getStrings()
 
   const { pathname } = document.location
   const presenceData: PresenceData = {

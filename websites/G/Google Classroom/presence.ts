@@ -4,26 +4,20 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      home: 'general.viewHome',
-      calendar: 'googleclassroom.calendar',
-      todo: 'googleclassroom.todo',
-      assignmentPrivate: 'googleclassroom.assignmentPrivate',
-      assignment: 'googleclassroom.assignment',
-      class: 'googleclassroom.class',
-      classworkPrivate: 'googleclassroom.classworkPrivate',
-      classwork: 'googleclassroom.classwork',
-      classmembersPrivate: 'googleclassroom.classmembersPrivate',
-      classmembers: 'googleclassroom.classmembers',
-      settings: 'googleclassroom.settings',
-    },
-
-  )
+  return presence.getStrings({
+    home: 'general.viewHome',
+    calendar: 'googleclassroom.calendar',
+    todo: 'googleclassroom.todo',
+    assignmentPrivate: 'googleclassroom.assignmentPrivate',
+    assignment: 'googleclassroom.assignment',
+    class: 'googleclassroom.class',
+    classworkPrivate: 'googleclassroom.classworkPrivate',
+    classwork: 'googleclassroom.classwork',
+    classmembersPrivate: 'googleclassroom.classmembersPrivate',
+    classmembers: 'googleclassroom.classmembers',
+    settings: 'googleclassroom.settings',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>> | null = null
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -31,15 +25,8 @@ presence.on('UpdateData', async () => {
     startTimestamp: browsingTimestamp,
   }
   const path = document.location.pathname.split('/')
-  const [newLang, privacy] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
-    presence.getSetting<boolean>('privacy'),
-  ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const privacy = await presence.getSetting<boolean>('privacy')
+  const strings = await getStrings()
 
   path.shift()
   if (path[0] === 'u')

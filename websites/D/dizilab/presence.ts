@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '635199664290922512',
@@ -202,7 +202,7 @@ presence.on('UpdateData', async () => {
             )?.textContent
           }. Bölüm`
           : 'none found'
-    const timestamps = presence.getTimestamps(
+    const timestamps = getTimestamps(
       Math.floor(_video.currentTime),
       Math.floor(_video.duration),
     )
@@ -266,7 +266,7 @@ presence.on('UpdateData', async () => {
           : null
 
     if (title && title.textContent !== '' && episodeX) {
-      const timestamps = presence.getTimestamps(
+      const timestamps = getTimestamps(
         Math.floor(video.currentTime),
         Math.floor(video.duration),
       )

@@ -10,28 +10,22 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      viewHome: 'general.viewHome',
-      view: 'general.view',
-      search: 'general.search',
-      searchFor: 'general.searchFor',
-      store: 'general.store',
-      searchSomething: 'general.searchSomething',
-      viewPage: 'general.viewPage',
-      viewProfile: 'general.viewProfile',
-      viewAnUser: 'general.viewAnUser',
-      viewList: 'general.viewList',
-      readingADM: 'general.readingADM',
-      cookie: 'general.cookie',
-      upload: 'youtube.upload',
-    },
-
-  )
+  return presence.getStrings({
+    viewHome: 'general.viewHome',
+    view: 'general.view',
+    search: 'general.search',
+    searchFor: 'general.searchFor',
+    store: 'general.store',
+    searchSomething: 'general.searchSomething',
+    viewPage: 'general.viewPage',
+    viewProfile: 'general.viewProfile',
+    viewAnUser: 'general.viewAnUser',
+    viewList: 'general.viewList',
+    readingADM: 'general.readingADM',
+    cookie: 'general.cookie',
+    upload: 'youtube.upload',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 function textContent(tags: string) {
   return document.querySelector(tags)?.textContent?.trim()
@@ -46,18 +40,13 @@ presence.on('UpdateData', async () => {
     largeImageKey: ActivityAssets.Logo,
     startTimestamp: browsingTimestamp,
   }
-  const [newLang, privacy, showEmotes] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, showEmotes] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('showEmotes'),
   ])
   const { pathname, href } = document.location
   const path = pathname.split('/')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   function getQuery() {
     return new URL(href).searchParams.get('query')

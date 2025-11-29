@@ -78,7 +78,6 @@ presence.on('iFrameData', (data: unknown) => {
   }
 })
 
-let oldLang: string | null = null
 let strings: Awaited<ReturnType<typeof getStrings>>
 
 async function getStaticPages(): Promise<{ [key: string]: StaticPageInfo }> {
@@ -253,19 +252,12 @@ async function getCachedAnimeData(): Promise<AnimeDataFetcher['animeData'] | nul
 
 presence.on('UpdateData', async () => {
   strings = await getStrings()
-
-  const [lang, privacyMode, showTitleAsPresence, showCover, showTimestamp] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacyMode, showTitleAsPresence, showCover, showTimestamp] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('showTitleAsPresence'),
     presence.getSetting<boolean>('showCover'),
     presence.getSetting<boolean>('timestamp'),
   ])
-
-  if (oldLang !== lang) {
-    oldLang = lang
-    strings = await getStrings()
-  }
 
   const page = document.location.pathname
   const staticPages = await getStaticPages()

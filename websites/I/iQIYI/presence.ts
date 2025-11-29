@@ -4,29 +4,24 @@ const presence = new Presence({
   clientId: '809748404963770398',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      episode: 'general.episode',
-      searchFor: 'general.searchFor',
-      watchVideo: 'general.buttonWatchVideo',
-      watchMovie: 'general.buttonViewMovie',
-      watchEpisode: 'general.buttonViewEpisode',
-      browsingThrough: 'discord.browseThrough',
-      viewingSettings: 'discord.settings',
-      viewingHistory: 'amazon.history',
-      viewingList: 'netflix.viewList',
-      viewAccount: 'general.viewAccount',
-      viewPage: 'general.viewPage',
-    },
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    episode: 'general.episode',
+    searchFor: 'general.searchFor',
+    watchVideo: 'general.buttonWatchVideo',
+    watchMovie: 'general.buttonViewMovie',
+    watchEpisode: 'general.buttonViewEpisode',
+    browsingThrough: 'discord.browseThrough',
+    viewingSettings: 'discord.settings',
+    viewingHistory: 'amazon.history',
+    viewingList: 'netflix.viewList',
+    viewAccount: 'general.viewAccount',
+    viewPage: 'general.viewPage',
+  })
 }
 const browsingTimestamp = Math.floor(Date.now() / 1000)
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/I/iQIYI/assets/0.png',
@@ -34,19 +29,14 @@ enum ActivityAssets {
 }
 
 presence.on('UpdateData', async () => {
-  const [newLang, showButtons, searchQuery, logo, cover] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [showButtons, searchQuery, logo, cover] = await Promise.all([
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('searchQuery'),
     presence.getSetting<number>('logo'),
     presence.getSetting<boolean>('cover'),
   ])
   const { pathname, search } = document.location
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const presenceData: PresenceData = {
     largeImageKey: [ActivityAssets.Logo2, ActivityAssets.Logo][logo],

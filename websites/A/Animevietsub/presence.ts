@@ -5,10 +5,7 @@ const presence = new Presence({
 })
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
-async function getStrings(): Promise<{ pause: string, play: string }> {
+async function getStrings() {
   return presence.getStrings({
     pause: 'general.paused',
     play: 'general.playing',
@@ -27,21 +24,15 @@ async function updatePresence(): Promise<void> {
     const splitPath = pathname.split('/')
 
     const [
-      newLang,
       showButtons,
       usePresenceName,
       showTimestamps,
     ] = await Promise.all([
-      presence.getSetting<string>('lang').catch(() => 'en'),
       presence.getSetting<boolean>('buttons'),
       presence.getSetting<boolean>('usePresenceName'),
       presence.getSetting<boolean>('showtimestamps'),
     ])
-
-    if (oldLang !== newLang || !strings) {
-      oldLang = newLang
-      strings = await getStrings()
-    }
+    const strings = await getStrings()
 
     const presenceData: PresenceData = {
       type: ActivityType.Watching,

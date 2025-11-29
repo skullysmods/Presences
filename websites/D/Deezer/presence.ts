@@ -4,8 +4,6 @@ const presence = new Presence({
   clientId: '607651992567021580',
 })
 
-let oldLang: string | null = null
-
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/D/Deezer/assets/logo.png',
 }
@@ -21,16 +19,13 @@ function fullURL(originalURL: string | null | undefined, hostname: string) {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      viewAlbum: 'general.buttonViewAlbum',
-      viewArtist: 'general.buttonViewArtist',
-      viewPodcast: 'general.buttonViewPodcast',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    viewAlbum: 'general.buttonViewAlbum',
+    viewArtist: 'general.buttonViewArtist',
+    viewPodcast: 'general.buttonViewPodcast',
+  })
 }
 
 presence.on('UpdateData', async () => {
@@ -38,12 +33,10 @@ presence.on('UpdateData', async () => {
     type: ActivityType.Listening,
     largeImageKey: ActivityAssets.Logo,
   }
-  let strings = await getStrings()
   let paused = false
 
-  const [buttons, newLang, cover, browseInfo, artistAsTitle] = await Promise.all([
+  const [buttons, cover, browseInfo, artistAsTitle] = await Promise.all([
     presence.getSetting<boolean>('buttons'),
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('cover'),
     presence.getSetting<boolean>('browseInfo'),
     presence.getSetting<boolean>('artistAsTitle'),
@@ -52,11 +45,7 @@ presence.on('UpdateData', async () => {
   const remainingTest = document.querySelector(
     '[data-testid="remaining_time"]',
   )?.textContent
-
-  if (oldLang !== newLang || !oldLang) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const pages: Record<string, PresenceData> = {
     shows: {

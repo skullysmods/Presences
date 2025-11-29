@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '839150832036872213',
@@ -10,89 +10,81 @@ let iframeData: {
 } = {}
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      viewHome: 'general.viewHome',
-      viewProduct: 'general.viewProduct',
-      view: 'general.view',
-      viewProfile: 'general.viewProfile',
-      readingArticle: 'general.readingArticle',
-      comparing: 'apple.comparing',
-      viewService: 'apple.viewService',
-      healthcare: 'apple.healthcare',
-      productsPlatform: 'apple.productsPlatform',
-      healthRecords: 'apple.healthRecords',
-      overview: 'apple.overview',
-      purchasingAdvice: 'apple.purchasingAdvice',
-      storeFinder: 'apple.storeFinder',
-      viewEvent: 'apple.viewEvent',
-      supplierResp: 'apple.supplierResp',
-      contact: 'apple.contact',
-      chooseLang: 'apple.chooseLang',
-      other: 'apple.other',
-      shopBands: 'apple.shopBands',
-      shopAccessories: 'apple.shopAccessories',
-      shopStudio: 'apple.shopStudio',
-      shopFavorites: 'apple.shopFavorites',
-      shopGiftCards: 'apple.shopGiftCards',
-      shopPlanVisit: 'apple.shopPlanVisit',
-      shopRefurbished: 'apple.shopRefurbished',
-      shopBag: 'apple.shopBag',
-      shopBagSummary: 'apple.shopBagSummary',
-      support: 'apple.support',
-      supportArticle: 'apple.supportArticle',
-      appStoreCon: 'apple.appStoreCon',
-      iCloudMail: 'apple.iCloudMail',
-      iCloudContacts: 'apple.iCloudContacts',
-      iCloudCalendar: 'apple.iCloudCalendar',
-      iCloudPhotos: 'apple.iCloudPhotos',
-      iCloudNotes: 'apple.iCloudNotes',
-      iCloudReminders: 'apple.iCloudReminders',
-      iCloudPagesCreate: 'apple.iCloudPagesCreate',
-      iCloudKeynoteWait: 'apple.iCloudKeynoteWait',
-      devNew: 'apple.devNew',
-      devSubmit: 'apple.devSubmit',
-      devPhonePad: 'apple.devPhonePad',
-      devDistribution: 'apple.devDistribution',
-      devDocs: 'apple.devDocs',
-      devHIG: 'apple.devHIG',
-      devResources: 'apple.devResources',
-      devFeatures: 'apple.devFeatures',
-      devGames: 'apple.devGames',
-      forumTags: 'apple.forumTags',
-      forumPreferences: 'apple.forumPreferences',
-      forumCreateThread: 'apple.forumCreateThread',
-      forumRegister: 'apple.forumRegister',
-      devVideos: 'apple.devVideos',
-      devVidTopic: 'apple.devVidTopic',
-      devNews: 'apple.devNews',
-      devReleases: 'apple.devReleases',
-      statePaused: 'general.paused',
-      statePlaying: 'general.playing',
-      btnViewProduct: 'apple.btnViewProduct',
-      btnViewService: 'apple.btnViewService',
-      btnReadArticle: 'general.buttonReadArticle',
-      btnViewEvent: 'apple.btnViewEvent',
-      btnViewOS: 'apple.btnViewOS',
-      btnViewStudio: 'apple.btnViewStudio',
-      btnViewApp: 'apple.btnViewApp',
-      btnViewDeveloper: 'apple.btnViewDeveloper',
-      btnViewWWDC: 'apple.btnViewWWDC',
-      btnViewThread: 'apple.btnViewThread',
-      btnViewTags: 'apple.btnViewTags',
-      btnViewProfile: 'apple.btnViewProfile',
-      btnViewPage: 'general.buttonViewPage',
-      btnGViewProfile: 'general.buttonViewProfile',
-      btnGWatchVideo: 'general.buttonWatchVideo',
-    },
-
-  )
+  return presence.getStrings({
+    viewHome: 'general.viewHome',
+    viewProduct: 'general.viewProduct',
+    view: 'general.view',
+    viewProfile: 'general.viewProfile',
+    readingArticle: 'general.readingArticle',
+    comparing: 'apple.comparing',
+    viewService: 'apple.viewService',
+    healthcare: 'apple.healthcare',
+    productsPlatform: 'apple.productsPlatform',
+    healthRecords: 'apple.healthRecords',
+    overview: 'apple.overview',
+    purchasingAdvice: 'apple.purchasingAdvice',
+    storeFinder: 'apple.storeFinder',
+    viewEvent: 'apple.viewEvent',
+    supplierResp: 'apple.supplierResp',
+    contact: 'apple.contact',
+    chooseLang: 'apple.chooseLang',
+    other: 'apple.other',
+    shopBands: 'apple.shopBands',
+    shopAccessories: 'apple.shopAccessories',
+    shopStudio: 'apple.shopStudio',
+    shopFavorites: 'apple.shopFavorites',
+    shopGiftCards: 'apple.shopGiftCards',
+    shopPlanVisit: 'apple.shopPlanVisit',
+    shopRefurbished: 'apple.shopRefurbished',
+    shopBag: 'apple.shopBag',
+    shopBagSummary: 'apple.shopBagSummary',
+    support: 'apple.support',
+    supportArticle: 'apple.supportArticle',
+    appStoreCon: 'apple.appStoreCon',
+    iCloudMail: 'apple.iCloudMail',
+    iCloudContacts: 'apple.iCloudContacts',
+    iCloudCalendar: 'apple.iCloudCalendar',
+    iCloudPhotos: 'apple.iCloudPhotos',
+    iCloudNotes: 'apple.iCloudNotes',
+    iCloudReminders: 'apple.iCloudReminders',
+    iCloudPagesCreate: 'apple.iCloudPagesCreate',
+    iCloudKeynoteWait: 'apple.iCloudKeynoteWait',
+    devNew: 'apple.devNew',
+    devSubmit: 'apple.devSubmit',
+    devPhonePad: 'apple.devPhonePad',
+    devDistribution: 'apple.devDistribution',
+    devDocs: 'apple.devDocs',
+    devHIG: 'apple.devHIG',
+    devResources: 'apple.devResources',
+    devFeatures: 'apple.devFeatures',
+    devGames: 'apple.devGames',
+    forumTags: 'apple.forumTags',
+    forumPreferences: 'apple.forumPreferences',
+    forumCreateThread: 'apple.forumCreateThread',
+    forumRegister: 'apple.forumRegister',
+    devVideos: 'apple.devVideos',
+    devVidTopic: 'apple.devVidTopic',
+    devNews: 'apple.devNews',
+    devReleases: 'apple.devReleases',
+    statePaused: 'general.paused',
+    statePlaying: 'general.playing',
+    btnViewProduct: 'apple.btnViewProduct',
+    btnViewService: 'apple.btnViewService',
+    btnReadArticle: 'general.buttonReadArticle',
+    btnViewEvent: 'apple.btnViewEvent',
+    btnViewOS: 'apple.btnViewOS',
+    btnViewStudio: 'apple.btnViewStudio',
+    btnViewApp: 'apple.btnViewApp',
+    btnViewDeveloper: 'apple.btnViewDeveloper',
+    btnViewWWDC: 'apple.btnViewWWDC',
+    btnViewThread: 'apple.btnViewThread',
+    btnViewTags: 'apple.btnViewTags',
+    btnViewProfile: 'apple.btnViewProfile',
+    btnViewPage: 'general.buttonViewPage',
+    btnGViewProfile: 'general.buttonViewProfile',
+    btnGWatchVideo: 'general.buttonWatchVideo',
+  })
 }
-
-let strings: ReturnType<typeof getStrings> extends PromiseLike<infer U>
-    ? U
-    : unknown,
-  oldLang: string
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/A/Apple/assets/logo.png',
@@ -122,7 +114,6 @@ const assets: Record<string, string> = {
 presence.on('UpdateData', async () => {
   const urlpath = window.location.pathname.toLowerCase().split('/')
   const [
-    newLang,
     timeElapsed,
     buttons,
     logo,
@@ -130,7 +121,6 @@ presence.on('UpdateData', async () => {
     showICloudMailSender,
     showICloudMailSubject,
   ] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('timeElapsed'),
     presence.getSetting<boolean>('showButtons'),
     presence.getSetting<number>('logo'),
@@ -198,10 +188,7 @@ presence.on('UpdateData', async () => {
     largeImageKey: [ActivityAssets.Logo, ActivityAssets.LogoRainbow][logo] || ActivityAssets.Logo,
   }
 
-  if (!oldLang || oldLang !== newLang) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   function getPSName() {
     return (
@@ -1084,7 +1071,7 @@ presence.on('UpdateData', async () => {
                 )?.textContent
 
                 if (vid) {
-                  [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(vid.currentTime, vid.duration)
+                  [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(vid.currentTime, vid.duration)
 
                   if (!vid.paused) {
                     presenceData.smallImageKey = Assets.Play

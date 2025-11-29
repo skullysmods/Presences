@@ -1,4 +1,4 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({ clientId: '1016797607370162256' })
 const browsingTimestamp = Math.floor(Date.now() / 1000)
@@ -77,7 +77,7 @@ presence.on('UpdateData', async () => {
     presenceData.details = `Regarde ${
       document.querySelector('#titreOeuvre')?.textContent ?? ''
     }`
-    const [startTimestamp, endTimestamp] = presence.getTimestamps(
+    const [startTimestamp, endTimestamp] = getTimestamps(
       video.currentTime,
       video.duration,
     )

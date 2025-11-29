@@ -24,21 +24,13 @@ async function getStrings() {
   })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
     startTimestamp: browsingTimestamp,
   }
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
   const { pathname, href, search } = document.location
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   switch (pathname.split('/')[1]) {
     case 'latest': {

@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/A/AnimeOnsen/assets/logo.png',
@@ -21,7 +21,6 @@ interface PlayerData {
 
 const presence = new Presence({ clientId: '826806766033174568' })
 const [, page] = document.location.pathname.split('/')
-const qs = document.querySelector.bind(document)
 const initMillis = Date.now()
 const rpaImage = {
   general: {
@@ -40,19 +39,19 @@ presence.info('PreMiD extension has loaded')
 
 function updateData() {
   if (/^watch$/i.test(page!)) {
-    const player = <HTMLVideoElement>qs('div.ao-player-media video')
-    const { paused, currentTime: progress, duration } = player
+    const player = document.querySelector<HTMLVideoElement>('div.ao-player-media video')
+    const { paused, currentTime: progress, duration } = player!
     playerData = {
       time: {
         progress,
         duration,
-        snowflake: presence.getTimestamps(progress, duration),
+        snowflake: getTimestamps(progress, duration),
       },
-      title: qs('span.ao-player-metadata-title')?.textContent ?? '',
+      title: document.querySelector('span.ao-player-metadata-title')?.textContent ?? '',
       episode: Number(
-        qs('meta[name="ao-content-episode"]')?.getAttribute('content') ?? '',
+        document.querySelector('meta[name="ao-content-episode"]')?.getAttribute('content') ?? '',
       ),
-      episodeName: (<HTMLSelectElement>qs('select.ao-player-metadata-episode'))
+      episodeName: (document.querySelector<HTMLSelectElement>('select.ao-player-metadata-episode')!)
         .selectedOptions[0]
         ?.textContent ?? '',
       playbackState: paused ? 'paused' : 'playing',
@@ -93,7 +92,7 @@ presence.on('UpdateData', () => {
     }
     case 'genre': {
       presenceData.details = `Genre: ${
-        qs('div.content-result span i')?.textContent ?? ''
+        document.querySelector('div.content-result span i')?.textContent ?? ''
       }`
       presenceData.smallImageKey = rpaImage.general.browse
       presenceData.smallImageText = 'Browsing'
@@ -107,7 +106,7 @@ presence.on('UpdateData', () => {
     }
     case 'details': {
       presenceData.details = `Viewing ${
-        qs('div.title span[lang="en"]')?.textContent ?? ''
+        document.querySelector('div.title span[lang="en"]')?.textContent ?? ''
       }`
       presenceData.smallImageKey = rpaImage.general.browse
       presenceData.smallImageText = 'Details'

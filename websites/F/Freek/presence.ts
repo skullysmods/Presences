@@ -1,4 +1,4 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '1321328844497752124',
@@ -91,7 +91,7 @@ presence.on('UpdateData', async () => {
     : document.querySelector('div.flex > span.flex-grow')?.textContent
 
   if (pathname.includes('/watch/')) {
-    const [startTimestamp, endTimestamp] = presence.getTimestamps(
+    const [startTimestamp, endTimestamp] = getTimestamps(
       Math.floor(video.currentTime),
       Math.floor(video.duration),
     )

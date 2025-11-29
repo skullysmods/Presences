@@ -4,45 +4,39 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      categoryPrimary: 'gmail.categoryPrimary',
-      categorySocial: 'gmail.categorySocial',
-      categoryUpdates: 'gmail.categoryUpdates',
-      categoryPromotions: 'gmail.categoryPromotions',
-      categoryForum: 'gmail.categoryForum',
-      inLabel: 'gmail.inLabel',
-      generalSettings: 'gmail.generalSettings',
-      labelSettings: 'gmail.labelSettings',
-      inboxSettings: 'gmail.inboxSettings',
-      accountSetting: 'gmail.accountSetting',
-      filterSettings: 'gmail.filterSettings',
-      fwdAndPOPSettings: 'gmail.fwdAndPOPSettings',
-      addonsSettings: 'gmail.addonsSettings',
-      chatSettings: 'gmail.chatSettings',
-      advancedSettings: 'gmail.advancedSettings',
-      offlineSettings: 'gmail.offlineSettings',
-      themesSettings: 'gmail.themesSettings',
-      lookingForEmail: 'gmail.lookingForEmail',
-      viewingEmail: 'gmail.viewingEmail',
-      viewingStarredEmails: 'gmail.viewingStarredEmails',
-      viewingSentEmails: 'gmail.viewingSentEmails',
-      viewingSnoozedEmails: 'gmail.viewingSnoozedEmails',
-      viewingDrafts: 'gmail.viewingDrafts',
-      viewingImportantEmails: 'gmail.viewingImportantEmails',
-      viewingTrash: 'gmail.viewingTrash',
-      viewingChats: 'gmail.viewingChats',
-      viewingScheduled: 'gmail.viewingScheduled',
-      viewingSpam: 'gmail.viewingSpam',
-      viewingAllEmails: 'gmail.viewingAllEmails',
-      composingEmail: 'gmail.composingEmail',
-    },
-
-  )
+  return presence.getStrings({
+    categoryPrimary: 'gmail.categoryPrimary',
+    categorySocial: 'gmail.categorySocial',
+    categoryUpdates: 'gmail.categoryUpdates',
+    categoryPromotions: 'gmail.categoryPromotions',
+    categoryForum: 'gmail.categoryForum',
+    inLabel: 'gmail.inLabel',
+    generalSettings: 'gmail.generalSettings',
+    labelSettings: 'gmail.labelSettings',
+    inboxSettings: 'gmail.inboxSettings',
+    accountSetting: 'gmail.accountSetting',
+    filterSettings: 'gmail.filterSettings',
+    fwdAndPOPSettings: 'gmail.fwdAndPOPSettings',
+    addonsSettings: 'gmail.addonsSettings',
+    chatSettings: 'gmail.chatSettings',
+    advancedSettings: 'gmail.advancedSettings',
+    offlineSettings: 'gmail.offlineSettings',
+    themesSettings: 'gmail.themesSettings',
+    lookingForEmail: 'gmail.lookingForEmail',
+    viewingEmail: 'gmail.viewingEmail',
+    viewingStarredEmails: 'gmail.viewingStarredEmails',
+    viewingSentEmails: 'gmail.viewingSentEmails',
+    viewingSnoozedEmails: 'gmail.viewingSnoozedEmails',
+    viewingDrafts: 'gmail.viewingDrafts',
+    viewingImportantEmails: 'gmail.viewingImportantEmails',
+    viewingTrash: 'gmail.viewingTrash',
+    viewingChats: 'gmail.viewingChats',
+    viewingScheduled: 'gmail.viewingScheduled',
+    viewingSpam: 'gmail.viewingSpam',
+    viewingAllEmails: 'gmail.viewingAllEmails',
+    composingEmail: 'gmail.composingEmail',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -50,18 +44,14 @@ presence.on('UpdateData', async () => {
     startTimestamp: browsingTimestamp,
   }
   const path = window.location.href
-  const [newLang, privacy, time] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, time] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('time'),
   ])
 
   if (!time)
     delete presenceData.startTimestamp
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const pages: Record<string, string> = {
     'category/primary': strings.categoryPrimary,

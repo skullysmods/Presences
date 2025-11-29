@@ -4,20 +4,20 @@ const presence = new Presence({
   clientId: '665519810054062100',
 })
 
-let oldLang: string,
-  newLang: string,
-  strings: Awaited<ReturnType<typeof getStrings>>
+async function getStrings() {
+  return presence.getStrings({
+    search: 'general.searching',
+    browsing: 'general.browsing',
+    reading: 'general.reading',
+  })
+}
 
 presence.on('UpdateData', async () => {
   const path = window.location.pathname.split('/').slice(1)
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/I/IFTTT/assets/logo.png',
   }
-
-  oldLang = newLang
-  newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-  if (!strings || oldLang !== newLang)
-    strings = await getStrings(newLang)
+  const strings = await getStrings()
 
   switch (window.location.hostname) {
     case 'ift.tt': {
@@ -274,14 +274,3 @@ presence.on('UpdateData', async () => {
 
   presence.setActivity(presenceData)
 })
-
-async function getStrings(lang: string) {
-  return presence.getStrings(
-    {
-      search: 'general.searching',
-      browsing: 'general.browsing',
-      reading: 'general.reading',
-    },
-    lang,
-  )
-}
