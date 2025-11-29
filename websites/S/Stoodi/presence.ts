@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '1043638037042712637',
@@ -9,14 +9,13 @@ enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/S/Stoodi/assets/0.png',
 }
 presence.on('UpdateData', async () => {
-  const selector = document.querySelector
   const presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
     details: 'Vendo o Stoodi',
     startTimestamp: browsingTimestamp,
   }
   const url = document.location.pathname
-  let title = selector('.c-page-header__title')?.textContent
+  let title = document.querySelector('.c-page-header__title')?.textContent
 
   if (url === '/')
     presenceData.details = 'Navegando pela Home'
@@ -30,8 +29,8 @@ presence.on('UpdateData', async () => {
   if (url.includes('/intensivao') && !url.split('/intensivao/')[1])
     presenceData.details = 'Procurando aulas no Intensivão'
 
-  let subject = selector('.c-subject__subtitle')?.textContent
-  title = selector('.c-subject__title')?.textContent
+  let subject = document.querySelector('.c-subject__subtitle')?.textContent
+  title = document.querySelector('.c-subject__title')?.textContent
 
   if (subject && title) {
     presenceData.details = `Vendo módulo de ${subject}:`
@@ -39,18 +38,18 @@ presence.on('UpdateData', async () => {
   }
   else if (url.includes('/questao/')) {
     presenceData.details = 'Resolvendo uma questão:'
-    presenceData.state = selector(
+    presenceData.state = document.querySelector(
       '.c-sidebar__item.is-active .c-sidebar__item-txt',
     )?.textContent
   }
   else {
-    subject = selector('.c-lesson__header-subject')?.textContent
-    title = selector('h1.c-lesson__header-title')?.textContent
+    subject = document.querySelector('.c-lesson__header-subject')?.textContent
+    title = document.querySelector('h1.c-lesson__header-title')?.textContent
     if (subject && title) {
       presenceData.details = `Vendo aula de de ${subject}:`
       presenceData.state = title
 
-      const player = selector<HTMLVideoElement>('.fp-player video')
+      const player = document.querySelector<HTMLVideoElement>('.fp-player video')
 
       if (player) {
         presenceData.smallImageKey = player.paused ? Assets.Pause : Assets.Play
@@ -58,13 +57,13 @@ presence.on('UpdateData', async () => {
 
         delete presenceData.startTimestamp
         if (!player.paused) {
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(player)
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(player)
         }
       }
     }
     if (url.includes('/exercicios')) {
-      title = selector('.question-list__title')?.textContent
-      const activeItem = selector('.areaTabs .active .areaStoodi')?.textContent
+      title = document.querySelector('.question-list__title')?.textContent
+      const activeItem = document.querySelector('.areaTabs .active .areaStoodi')?.textContent
       if (title || activeItem) {
         presenceData.details = 'Vendo o Banco de Exercícios:'
         presenceData.state = activeItem
@@ -83,7 +82,7 @@ presence.on('UpdateData', async () => {
       }
     }
     if (url.includes('/aulas-ao-vivo')) {
-      title = selector('.c-live__title')?.textContent
+      title = document.querySelector('.c-live__title')?.textContent
       if (title) {
         presenceData.details = 'Assistindo a aula ao vivo:'
         presenceData.state = title
@@ -98,7 +97,7 @@ presence.on('UpdateData', async () => {
       else presenceData.details = 'Fazendo uma redação'
     }
     if (url.includes('/provas-do-enem')) {
-      const breadcrumb = selector('.c-breadcrumb__item.is-active')?.textContent
+      const breadcrumb = document.querySelector('.c-breadcrumb__item.is-active')?.textContent
       if (title) {
         presenceData.details = 'Vendo as provas do ENEM:'
         presenceData.state = title
@@ -113,16 +112,16 @@ presence.on('UpdateData', async () => {
     }
     if (url.includes('/videos/') && title) {
       presenceData.details = 'Procurando vídeoaulas:'
-      presenceData.state = selector(
+      presenceData.state = document.querySelector(
         '.areaTabs .active .areaStoodi',
       )?.textContent
     }
     if (url.includes('/resumos/')) {
-      title = selector('.c-page-header h1')?.textContent
+      title = document.querySelector('.c-page-header h1')?.textContent
 
       if (title) {
         presenceData.details = 'Procurando resumos teóricos:'
-        presenceData.state = selector(
+        presenceData.state = document.querySelector(
           '.areaTabs .active .areaStoodi',
         )?.textContent
       }

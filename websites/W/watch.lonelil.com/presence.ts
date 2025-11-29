@@ -1,30 +1,27 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '1147910465134002276',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      viewAMovie: 'general.viewAMovie',
-      viewAShow: 'general.viewAShow',
-      viewAnime: 'general.viewAnime',
-      watchingMovie: 'general.watchingMovie',
-      watchingShow: 'general.watchingShow',
-      watchingLive: 'general.watchingLive',
-      viewingHomePage: 'general.viewHome',
-      loading: 'watch.lonelil.com.loading',
-      browsing: 'general.browsing',
-      buttonWatchMovie: 'general.buttonWatchMovie',
-      buttonWatchEpisode: 'general.buttonViewEpisode',
-      buttonWatchStream: 'general.buttonWatchStream',
-      buttonViewMovie: 'general.buttonViewMovie',
-      buttonViewShow: 'general.buttonViewShow',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    viewAMovie: 'general.viewAMovie',
+    viewAShow: 'general.viewAShow',
+    viewAnime: 'general.viewAnime',
+    watchingMovie: 'general.watchingMovie',
+    watchingShow: 'general.watchingShow',
+    watchingLive: 'general.watchingLive',
+    viewingHomePage: 'general.viewHome',
+    loading: 'watch.lonelil.com.loading',
+    browsing: 'general.browsing',
+    buttonWatchMovie: 'general.buttonWatchMovie',
+    buttonWatchEpisode: 'general.buttonViewEpisode',
+    buttonWatchStream: 'general.buttonWatchStream',
+    buttonViewMovie: 'general.buttonViewMovie',
+    buttonViewShow: 'general.buttonViewShow',
+  })
 }
 
 enum ActivityAssets {
@@ -34,8 +31,6 @@ enum ActivityAssets {
 
 let since = Math.floor(Date.now() / 1000)
 let lastType = ''
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   if (document.querySelector('#state')) {
@@ -70,13 +65,8 @@ presence.on('UpdateData', async () => {
       smallImageKey: ActivityAssets.Logo,
       startTimestamp: since,
     }
-    const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
     let presenceData: PresenceData = {}
-
-    if (oldLang !== newLang || !strings) {
-      oldLang = newLang
-      strings = await getStrings()
-    }
+    const strings = await getStrings()
 
     switch (true) {
       case state.type.startsWith('home'):
@@ -154,9 +144,9 @@ presence.on('UpdateData', async () => {
             '.jw-text-duration[role="timer"]',
           )?.textContent
           if (elapsed && duration) {
-            [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
-              presence.timestampFromFormat(elapsed),
-              presence.timestampFromFormat(duration),
+            [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
+              timestampFromFormat(elapsed),
+              timestampFromFormat(duration),
             )
           }
         }

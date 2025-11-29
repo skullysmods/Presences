@@ -6,18 +6,15 @@ const presence = new Presence({
 const browsingStamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      reading: 'general.reading',
-      readingAbout: 'general.readingAbout',
-      searchFor: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      viewCategory: 'general.viewCategory',
-      viewHome: 'general.viewHome',
-    },
-    'en',
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    reading: 'general.reading',
+    readingAbout: 'general.readingAbout',
+    searchFor: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    viewCategory: 'general.viewCategory',
+    viewHome: 'general.viewHome',
+  })
 }
 function capitalizeFirstLetter(string: string | undefined | null) {
   if (!string)
@@ -41,7 +38,6 @@ function removePlural(string: string) {
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/S/Scribd/assets/logo.png',
 }
-let strings: Awaited<ReturnType<typeof getStrings>>
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -70,18 +66,17 @@ presence.on('UpdateData', async () => {
       ?.replace(/ /g, '') ?? '',
   ).replace('doc', 'document')
   const type = selected?.match(
-    /(everything)|(book)|(doc)|(podcast)|(sheeetmusic)|(snapshot)/g,
+    /everything|book|doc|podcast|sheeetmusic|snapshot/g,
   )
     ? true
-    : !!pathname.match(/(book)|(doc)|(podcast)|(sheetmusic)|(snapshot)/g)
+    : !!pathname.match(/book|doc|podcast|sheetmusic|snapshot/g)
   const search = document.querySelector<HTMLInputElement>('[type="search"]')
   const moduleList = document.querySelector(
     '[class*="Breadcrumbs-ds2-module_list__"]',
   )
   const title = document.querySelector('[data-e2e="header_module_page_title"]')
 
-  if (!strings)
-    strings = await getStrings()
+  const strings = await getStrings()
 
   if (search?.value) {
     presenceData.details = privacy
@@ -110,12 +105,12 @@ presence.on('UpdateData', async () => {
                       ?? selected
                         ?.replace(/doc/g, 'document')
                         .match(
-                          /(everything)|(book)|(document)|(podcast)|(snapshot)/g,
+                          /everything|book|document|podcast|snapshot/g,
                         )?.[0]
                         ?? pathname
                           .replace(/doc/g, 'document')
                           .match(
-                            /(everything)|(book)|(document)|(podcast)|(snapshot)/g,
+                            /everything|book|document|podcast|snapshot/g,
                           )?.[0],
               ),
             )}:`
@@ -209,8 +204,8 @@ presence.on('UpdateData', async () => {
           presenceData.details = privacy
             ? 'Reading a book'
             : document
-              .querySelector('[property="og:title"]')
-              ?.getAttribute('content')
+                .querySelector('[property="og:title"]')
+                ?.getAttribute('content')
           presenceData.state = capitalizeFirstLetter(
             document.querySelector('[class="page_counter"]')?.textContent,
           )

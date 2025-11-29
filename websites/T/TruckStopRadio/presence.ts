@@ -6,25 +6,19 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      listen: 'general.buttonListenAlong',
-      viewPage: 'general.viewPage',
-      btnViewPage: 'general.buttonViewPage',
-      readArticle: 'general.readingArticle',
-      btnReadArticle: 'general.buttonReadArticle',
-      viewProfile: 'general.viewProfile',
-      btnViewProfile: 'general.buttonViewProfile',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    listen: 'general.buttonListenAlong',
+    viewPage: 'general.viewPage',
+    btnViewPage: 'general.buttonViewPage',
+    readArticle: 'general.readingArticle',
+    btnReadArticle: 'general.buttonReadArticle',
+    viewProfile: 'general.viewProfile',
+    btnViewProfile: 'general.buttonViewProfile',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   let presenceData: PresenceData = {
@@ -32,8 +26,7 @@ presence.on('UpdateData', async () => {
     startTimestamp: browsingTimestamp,
   }
 
-  const [newLang, details, state, browse, timestamp, buttons, cover] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [details, state, browse, timestamp, buttons, cover] = await Promise.all([
     presence.getSetting<string>('details'),
     presence.getSetting<string>('state'),
     presence.getSetting<boolean>('browse'),
@@ -46,11 +39,7 @@ presence.on('UpdateData', async () => {
     ?.textContent
     ?.toLowerCase()
     .includes('pause')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (!browse || playing) {
     if (details !== '{0}')

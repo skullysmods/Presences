@@ -1,21 +1,15 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '812656134120931330',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+  })
 }
 const browsingTimestamp = Math.floor(Date.now() / 1000)
-
-let oldLang: string | null = null
-let strings: Awaited<ReturnType<typeof getStrings>>
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -33,16 +27,11 @@ presence.on('UpdateData', async () => {
     )?.textContent
     const place = document.querySelector('div.head > div.place')?.textContent
     const year = document.querySelector('div.head > div.year')?.textContent
-    const [songDetails, songState, newLang] = await Promise.all([
+    const [songDetails, songState] = await Promise.all([
       presence.getSetting<string>('song1'),
       presence.getSetting<string>('song2'),
-      presence.getSetting<string>('lang').catch(() => 'en'),
     ])
-
-    if (oldLang !== newLang || !strings) {
-      oldLang = newLang
-      strings = await getStrings()
-    }
+    const strings = await getStrings()
 
     presenceData.smallImageKey = paused ? Assets.Pause : Assets.Play
     presenceData.smallImageText = paused ? strings.pause : strings.play
@@ -58,7 +47,7 @@ presence.on('UpdateData', async () => {
       .replace('%place%', place ?? '')
       .replace('%year%', year ?? '');
 
-    [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(audio)
+    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(audio)
 
     if (paused) {
       delete presenceData.startTimestamp

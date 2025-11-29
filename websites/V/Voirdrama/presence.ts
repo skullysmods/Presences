@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '1234098856376012860',
@@ -21,8 +21,6 @@ let video = {
   currentTime: 0,
   paused: true,
 }
-let currentLang: string
-let strings: { [key: string]: string }
 
 presence.on(
   'iFrameData',
@@ -39,27 +37,22 @@ presence.on('UpdateData', async () => {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/V/Voirdrama/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-  if (newLang !== currentLang) {
-    currentLang = newLang
-    strings = await presence.getStrings(
-      {
-        browsing: 'general.browsing',
-        watchingMovie: 'general.watchingMovie',
-        watchingSeries: 'general.watchingSeries',
-        buttonViewMovie: 'general.buttonViewMovie',
-        buttonViewSeries: 'general.buttonViewSeries',
-        buttonViewPage: 'general.buttonViewPage',
-        viewPage: 'general.viewPage',
-        playing: 'general.playing',
-        searching: 'general.search',
-        searchFor: 'general.searchFor',
-        play: 'general.playing',
-        pause: 'general.paused',
-      },
-      newLang,
-    )
-  }
+
+  const strings = await presence.getStrings({
+    browsing: 'general.browsing',
+    watchingMovie: 'general.watchingMovie',
+    watchingSeries: 'general.watchingSeries',
+    buttonViewMovie: 'general.buttonViewMovie',
+    buttonViewSeries: 'general.buttonViewSeries',
+    buttonViewPage: 'general.buttonViewPage',
+    viewPage: 'general.viewPage',
+    playing: 'general.playing',
+    searching: 'general.search',
+    searchFor: 'general.searchFor',
+    play: 'general.playing',
+    pause: 'general.paused',
+  })
+
   switch (pathArr[1]) {
     case 'drama': {
       const title = document.querySelector('ol > li:nth-child(2) > a')
@@ -72,7 +65,7 @@ presence.on('UpdateData', async () => {
         && title
         && !!document.querySelector('li.active')
       ) {
-        const [startTimestamp, endTimestamp] = presence.getTimestamps(
+        const [startTimestamp, endTimestamp] = getTimestamps(
           video.currentTime,
           video.duration,
         )

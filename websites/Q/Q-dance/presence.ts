@@ -6,33 +6,25 @@ const presence = new Presence({
 const elapsed = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      live: 'general.live',
-    },
-
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    live: 'general.live',
+  })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/Q/Q-dance/assets/logo.png',
     name: 'Q-dance',
   }
-  const [newLang, privacy, buttons, covers] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons, covers] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('covers'),
   ])
   const { href } = document.location
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
+
   if (privacy) {
     presenceData.details = 'Browsing'
   }

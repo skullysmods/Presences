@@ -1,32 +1,29 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '822457774574272592',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      watchingVid: 'general.watchingVid',
-      watching: 'general.watching',
-      search: 'general.search',
-      searchFor: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      playingTrivia: 'watchmojo.playingTrivia',
-      trivia: 'watchmojo.trivia',
-      triviaGame: 'watchmojo.triviaGame',
-      article: 'general.readingArticle',
-      category: 'general.viewCategory',
-      viewChannel: 'general.viewChannel',
-      buttonViewChannel: 'general.buttonViewChannel',
-      buttonReadArticle: 'general.buttonReadArticle',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      buttonPlayTrivia: 'watchmojo.buttonPlayTrivia',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    watchingVid: 'general.watchingVid',
+    watching: 'general.watching',
+    search: 'general.search',
+    searchFor: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    playingTrivia: 'watchmojo.playingTrivia',
+    trivia: 'watchmojo.trivia',
+    triviaGame: 'watchmojo.triviaGame',
+    article: 'general.readingArticle',
+    category: 'general.viewCategory',
+    viewChannel: 'general.viewChannel',
+    buttonViewChannel: 'general.buttonViewChannel',
+    buttonReadArticle: 'general.buttonReadArticle',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    buttonPlayTrivia: 'watchmojo.buttonPlayTrivia',
+  })
 }
 function capitalize(s: string) {
   s = s.replace('%20', '-')
@@ -45,8 +42,6 @@ function capitalize(s: string) {
 
 let browsingTimestamp = Math.floor(Date.now() / 1000)
 let prevUrl = document.location.href
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 let iframeDur = 0
 let iframeCur = 0
 let iframePau = false
@@ -68,11 +63,12 @@ presence.on(
 )
 
 presence.on('UpdateData', async () => {
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-  const showBrowsing = await presence.getSetting<boolean>('browse')
-  const showTimestamp = await presence.getSetting<boolean>('timestamp')
-  const showButtons = await presence.getSetting<boolean>('buttons')
-  const privacy = await presence.getSetting<boolean>('privacy')
+  const [showBrowsing, showTimestamp, showButtons, privacy] = await Promise.all([
+    presence.getSetting<boolean>('browse'),
+    presence.getSetting<boolean>('timestamp'),
+    presence.getSetting<boolean>('buttons'),
+    presence.getSetting<boolean>('privacy'),
+  ])
   const video = document.querySelector<HTMLVideoElement>('#myDiv_html5')
 
   let presenceData: PresenceData = {
@@ -83,11 +79,7 @@ presence.on('UpdateData', async () => {
     prevUrl = document.location.href
     browsingTimestamp = Math.floor(Date.now() / 1000)
   }
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const statics: {
     [name: string]: PresenceData
@@ -105,12 +97,12 @@ presence.on('UpdateData', async () => {
       startTimestamp: video?.paused
         ? null
         : video
-          ? presence.getTimestampsfromMedia(video)[0]
+          ? getTimestampsFromMedia(video)[0]
           : null,
       endTimestamp: video?.paused
         ? null
         : video
-          ? presence.getTimestampsfromMedia(video)[1]
+          ? getTimestampsFromMedia(video)[1]
           : null,
       buttons: [{ label: strings.buttonWatchVideo, url: document.URL }],
     },
@@ -161,10 +153,10 @@ presence.on('UpdateData', async () => {
       smallImageText: iframePau ? strings.pause : strings.play,
       startTimestamp: iframePau
         ? 0
-        : presence.getTimestamps(iframeCur, iframeDur)[0],
+        : getTimestamps(iframeCur, iframeDur)[0],
       endTimestamp: iframePau
         ? 0
-        : presence.getTimestamps(iframeCur, iframeDur)[1],
+        : getTimestamps(iframeCur, iframeDur)[1],
       buttons: [{ label: strings.buttonPlayTrivia, url: document.URL }],
     },
     '/blog/(\\d*)/(\\d*)/(\\d*)/': {

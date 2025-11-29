@@ -5,27 +5,18 @@ const presence = new Presence({
 })
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browsing: 'general.browsing',
-      reading: 'general.reading',
-    },
-
-  )
+  return presence.getStrings({
+    browsing: 'general.browsing',
+    reading: 'general.reading',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const path = window.location.pathname.split('/').slice(1)
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/M/My%20Nintendo/assets/logo.png',
   }
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-  oldLang = newLang
-  if (!strings || oldLang !== newLang)
-    strings = await getStrings()
+  const strings = await getStrings()
 
   switch (path[0]) {
     // Reward Categories

@@ -11,64 +11,54 @@ function pathIncludes(string: string): boolean {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browsing: 'general.browsing',
-      reading: 'general.reading',
-      viewPage: 'general.viewPage',
-      viewUser: 'general.viewUser',
-      viewPresence: 'premid.viewPresence',
-      docs: 'premid.docs',
-      home: 'premid.pageHome',
-      contributors: 'premid.pageContributors',
-      downloads: 'premid.pageDownloads',
-      store: 'premid.pageStore',
-      cookies: 'general.cookie',
-      privacy: 'general.privacy',
-      terms: 'general.terms',
-      about: 'premid.pageAbout',
-      sysreq: 'premid.pageSysReq',
-      install: 'premid.pageInstall',
-      installFor: 'premid.pageInstallFor',
-      yikes: 'premid.pageTroubleshooting',
-      start: 'premid.pageStart',
-      api: 'premid.pageApi',
-      apiPage: 'premid.pageApiVersion',
-      presenceDev: 'premid.pagePresenceDev',
-      presenceGuide: 'premid.pagePresenceGuide',
-      partners: 'premid.partners',
-      view: 'general.view',
-      incident: 'general.incidentHistory',
-      uptime: 'general.uptimeHistory',
-      class: 'premid.pagePresenceClass',
-      slideshow: 'premid.pageSlideshowClass',
-      iframe: 'premid.pageIframe',
-      metadata: 'premid.pageMetadata',
-      ts: 'premid.pageTs',
-      btnViewPage: 'general.buttonViewPage',
-    },
-
-  )
+  return presence.getStrings({
+    browsing: 'general.browsing',
+    reading: 'general.reading',
+    viewPage: 'general.viewPage',
+    viewUser: 'general.viewUser',
+    viewPresence: 'premid.viewPresence',
+    docs: 'premid.docs',
+    home: 'premid.pageHome',
+    contributors: 'premid.pageContributors',
+    downloads: 'premid.pageDownloads',
+    store: 'premid.pageStore',
+    cookies: 'general.cookie',
+    privacy: 'general.privacy',
+    terms: 'general.terms',
+    about: 'premid.pageAbout',
+    sysreq: 'premid.pageSysReq',
+    install: 'premid.pageInstall',
+    installFor: 'premid.pageInstallFor',
+    yikes: 'premid.pageTroubleshooting',
+    start: 'premid.pageStart',
+    api: 'premid.pageApi',
+    apiPage: 'premid.pageApiVersion',
+    presenceDev: 'premid.pagePresenceDev',
+    presenceGuide: 'premid.pagePresenceGuide',
+    partners: 'premid.partners',
+    view: 'general.view',
+    incident: 'general.incidentHistory',
+    uptime: 'general.uptimeHistory',
+    class: 'premid.pagePresenceClass',
+    slideshow: 'premid.pageSlideshowClass',
+    iframe: 'premid.pageIframe',
+    metadata: 'premid.pageMetadata',
+    ts: 'premid.pageTs',
+    btnViewPage: 'general.buttonViewPage',
+  })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 let host: string
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/P/PreMiD/assets/logo.png',
   }
-  const [newLang, time, showButtons] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [time, showButtons] = await Promise.all([
     presence.getSetting<string>('time'),
     presence.getSetting<string>('showButtons'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (showButtons) {
     presenceData.buttons = [
@@ -131,9 +121,9 @@ presence.on('UpdateData', async () => {
           presenceData.details = strings.viewUser
           presenceData.state = document.querySelector('div.user-data p')
             ? document
-              .querySelector('div.user-data p')
-              ?.textContent
-              ?.replace(/\s+/g, '')
+                .querySelector('div.user-data p')
+                ?.textContent
+                ?.replace(/\s+/g, '')
             : 'USER NOT FOUND...'
 
           if (icon) {
@@ -151,9 +141,9 @@ presence.on('UpdateData', async () => {
             '.header__title > div > h1',
           )
             ? document
-              .querySelector('.header__title > div > h1')
-              ?.textContent
-              ?.replace(/^\s+|\s+$/g, '')
+                .querySelector('.header__title > div > h1')
+                ?.textContent
+                ?.replace(/^\s+|\s+$/g, '')
             : strings.store
 
           if (icon) {

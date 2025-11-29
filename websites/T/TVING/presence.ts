@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '831432191120375829',
@@ -69,7 +69,7 @@ presence.on('UpdateData', async () => {
         }
 
         if (!video.paused) {
-          [data.startTimestamp, data.endTimestamp] = presence.getTimestampsfromMedia(video)
+          [data.startTimestamp, data.endTimestamp] = getTimestampsFromMedia(video)
         }
 
         data.buttons = [
@@ -92,7 +92,7 @@ presence.on('UpdateData', async () => {
       smallImageText: video && video.paused ? '일시 정지' : '재생 중',
       endTimestamp: (() => {
         if (video && !video.paused)
-          return presence.getTimestampsfromMedia(video).pop()
+          return getTimestampsFromMedia(video).pop()
       })(),
       buttons: [
         {

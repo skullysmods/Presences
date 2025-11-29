@@ -8,8 +8,6 @@ enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/K/KOCOWA/assets/0.gif',
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
@@ -132,12 +130,7 @@ async function getEpisodeInfo(episodeId: string) {
 
 presence.on('UpdateData', async () => {
   const { pathname, href } = document.location
-
-  const currentLang = navigator.language.toLowerCase().startsWith('es') ? 'es' : 'en'
-  if (!strings || oldLang !== currentLang) {
-    strings = await getStrings()
-    oldLang = currentLang
-  }
+  const strings = await getStrings()
   const pathSegments = pathname.toLowerCase().split('/')
   const lastSegment = pathSegments[pathSegments.length - 1]
 

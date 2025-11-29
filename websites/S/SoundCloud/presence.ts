@@ -9,14 +9,13 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      search: 'general.searchSomething',
-    },
-  )
+  return presence.getStrings({
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    search: 'general.searchSomething',
+  })
 }
+
 function getElement(query: string): string | undefined {
   let text: string | undefined = ''
 
@@ -34,8 +33,6 @@ function capitalize(text: string): string {
 
 let elapsed = Math.floor(Date.now() / 1000)
 let prevUrl = document.location.href
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 const statics = {
   '/stream/': {
@@ -124,7 +121,6 @@ presence.on('UpdateData', async () => {
     showCover,
     links,
     displayType,
-    newLang,
   ] = await Promise.all([
     presence.getSetting<boolean>('browse'),
     presence.getSetting<boolean>('song'),
@@ -133,14 +129,9 @@ presence.on('UpdateData', async () => {
     presence.getSetting<boolean>('cover'),
     presence.getSetting<boolean>('links'),
     presence.getSetting<number>('displayType'),
-    presence.getSetting<string>('lang').catch(() => 'en'),
   ])
   const playing = Boolean(document.querySelector('.playControls__play.playing'))
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (showSong && hidePaused && !playing && !showBrowsing)
     return presence.clearActivity()

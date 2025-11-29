@@ -8,35 +8,24 @@ function pathIncludes(string: string): boolean {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      readingThread: 'general.readingThread',
-      reading: 'general.reading',
-      viewProfileButton: 'general.buttonViewProfile',
-      viewProfile: 'general.viewProfile',
-      search: 'general.searchSomething',
-      terms: 'general.terms',
-      dm: 'general.readingDM',
-      viewPage: 'general.viewPage',
-      viewHome: 'general.viewHome',
-    },
-
-  )
+  return presence.getStrings({
+    readingThread: 'general.readingThread',
+    reading: 'general.reading',
+    viewProfileButton: 'general.buttonViewProfile',
+    viewProfile: 'general.viewProfile',
+    search: 'general.searchSomething',
+    terms: 'general.terms',
+    dm: 'general.readingDM',
+    viewPage: 'general.viewPage',
+    viewHome: 'general.viewHome',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/L/Lolz.guru/assets/logo.jpg',
   }
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   switch (true) {
     case pathIncludes('/threads'):

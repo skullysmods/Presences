@@ -124,7 +124,7 @@ function simplifyKey(key: string): string {
   }
   if (result.startsWith('Generated'))
     result = result.replace('Generated', '')
-  if (result.match(/(Horizontal|Vertical|Inverted|Inverse)/)) {
+  if (result.match(/Horizontal|Vertical|Inverted|Inverse/)) {
     let previous = ''
     while (previous !== result) {
       previous = result
@@ -195,9 +195,9 @@ presence.on('UpdateData', async () => {
           }${
             mapSmallImages === 0 || mapSmallImages === 2
               ? document
-                .querySelector<HTMLDivElement>('.tag')
-                ?.title
-                .replace('+', 'Plus')
+                  .querySelector<HTMLDivElement>('.tag')
+                  ?.title
+                  .replace('+', 'Plus')
               : ''
           }`,
         )
@@ -206,18 +206,18 @@ presence.on('UpdateData', async () => {
         `Unknown${
           mapSmallImages === 0 || mapSmallImages === 2
             ? document
-              .querySelector<HTMLDivElement>('.tag')
-              ?.title
-              .replace('+', 'Plus')
+                .querySelector<HTMLDivElement>('.tag')
+                ?.title
+                .replace('+', 'Plus')
             : ''
         }`
       ]
       presenceData.smallImageText = `${
         mapSmallImages === 0 || mapSmallImages === 1
           ? document
-            .querySelector('.content .content>b:last-of-type')
-            ?.textContent
-            ?.replace('Solo', '')
+              .querySelector('.content .content>b:last-of-type')
+              ?.textContent
+              ?.replace('Solo', '')
           : ''
       } ${
         mapSmallImages === 0 || mapSmallImages === 2

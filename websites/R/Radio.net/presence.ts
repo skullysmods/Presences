@@ -1,13 +1,19 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '634124614544392193',
 })
 
-let oldLang: string,
-  newLang: string,
-  strings: Awaited<ReturnType<typeof getStrings>>,
-  timestamp: number
+async function getStrings() {
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    search: 'general.searching',
+    browsing: 'general.browsing',
+  })
+}
+
+let timestamp: number
 
 presence.on('UpdateData', async () => {
   const host = window.location.hostname.split('.')
@@ -15,11 +21,7 @@ presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/R/Radio.net/assets/logo.png',
   }
-
-  oldLang = newLang
-  newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-  if (!strings || oldLang !== newLang)
-    strings = await getStrings(newLang)
+  const strings = await getStrings()
 
   if (host[0] === 'corporate') {
     // Corporate page
@@ -92,9 +94,9 @@ presence.on('UpdateData', async () => {
             .querySelector<HTMLDivElement>('.player__timing-wrap')
             ?.textContent
             ?.split('|') ?? []
-          const timestamps = presence.getTimestamps(
-            presence.timestampFromFormat(times[0] ?? ''),
-            presence.timestampFromFormat(times[1] ?? ''),
+          const timestamps = getTimestamps(
+            timestampFromFormat(times[0] ?? ''),
+            timestampFromFormat(times[1] ?? ''),
           )
 
           presenceData.details = document.querySelector<HTMLHeadingElement>('h1')?.textContent
@@ -152,15 +154,3 @@ presence.on('UpdateData', async () => {
     }
   }
 })
-
-async function getStrings(lang: string) {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      search: 'general.searching',
-      browsing: 'general.browsing',
-    },
-    lang,
-  )
-}

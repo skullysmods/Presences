@@ -8,16 +8,10 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-    },
-
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -25,17 +19,12 @@ presence.on('UpdateData', async () => {
     startTimestamp: browsingTimestamp,
     name: 'LiveLinkBio',
   }
-  const [newLang, privacy, buttons] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
   ])
   const { href, pathname } = document.location
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
   if (privacy) {
     presenceData.details = strings.browse
     presence.setActivity(presenceData)

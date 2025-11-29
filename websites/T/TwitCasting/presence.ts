@@ -1,42 +1,36 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps } from 'premid'
 
 let elapsed = Math.floor(Date.now() / 1000)
-let oldLang = 'en'
 let prevUrl = document.location.href
 
 const presence = new Presence({
   clientId: '951488835718635600',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      playing: 'general.playing',
-      paused: 'general.paused',
-      live: 'general.live',
-      viewHome: 'general.viewHome',
-      viewProfile: 'general.viewProfile',
-      buttonViewProfile: 'general.buttonViewProfile',
-      browsing: 'general.browsing',
-      watchingLive: 'general.watchingLive',
-      watchingVid: 'general.watchingVid',
-      viewCategory: 'general.viewCategory',
-      viewTheir: 'twitcasting.viewTheir',
-      followList: 'twitcasting.followList',
-      dashboardManage: 'twitcasting.dashboardManage',
-      subs: 'twitcasting.subs',
-      browsingVideos: 'twitcasting.browsingVideos',
-      ofChannel: 'twitcasting.ofChannel',
-      searchFor: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      search: 'general.search',
-      buttonWatchStream: 'general.buttonWatchStream',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-    },
-    oldLang,
-  )
+  return presence.getStrings({
+    playing: 'general.playing',
+    paused: 'general.paused',
+    live: 'general.live',
+    viewHome: 'general.viewHome',
+    viewProfile: 'general.viewProfile',
+    buttonViewProfile: 'general.buttonViewProfile',
+    browsing: 'general.browsing',
+    watchingLive: 'general.watchingLive',
+    watchingVid: 'general.watchingVid',
+    viewCategory: 'general.viewCategory',
+    viewTheir: 'twitcasting.viewTheir',
+    followList: 'twitcasting.followList',
+    dashboardManage: 'twitcasting.dashboardManage',
+    subs: 'twitcasting.subs',
+    browsingVideos: 'twitcasting.browsingVideos',
+    ofChannel: 'twitcasting.ofChannel',
+    searchFor: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    search: 'general.search',
+    buttonWatchStream: 'general.buttonWatchStream',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -45,7 +39,6 @@ presence.on('UpdateData', async () => {
   } as PresenceData
   const [
     showTimestamps,
-    newLang,
     privacy,
     vidDetail,
     vidState,
@@ -55,7 +48,6 @@ presence.on('UpdateData', async () => {
     buttons,
   ] = await Promise.all([
     presence.getSetting<boolean>('timestamp'),
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<string>('vidDetail'),
     presence.getSetting<string>('vidState'),
@@ -73,11 +65,7 @@ presence.on('UpdateData', async () => {
     ?.split('\n')[0]
   const channelName = document.querySelector<HTMLSpanElement>('.tw-user-nav-name')?.textContent
   const game = document.querySelector<HTMLAnchorElement>('.category-label')?.textContent
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (href !== prevUrl) {
     prevUrl = href
@@ -163,7 +151,7 @@ presence.on('UpdateData', async () => {
         delete presenceData.startTimestamp
 
         if (!paused) {
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(currentTime, duration)
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(currentTime, duration)
         }
 
         presenceData.smallImageKey = paused ? Assets.Pause : Assets.Play

@@ -1,29 +1,23 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '503557087041683458',
 })
 const browingTimestamp = Math.floor(Date.now() / 1000)
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      paused: 'general.paused',
-      browse: 'general.browsing',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      viewCategory: 'general.viewCategory',
-      search: 'general.searchFor',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    paused: 'general.paused',
+    browse: 'general.browsing',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    viewCategory: 'general.viewCategory',
+    search: 'general.searchFor',
+  })
 }
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/L/LookMovie/assets/logo.png',
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -34,16 +28,12 @@ presence.on('UpdateData', async () => {
   const video = document.querySelector<HTMLVideoElement>('video')
   const search = document.querySelector<HTMLInputElement>('[id="search_input"]')
   const { pathname, href } = document.location
-  const [newLang, privacy, buttons, covers] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons, covers] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('covers'),
   ])
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (privacy) {
     presenceData.details = strings.browse
@@ -82,7 +72,7 @@ presence.on('UpdateData', async () => {
 
     presenceData.smallImageKey = video.paused ? Assets.Pause : Assets.Play
     presenceData.smallImageText = video.paused ? strings.paused : strings.play;
-    [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
     presenceData.largeImageKey = document
       .querySelector('[id="longInfo"]')
       ?.firstElementChild

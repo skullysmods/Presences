@@ -9,7 +9,6 @@ enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/R/Royal%20Road/assets/logo.png',
 }
 
-// Todo - Multilanguage functionality as hard to test atm due to bugs.
 async function getStrings() {
   return presence.getStrings({
     home: 'general.viewHome',
@@ -22,9 +21,6 @@ async function getStrings() {
   })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
   let presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
@@ -33,17 +29,12 @@ presence.on('UpdateData', async () => {
     smallImageText: 'Browsing on Royal Road',
   }
   const { href, pathname } = document.location
-  const [showTimestamp, showButtons, newLang, privacy] = await Promise.all([
+  const [showTimestamp, showButtons, privacy] = await Promise.all([
     presence.getSetting<boolean>('timestamp'),
     presence.getSetting<boolean>('buttons'),
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('privacy'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (privacy) {
     presenceData.details = strings.browse

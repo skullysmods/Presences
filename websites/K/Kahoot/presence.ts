@@ -54,7 +54,6 @@ async function getStrings() {
 }
 
 let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 let browsingTimestamp = Math.floor(Date.now() / 1000)
 // 0 - ready to be updated if needed
 // 1 - updated, ready to be reset to 0
@@ -75,17 +74,8 @@ presence.on('UpdateData', async () => {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/K/Kahoot/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
-  const [buttons, newLang] = await Promise.all([
-    await presence.getSetting<boolean>('buttons'),
-    await presence.getSetting<string>('lang').catch(() => 'en'),
-  ])
-
-  oldLang ??= newLang
-  strings ??= await getStrings()
-  if (oldLang !== newLang) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const buttons = await presence.getSetting<boolean>('buttons')
+  strings = await getStrings()
 
   const { host, pathname } = document.location
   switch (host) {

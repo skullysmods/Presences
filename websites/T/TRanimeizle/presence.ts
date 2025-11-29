@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '819994268801957899',
@@ -14,13 +14,10 @@ const pages: { [k: string]: string } = {
   '/Account/Login': 'Giriş Yap',
   '/Account/Register': 'Kayıt Ol',
 }
-const strings = presence.getStrings(
-  {
-    play: 'general.playing',
-    pause: 'general.paused',
-  },
-  'tr',
-)
+const strings = presence.getStrings({
+  play: 'general.playing',
+  pause: 'general.paused',
+})
 
 interface iframeData {
   duration: number
@@ -83,7 +80,7 @@ presence.on('UpdateData', async () => {
   }
   else if (Object.keys(video || {}).length > 0) {
     // Set timestamps
-    [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(video.currentTime, video.duration)
+    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(video.currentTime, video.duration)
 
     if (video.paused) {
       delete presenceData.startTimestamp

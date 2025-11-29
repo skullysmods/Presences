@@ -29,7 +29,7 @@ presence.on('UpdateData', async () => {
         presenceData.details = privacy
           ? 'Project dashboard'
           : `${document?.title?.replace(
-            / \| Studio(\.Design)?$/, // Global: Studio.Design / Japanese: Studio
+            / \| Studio(?:\.Design)?$/, // Global: Studio.Design / Japanese: Studio
             '',
           )} | Dashboard`
         // Home

@@ -16,30 +16,24 @@ const presence = new Presence({
   clientId: '926541425682829352',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      watchingMovie: 'general.watchingMovie',
-      watchingSeries: 'general.watchingSeries',
-      viewSeries: 'general.buttonViewSeries',
-      viewMovies: 'general.buttonViewMovie',
-      watchEpisode: 'general.buttonViewEpisode',
-      watchMovie: 'general.buttonWatchMovie',
-      seriesDisplayFull: 'netflix.seriesDisplay.full',
-      seriesDisplayShort: 'netflix.seriesDisplay.short',
-      movieDisplay: 'netflix.movieDisplay',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    watchingMovie: 'general.watchingMovie',
+    watchingSeries: 'general.watchingSeries',
+    viewSeries: 'general.buttonViewSeries',
+    viewMovies: 'general.buttonViewMovie',
+    watchEpisode: 'general.buttonViewEpisode',
+    watchMovie: 'general.buttonWatchMovie',
+    seriesDisplayFull: 'netflix.seriesDisplay.full',
+    seriesDisplayShort: 'netflix.seriesDisplay.short',
+    movieDisplay: 'netflix.movieDisplay',
+  })
 }
-let oldLang: string | null = null
-let strings: Awaited<ReturnType<typeof getStrings>>
 
 presence.on('UpdateData', async () => {
   const [
-    lang,
     usePresenceName,
     showTimestamp,
     showBrowsingStatus,
@@ -50,7 +44,6 @@ presence.on('UpdateData', async () => {
     logoType,
     privacyMode,
   ] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('usePresenceName'),
     presence.getSetting<boolean>('timestamp'),
     presence.getSetting<boolean>('showBrowsingStatus'),
@@ -61,11 +54,7 @@ presence.on('UpdateData', async () => {
     presence.getSetting<number>('logoType'),
     presence.getSetting<boolean>('privacy'),
   ])
-
-  if (oldLang !== lang) {
-    oldLang = lang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const path = document.location.href
   //* Match /title/id and get id (When you load the page / reload while browsing)

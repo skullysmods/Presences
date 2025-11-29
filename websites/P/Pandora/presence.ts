@@ -1,4 +1,4 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '608109837657702566',
@@ -80,11 +80,11 @@ presence.on('UpdateData', async () => {
         // If duration controls exist, set the timestamps and small image text appropriately
         if (timeElapsed && timeRemaining) {
           // Get timestamps
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
-            presence.timestampFromFormat(
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
+            timestampFromFormat(
               stripText(timeElapsed, 'Time Elapsed')!,
             ),
-            presence.timestampFromFormat(
+            timestampFromFormat(
               stripText(timeRemaining, 'Time Remaining')!,
             ),
           )

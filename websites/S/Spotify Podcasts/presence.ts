@@ -1,4 +1,4 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '619561001234464789',
@@ -12,45 +12,39 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      featured: 'spotify.featured',
-      bestPodcasts: 'spotify.bestPodcasts',
-      charts: 'spotify.charts',
-      genres: 'spotify.genres',
-      latest: 'spotify.latest',
-      discover: 'spotify.discover',
-      browse: 'spotify.browse',
-      podcastLike: 'spotify.podcastsLike',
-      artistLike: 'spotify.artistsLike',
-      albumLike: 'spotify.albumLike',
-      songLike: 'spotify.songsLike',
-      forMeh: 'spotify.madeForYou',
-      playlist: 'spotify.playlists',
-      viewPlaylist: 'general.viewPlaylist',
-      download: 'spotify.download',
-      view: 'general.view',
-      account: 'general.viewAccount',
-      search: 'general.search',
-      searchFor: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      browsing: 'general.browsing',
-      listening: 'general.listeningMusic',
-      show: 'general.viewShow',
-      artist: 'general.buttonViewArtist',
-      viewPodcast: 'general.buttonViewPodcast',
-      buttonViewPlaylist: 'general.buttonViewPlaylist',
-      viewHome: 'general.viewHome',
-      viewPage: 'general.buttonViewPage',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    featured: 'spotify.featured',
+    bestPodcasts: 'spotify.bestPodcasts',
+    charts: 'spotify.charts',
+    genres: 'spotify.genres',
+    latest: 'spotify.latest',
+    discover: 'spotify.discover',
+    browse: 'spotify.browse',
+    podcastLike: 'spotify.podcastsLike',
+    artistLike: 'spotify.artistsLike',
+    albumLike: 'spotify.albumLike',
+    songLike: 'spotify.songsLike',
+    forMeh: 'spotify.madeForYou',
+    playlist: 'spotify.playlists',
+    viewPlaylist: 'general.viewPlaylist',
+    download: 'spotify.download',
+    view: 'general.view',
+    account: 'general.viewAccount',
+    search: 'general.search',
+    searchFor: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    browsing: 'general.browsing',
+    listening: 'general.listeningMusic',
+    show: 'general.viewShow',
+    artist: 'general.buttonViewArtist',
+    viewPodcast: 'general.buttonViewPodcast',
+    buttonViewPlaylist: 'general.buttonViewPlaylist',
+    viewHome: 'general.viewHome',
+    viewPage: 'general.buttonViewPage',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   let presenceData: PresenceData = {
@@ -58,20 +52,14 @@ presence.on('UpdateData', async () => {
     type: ActivityType.Listening,
   }
 
-  //* Update strings if user selected another language.
-  const [newLang, privacy, timestamps, cover, buttons] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, timestamps, cover, buttons] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('timestamps'),
     presence.getSetting<boolean>('cover'),
     presence.getSetting<boolean>('buttons'),
   ])
   const { href, pathname, hostname } = document.location
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const pages: Record<string, PresenceData> = {
     '/browse/featured': {
@@ -390,12 +378,12 @@ presence.on('UpdateData', async () => {
 
     presenceData.smallImageKey = pause ? Assets.Pause : Assets.Play
     presenceData.smallImageText = pause ? strings.pause : strings.play;
-    [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
-      presence.timestampFromFormat(
+    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
+      timestampFromFormat(
         document.querySelector('[data-testid="playback-position"]')
           ?.textContent ?? '',
       ),
-      presence.timestampFromFormat(
+      timestampFromFormat(
         document.querySelector('[data-testid="playback-duration"]')
           ?.textContent ?? '',
       ),

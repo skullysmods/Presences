@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '640150336547454976',
@@ -26,8 +26,6 @@ async function getStrings() {
   )
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 let iFrameVideo: boolean
 let currentTime: number
 let duration: number
@@ -60,18 +58,14 @@ presence.on('UpdateData', async () => {
     startTimestamp: browsingTimestamp,
   }
   const { href, pathname } = document.location
-  const [newLang, time, showCover, showButtons, showSearch] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [time, showCover, showButtons, showSearch] = await Promise.all([
     presence.getSetting<boolean>('time'),
     presence.getSetting<boolean>('cover'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('search'),
   ])
 
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   switch (pathname.split('/')[1]) {
     case 'watch': {
@@ -93,7 +87,7 @@ presence.on('UpdateData', async () => {
       if (iFrameVideo && !Number.isNaN(duration)) {
         presenceData.smallImageKey = paused ? Assets.Pause : Assets.Play
         presenceData.smallImageText = paused ? strings.pause : strings.play;
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(Math.floor(currentTime), Math.floor(duration))
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(Math.floor(currentTime), Math.floor(duration))
 
         presenceData.details = season
           ? `${seriesName} - S${season.textContent?.split(' ')[1]} ${episode}`

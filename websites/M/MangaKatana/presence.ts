@@ -11,31 +11,26 @@ const title = document
   ?.getAttribute('content')
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      editing: 'general.editing',
-      genre: 'general.genre',
-      manga: 'general.manga',
-      reading: 'general.reading',
-      readingAbout: 'general.readingAbout',
-      search: 'general.search',
-      searchFor: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      view: 'general.view',
-      viewHome: 'general.viewHome',
-      viewPage: 'general.viewPage',
-      buttonViewPage: 'general.buttonViewPage',
-    },
-
-  )
+  return presence.getStrings({
+    editing: 'general.editing',
+    genre: 'general.genre',
+    manga: 'general.manga',
+    reading: 'general.reading',
+    readingAbout: 'general.readingAbout',
+    search: 'general.search',
+    searchFor: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    view: 'general.view',
+    viewHome: 'general.viewHome',
+    viewPage: 'general.viewPage',
+    buttonViewPage: 'general.buttonViewPage',
+  })
 }
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/M/MangaKatana/assets/logo.png',
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 let currentMangaPage: string | null = null
 
 function textContent(tags: string) {
@@ -59,8 +54,7 @@ presence.on('UpdateData', async () => {
     largeImageKey: ActivityAssets.Logo,
     startTimestamp: browsingTimestamp,
   }
-  const [newLang, privacy, cover, time, buttons, pages] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, cover, time, buttons, pages] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('cover'),
     presence.getSetting<boolean>('time'),
@@ -68,11 +62,7 @@ presence.on('UpdateData', async () => {
     presence.getSetting<boolean>('pages'),
   ])
   const searchInput = document.querySelector<HTMLInputElement>('input#input_search')?.value
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   function getSearchState() {
     if (!search)

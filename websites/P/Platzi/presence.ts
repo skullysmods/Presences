@@ -1,3 +1,5 @@
+import { getTimestampsFromMedia } from 'premid'
+
 const presence = new Presence({
   clientId: '834628404233240628',
 })
@@ -231,7 +233,7 @@ presence.on('UpdateData', async () => {
         ?.className
         .includes('vjs-playing')
     ) {
-      [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
     }
   }
   else if (pathname.includes('/cursos/')) {

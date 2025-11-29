@@ -1,29 +1,24 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '835732953844940822',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      watchingSeries: 'general.watchingSeries',
-      searchFor: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      viewEpisode: 'general.buttonViewEpisode',
-      watchVideo: 'general.buttonWatchVideo',
-      viewList: 'netflix.viewList',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    watchingSeries: 'general.watchingSeries',
+    searchFor: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    viewEpisode: 'general.buttonViewEpisode',
+    watchVideo: 'general.buttonWatchVideo',
+    viewList: 'netflix.viewList',
+  })
 }
 const data: {
-  oldLang?: string
   startedSince?: number
   meta?: Record<string, string | null | undefined>
-  strings?: Awaited<ReturnType<typeof getStrings>>
   coverUrls?: Record<string, string>
   settings?: {
     id?: string
@@ -78,20 +73,15 @@ async function getShortURL(url: string) {
 }
 
 presence.on('UpdateData', async () => {
-  const [newLang, privacy, cover] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, cover] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('cover'),
   ])
-
-  if (data.oldLang !== newLang || !data.strings) {
-    data.oldLang = newLang
-    data.strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/S/Stan/assets/logo.png',
-    details: data.strings.browse,
+    details: strings.browse,
     smallImageKey: Assets.Search,
     startTimestamp: data.startedSince,
   }
@@ -118,16 +108,16 @@ presence.on('UpdateData', async () => {
             ? Assets.Pause
             : Assets.Play
           presenceData.smallImageText = video.paused
-            ? data.strings?.pause
-            : data.strings?.play;
+            ? strings?.pause
+            : strings?.play;
 
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
 
           presenceData.buttons = [
             {
               label: data.meta.episode
-                ? data.strings?.viewEpisode ?? ''
-                : data.strings?.watchVideo ?? '',
+                ? strings?.viewEpisode ?? ''
+                : strings?.watchVideo ?? '',
               url: document.URL,
             },
           ]
@@ -158,7 +148,7 @@ presence.on('UpdateData', async () => {
     '/my/list': {
       disabled: privacy,
       async setPresenceData() {
-        presenceData.details = data.strings?.viewList
+        presenceData.details = strings?.viewList
       },
     },
     '/my/history': {
@@ -169,7 +159,7 @@ presence.on('UpdateData', async () => {
     },
     '/search': {
       async setPresenceData() {
-        presenceData.details = data.strings?.searchFor
+        presenceData.details = strings?.searchFor
         presenceData.state = new URLSearchParams(document.location.search).get(
           'q',
         )
@@ -209,7 +199,7 @@ presence.on('UpdateData', async () => {
           uses: 'details',
           condition: {
             ifTrue: privacy,
-            setTo: data.strings.searchSomething,
+            setTo: strings.searchSomething,
           },
         },
         {

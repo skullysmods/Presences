@@ -1,37 +1,26 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const LOGO_URL = 'https://cdn.rcd.gg/PreMiD/websites/T/Tidal/assets/logo.png'
 const presence = new Presence({ clientId: '901591802342150174' })
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      viewSong: 'general.buttonViewSong',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    viewSong: 'general.buttonViewSong',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   if (!document.querySelector('#footerPlayer'))
     return presence.setActivity({ largeImageKey: LOGO_URL })
 
-  const [newLang, timestamps, cover, buttons] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [timestamps, cover, buttons] = await Promise.all([
     presence.getSetting<boolean>('timestamps'),
     presence.getSetting<boolean>('cover'),
     presence.getSetting<boolean>('buttons'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
   const presenceData: PresenceData = {
     largeImageKey: LOGO_URL,
     type: ActivityType.Listening,
@@ -71,9 +60,9 @@ presence.on('UpdateData', async () => {
     (Number.parseFloat(currentTime?.[0] ?? '') * 60 + Number.parseFloat(currentTime?.[1] ?? '')) * 1000 > 0
     || !paused
   ) {
-    [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
-      presence.timestampFromFormat(currentTime ?? ''),
-      presence.timestampFromFormat(
+    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
+      timestampFromFormat(currentTime ?? ''),
+      timestampFromFormat(
         document.querySelector<HTMLElement>('time[data-test="duration"]')
           ?.textContent ?? '',
       ),

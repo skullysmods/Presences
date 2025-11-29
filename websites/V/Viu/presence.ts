@@ -1,32 +1,27 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '815947069117169684',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      episode: 'general.episode',
-      searchSomething: 'general.searchSomething',
-      watchVideo: 'general.buttonWatchVideo',
-      viewPage: 'general.viewPage',
-      viewingShow: 'general.viewShow',
-      viewingMovie: 'general.viewMovie',
-      watchMovie: 'general.buttonWatchMovie',
-      watchEpisode: 'general.buttonViewEpisode',
-      searching: 'general.search',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    episode: 'general.episode',
+    searchSomething: 'general.searchSomething',
+    watchVideo: 'general.buttonWatchVideo',
+    viewPage: 'general.viewPage',
+    viewingShow: 'general.viewShow',
+    viewingMovie: 'general.viewMovie',
+    watchMovie: 'general.buttonWatchMovie',
+    watchEpisode: 'general.buttonViewEpisode',
+    searching: 'general.search',
+  })
 }
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
-let strings: Awaited<ReturnType<typeof getStrings>>
 let oldPath: string | null = null
-let oldLang: string | null = null
 let seriesInfo: SeriesInfo[] | null = null
 let isWatingForResponse = false
 
@@ -113,16 +108,11 @@ enum ActivityAssets {
 }
 
 presence.on('UpdateData', async () => {
-  const [newLang, buttonsOn, presenceLogo] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [buttonsOn, presenceLogo] = await Promise.all([
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<number>('logo'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (
     (!seriesInfo || oldPath !== location.pathname)
@@ -166,7 +156,7 @@ presence.on('UpdateData', async () => {
         episodeNumber = fullEpisodeName.split('.')[0]!
         episodeName = fullEpisodeName.split('.').slice(1).join('.')
         hasEpName = !episodeName.includes('EP.')
-        part = episodeName.match(/([1-9]\/[1-9])/g) ?? []
+        part = episodeName.match(/[1-9]\/[1-9]/g) ?? []
       }
 
       presenceData.details = document.querySelector('#series_title')?.textContent
@@ -192,7 +182,7 @@ presence.on('UpdateData', async () => {
       presenceData.smallImageKey = video.paused ? Assets.Pause : Assets.Play
       presenceData.smallImageText = video.paused ? strings.pause : strings.play;
 
-      [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
 
       if (buttonsOn) {
         presenceData.buttons = [

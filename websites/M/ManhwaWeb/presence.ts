@@ -26,23 +26,16 @@ async function getStrings() {
   })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
   }
-  const [lang, showTime, privacy, showCover] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [showTime, privacy, showCover] = await Promise.all([
     presence.getSetting<boolean>('time'),
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('cover'),
   ])
-  if (!strings || lang !== oldLang) {
-    oldLang = lang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
   const { pathname } = location
   if (showTime) {
     presenceData.startTimestamp = browsingTimestamp

@@ -11,16 +11,13 @@ enum ActivityAssets {
 let title: string
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      search: 'general.searchFor',
-      viewHome: 'general.viewHome',
-      buttonViewPage: 'general.buttonViewPage',
-      buttonViewProfile: 'general.buttonViewProfile',
-    },
-
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    search: 'general.searchFor',
+    viewHome: 'general.viewHome',
+    buttonViewPage: 'general.buttonViewPage',
+    buttonViewProfile: 'general.buttonViewProfile',
+  })
 }
 
 function capitalizeFirstLetter(string: string) {
@@ -30,8 +27,6 @@ function capitalizeFirstLetter(string: string) {
     string.trim().charAt(0).toUpperCase() + string.trim().slice(1).toLowerCase()
   )
 }
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -40,8 +35,7 @@ presence.on('UpdateData', async () => {
     name: 'Wiki.gg',
   }
   const { pathname, hostname, href } = document.location
-  const [newLang, privacy, buttons] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
   ])
@@ -49,10 +43,8 @@ presence.on('UpdateData', async () => {
     .querySelector('[id="ca-nstab-main"]')
     ?.textContent
     ?.toLowerCase() ?? ''
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
+
   if (privacy) {
     presenceData.details = strings.browse
     presence.setActivity(presenceData)

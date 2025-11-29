@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '639534386538348565',
@@ -70,7 +70,7 @@ presence.on('UpdateData', async () => {
   }
 
   if (iFrameVideo === true && !Number.isNaN(duration)) {
-    timestamps = presence.getTimestamps(
+    timestamps = getTimestamps(
       Math.floor(currentTime),
       Math.floor(duration),
     )

@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '1034799018980679680',
@@ -225,11 +225,11 @@ presence.on('UpdateData', async () => {
             !privacy ? contentTitle : contentSerieTitle ? 'сериал' : 'фильм'
           }`
 
-          const contentTimestamps = presence.getTimestampsfromMedia(
+          const contentTimestamps = getTimestampsFromMedia(
             document.querySelector('video')!,
           );
 
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(contentTimestamps[0], contentTimestamps[1])
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(contentTimestamps[0], contentTimestamps[1])
         }
         else {
           presenceData.details = 'Смотрит телеканал'

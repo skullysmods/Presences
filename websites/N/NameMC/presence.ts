@@ -6,51 +6,40 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      names: 'namemc.upcomingNames',
-      skinsFeatured: 'namemc.skinsTrending',
-      skinsTop: 'namemc.skinsTop',
-      skinsNew: 'namemc.skinsNew',
-      skinsRandom: 'namemc.skinsRandom',
-      skinsTagged: 'namemc.skinsTagged',
-      skinsTag: 'namemc.skinsTag',
-      capes: 'namemc.capes',
-      viewCape: 'namemc.viewCape',
-      servers: 'namemc.servers',
-      viewServer: 'namemc.viewServer',
-      claim: 'namemc.claim',
-      profileEdit: 'namemc.profileEdit',
-      viewFriends: 'namemc.viewFriends',
-      viewSkins: 'namemc.viewSkins',
-      viewEmoji: 'namemc.viewEmojis',
-      viewProfile: 'general.viewProfile',
-      view: 'general.view',
-      privacy: 'general.privacy',
-      search: 'general.searchFor',
-      buttonViewServer: 'namemc.buttonViewServer',
-      buttonViewProfile: 'general.buttonViewProfile',
-      viewSkin: 'namemc.viewSkin',
-    },
-
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    names: 'namemc.upcomingNames',
+    skinsFeatured: 'namemc.skinsTrending',
+    skinsTop: 'namemc.skinsTop',
+    skinsNew: 'namemc.skinsNew',
+    skinsRandom: 'namemc.skinsRandom',
+    skinsTagged: 'namemc.skinsTagged',
+    skinsTag: 'namemc.skinsTag',
+    capes: 'namemc.capes',
+    viewCape: 'namemc.viewCape',
+    servers: 'namemc.servers',
+    viewServer: 'namemc.viewServer',
+    claim: 'namemc.claim',
+    profileEdit: 'namemc.profileEdit',
+    viewFriends: 'namemc.viewFriends',
+    viewSkins: 'namemc.viewSkins',
+    viewEmoji: 'namemc.viewEmojis',
+    viewProfile: 'general.viewProfile',
+    view: 'general.view',
+    privacy: 'general.privacy',
+    search: 'general.searchFor',
+    buttonViewServer: 'namemc.buttonViewServer',
+    buttonViewProfile: 'general.buttonViewProfile',
+    viewSkin: 'namemc.viewSkin',
+  })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
-  const [newLang, privacy, buttons] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   let presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/N/NameMC/assets/logo.png',

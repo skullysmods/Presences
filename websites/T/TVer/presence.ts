@@ -1,38 +1,32 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '1206601150607134780',
 })
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 async function getStrings() {
-  return presence.getStrings(
-    {
-      buttonWatchStream: 'general.buttonWatchStream',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      live: 'general.live',
-      pause: 'general.paused',
-      paused: 'general.paused',
-      play: 'general.playing',
-      playing: 'general.playing',
-      readingArticle: 'general.readingArticle',
-      search: 'general.search',
-      searchFor: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      upload: 'youtube.upload',
-      viewHome: 'general.viewHome',
-      viewList: 'general.viewList',
-      viewSeries: 'general.viewSeries',
-      waitingLive: 'general.waitingLive',
-      waitingLiveThe: 'general.waitingLiveThe',
-      watchingLive: 'general.watchingLive',
-      watchingVid: 'general.watchingVid',
-    },
-
-  )
+  return presence.getStrings({
+    buttonWatchStream: 'general.buttonWatchStream',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    live: 'general.live',
+    pause: 'general.paused',
+    paused: 'general.paused',
+    play: 'general.playing',
+    playing: 'general.playing',
+    readingArticle: 'general.readingArticle',
+    search: 'general.search',
+    searchFor: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    upload: 'youtube.upload',
+    viewHome: 'general.viewHome',
+    viewList: 'general.viewList',
+    viewSeries: 'general.viewSeries',
+    waitingLive: 'general.waitingLive',
+    waitingLiveThe: 'general.waitingLiveThe',
+    watchingLive: 'general.watchingLive',
+    watchingVid: 'general.watchingVid',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -45,7 +39,6 @@ presence.on('UpdateData', async () => {
     buttons,
     liveDetail,
     liveState,
-    newLang,
     privacy,
     showTimestamps,
     vidDetail,
@@ -55,7 +48,6 @@ presence.on('UpdateData', async () => {
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<string>('liveDetail'),
     presence.getSetting<string>('liveState'),
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('timestamp'),
     presence.getSetting<string>('vidDetail'),
@@ -69,11 +61,7 @@ presence.on('UpdateData', async () => {
   const seriesTitle = document.querySelector(
     '[class^=\'titles_container\'] h2',
   )?.textContent
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   switch (pathname) {
     case '/': {
@@ -159,7 +147,7 @@ presence.on('UpdateData', async () => {
             .replace('%title%', title ?? '')
           const { paused } = document.querySelector<HTMLVideoElement>('video')!
           if (!paused) {
-            [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(
+            [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(
               document.querySelector<HTMLVideoElement>('video')!,
             )
           }

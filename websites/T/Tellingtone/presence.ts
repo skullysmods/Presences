@@ -1,25 +1,19 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const presence = new Presence({ clientId: '1006201873985961984' })
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      viewHome: 'general.viewHome',
-      paused: 'general.paused',
-      playing: 'general.playing',
-      episode: 'general.episode',
-      viewPage: 'general.viewPage',
-      buttonViewSeries: 'general.buttonViewSeries',
-      listeningTo: 'general.listeningTo',
-    },
-
-  )
+  return presence.getStrings({
+    viewHome: 'general.viewHome',
+    paused: 'general.paused',
+    playing: 'general.playing',
+    episode: 'general.episode',
+    viewPage: 'general.viewPage',
+    buttonViewSeries: 'general.buttonViewSeries',
+    listeningTo: 'general.listeningTo',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -28,16 +22,11 @@ presence.on('UpdateData', async () => {
   }
   const { pathname, href } = document.location
   const pathSplit = pathname.split('/')
-  const [newLang, time, showCover] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [time, showCover] = await Promise.all([
     presence.getSetting<boolean>('time'),
     presence.getSetting<boolean>('cover'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   switch (pathSplit[1]) {
     case '':
@@ -71,9 +60,9 @@ presence.on('UpdateData', async () => {
     const timers: string[] = []
     for (const element of document.querySelectorAll('div.desktop > div.timer'))
       timers.push(element.textContent!);
-    [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
-      presence.timestampFromFormat(timers[0]!),
-      presence.timestampFromFormat(timers[1]!),
+    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
+      timestampFromFormat(timers[0]!),
+      timestampFromFormat(timers[1]!),
     )
     delete presenceData.buttons
 

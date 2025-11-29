@@ -1,3 +1,5 @@
+import { getTimestamps } from 'premid'
+
 const presence = new Presence({
   clientId: '808664560936026122',
 })
@@ -8,13 +10,10 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      buttonJoinGame: 'skribbl.io.buttonJoinGame',
-      viewHome: 'general.viewHome',
-    },
-
-  )
+  return presence.getStrings({
+    buttonJoinGame: 'skribbl.io.buttonJoinGame',
+    viewHome: 'general.viewHome',
+  })
 }
 
 function getInviteLink() {
@@ -108,20 +107,12 @@ function getGamePhase() {
   return GamePhase.Gameplay
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
   }
   const buttons = await presence.getSetting<boolean>('buttons')
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (isInGame()) {
     const currentPlayer = getCurrentPlayer()
@@ -161,7 +152,7 @@ presence.on('UpdateData', async () => {
           if (/_/.test(currentWord))
             presenceData.state = `Current word: ${currentWord}`
         }
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(0, getTimeRemaining())
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(0, getTimeRemaining())
         break
       }
     }

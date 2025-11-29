@@ -1,19 +1,17 @@
-import { ActivityType } from 'premid'
+import { ActivityType, getTimestampsFromMedia, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '1325035374430519392',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      live: 'general.live',
-      browse: 'general.browsing',
-      watchStream: 'general.buttonWatchStream',
-      watchVideo: 'general.buttonWatchVideo',
-    },
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    live: 'general.live',
+    browse: 'general.browsing',
+    watchStream: 'general.buttonWatchStream',
+    watchVideo: 'general.buttonWatchVideo',
+  })
 }
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
@@ -28,19 +26,12 @@ enum SoopAssets {
   Pause = 'https://cdn.rcd.gg/PreMiD/websites/S/SOOP/assets/3.png',
 }
 
-let oldLang: string, strings: Awaited<ReturnType<typeof getStrings>>
-
 presence.on('UpdateData', async () => {
-  const [newLang, showStreamerLogo, showElapsedTime] = await Promise.all([
-    presence.getSetting<string>('lang'),
+  const [showStreamerLogo, showElapsedTime] = await Promise.all([
     presence.getSetting<boolean>('logo'),
     presence.getSetting<boolean>('time'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const presenceData: PresenceData = {
     details: strings.browse,
@@ -64,7 +55,7 @@ presence.on('UpdateData', async () => {
 
       if (showElapsedTime) {
         presenceData.startTimestamp = Math.floor(Date.now() / 1000)
-          - presence.timestampFromFormat(
+          - timestampFromFormat(
             document.querySelector('span#time')?.textContent ?? '',
           )
       }
@@ -98,7 +89,7 @@ presence.on('UpdateData', async () => {
 
         presenceData.buttons = [{ url: href, label: strings.watchVideo }];
 
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
 
         if (video.paused) {
           delete presenceData.startTimestamp

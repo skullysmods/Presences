@@ -1,23 +1,17 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '921861694190407730',
 })
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      viewAlbum: 'general.buttonViewAlbum',
-      viewPlaylist: 'general.buttonViewPlaylist',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    viewAlbum: 'general.buttonViewAlbum',
+    viewPlaylist: 'general.buttonViewPlaylist',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>> | null = null
-let oldLang: string | null = null
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/Q/Qobuz/assets/logo.png',
@@ -27,25 +21,20 @@ presence.on('UpdateData', async () => {
   if (!document.querySelector('#root'))
     return presence.setActivity({ largeImageKey: ActivityAssets.Logo })
 
-  const [newLang, timestamps, cover] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [timestamps, cover] = await Promise.all([
     presence.getSetting<boolean>('timestamps'),
     presence.getSetting<boolean>('cover'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const presenceData: PresenceData = {
     largeImageKey: cover
       ? document
-        .querySelector<HTMLImageElement>(
-          'div[class="player__track-cover"] img',
-        )
-        ?.src
-        .replaceAll('230', '600')
+          .querySelector<HTMLImageElement>(
+            'div[class="player__track-cover"] img',
+          )
+          ?.src
+          .replaceAll('230', '600')
       : ActivityAssets.Logo,
   }
   const songTitle = document.querySelector<HTMLAnchorElement>(
@@ -54,12 +43,12 @@ presence.on('UpdateData', async () => {
   const fromPlaylist = !!document.querySelectorAll(
     'div[class="player__track-album"] a',
   )[2]
-  const currentTimeSec = presence.timestampFromFormat(
+  const currentTimeSec = timestampFromFormat(
     document.querySelector<HTMLElement>(
       'span[class="player__track-time-text"]',
     )?.textContent ?? '',
   )
-  const endTimeSec = presence.timestampFromFormat(
+  const endTimeSec = timestampFromFormat(
     document.querySelectorAll<HTMLElement>(
       'span[class="player__track-time-text"]',
     )[1]?.textContent ?? '',
@@ -88,7 +77,7 @@ presence.on('UpdateData', async () => {
     + playliststring
 
   if (currentTimeSec > 0 || !paused) {
-    [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(currentTimeSec, endTimeSec)
+    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(currentTimeSec, endTimeSec)
     presenceData.smallImageKey = paused ? Assets.Pause : Assets.Play
     presenceData.smallImageText = paused ? strings.pause : strings.play
   }

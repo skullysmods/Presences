@@ -1,4 +1,4 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '503557087041683458',
@@ -15,9 +15,6 @@ async function getStrings() {
   })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/T/TuneIn/assets/logo.png',
@@ -25,19 +22,14 @@ presence.on('UpdateData', async () => {
     startTimestamp,
     name: 'TuneIn',
   }
-  const [newLang, timestamps, cover, privacy] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [timestamps, cover, privacy] = await Promise.all([
     presence.getSetting<boolean>('timestamps'),
     presence.getSetting<boolean>('cover'),
     presence.getSetting<boolean>('privacy'),
   ])
   const isLive = document.querySelector('[data-icon=\'stop\']')
   const isPlaying = document.querySelector('[data-testid=\'player-status-playing\']')
-
-  if (oldLang !== newLang) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (isLive || isPlaying) {
     if (privacy) {
@@ -66,9 +58,9 @@ presence.on('UpdateData', async () => {
       const duration = document.querySelector('#scrubberDuration')?.textContent
 
       if (elapsed !== '00:00' || duration !== '') {
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
-          presence.timestampFromFormat(elapsed ?? ''),
-          presence.timestampFromFormat(duration ?? ''),
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
+          timestampFromFormat(elapsed ?? ''),
+          timestampFromFormat(duration ?? ''),
         )
       }
     }

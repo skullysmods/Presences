@@ -4,9 +4,6 @@ const presence = new Presence({
   clientId: '681116862930747520',
 })
 
-let oldLang: string
-let newLang: string
-let strings: Awaited<ReturnType<typeof getStrings>>
 let timestamp = 0
 let previous: Location
 let current: Location
@@ -16,11 +13,7 @@ presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/K/Keep%20Talking%20and%20Nobody%20Explodes/assets/logo.png',
   }
-
-  oldLang = newLang
-  newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-  if (!strings || oldLang !== newLang)
-    strings = await getStrings(newLang)
+  const strings = await getStrings()
   current = window.location
 
   if (current.hostname.split('.')[0] === 'bombmanual') {
@@ -129,14 +122,11 @@ presence.on('UpdateData', async () => {
   previous = current
 })
 
-async function getStrings(lang: string) {
-  return presence.getStrings(
-    {
-      reading: 'general.reading',
-      page: 'general.page',
-    },
-    lang,
-  )
+async function getStrings() {
+  return presence.getStrings({
+    reading: 'general.reading',
+    page: 'general.page',
+  })
 }
 
 function getDocumentHeight() {

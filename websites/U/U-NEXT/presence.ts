@@ -1,4 +1,4 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestampsFromMedia } from 'premid'
 import {
   clearLiveMetadata,
   fetchLiveMetadata,
@@ -14,33 +14,27 @@ const presence = new Presence({
   clientId: '1325519017527476316',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browse: 'general.browsing',
-      watchingMovie: 'general.watchingMovie',
-      watchingSeries: 'general.watchingSeries',
-      watchingLive: 'general.watchingLive',
-      viewSeries: 'general.buttonViewSeries',
-      viewMovies: 'general.buttonViewMovie',
-      watchEpisode: 'general.buttonViewEpisode',
-      watchMovie: 'general.buttonWatchMovie',
-      watchStream: 'general.buttonWatchStream',
-      seriesDisplayFull: 'u-next.seriesDisplay.full',
-      seriesDisplayShort: 'u-next.seriesDisplay.short',
-      movieDisplay: 'u-next.movieDisplay',
-      liveDisplay: 'u-next.liveDisplay',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browse: 'general.browsing',
+    watchingMovie: 'general.watchingMovie',
+    watchingSeries: 'general.watchingSeries',
+    watchingLive: 'general.watchingLive',
+    viewSeries: 'general.buttonViewSeries',
+    viewMovies: 'general.buttonViewMovie',
+    watchEpisode: 'general.buttonViewEpisode',
+    watchMovie: 'general.buttonWatchMovie',
+    watchStream: 'general.buttonWatchStream',
+    seriesDisplayFull: 'u-next.seriesDisplay.full',
+    seriesDisplayShort: 'u-next.seriesDisplay.short',
+    movieDisplay: 'u-next.movieDisplay',
+    liveDisplay: 'u-next.liveDisplay',
+  })
 }
-let oldLang: string | null = null
-let strings: Awaited<ReturnType<typeof getStrings>>
 
 presence.on('UpdateData', async () => {
   const [
-    lang,
     usePresenceName,
     showTimestamp,
     showBrowsingStatus,
@@ -50,7 +44,6 @@ presence.on('UpdateData', async () => {
     showSmallImages,
     privacyMode,
   ] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('usePresenceName'),
     presence.getSetting<boolean>('timestamp'),
     presence.getSetting<boolean>('showBrowsingStatus'),
@@ -60,11 +53,7 @@ presence.on('UpdateData', async () => {
     presence.getSetting<boolean>('showSmallImages'),
     presence.getSetting<boolean>('privacy'),
   ])
-
-  if (oldLang !== lang) {
-    oldLang = lang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const path = document.location.href
   //* Match /title/sid and get sid (When you load the page / reload while browsing)
@@ -101,7 +90,7 @@ presence.on('UpdateData', async () => {
   }
 
   //* Match /play/sid/ed and get ed
-  const watchingMediaId = path.match(/\/play\/(\w+)\/(\w+)/)
+  const watchingMediaId = path.match(/\/play\/(\w+)\/\w+/)
   if (watchingMediaId) {
     await fetchMetadata(watchingMediaId[1]!)
     const video = document.querySelector('video')
@@ -110,7 +99,7 @@ presence.on('UpdateData', async () => {
       return
 
     const { paused } = video
-    const [startTimestamp, endTimestamp] = presence.getTimestampsfromMedia(video)
+    const [startTimestamp, endTimestamp] = getTimestampsFromMedia(video)
 
     if (
       metadata?.data?.webfrontTitleStage.keyEpisodes.current
@@ -260,7 +249,7 @@ presence.on('UpdateData', async () => {
       return
 
     const { paused } = video
-    const [startTimestamp, endTimestamp] = presence.getTimestampsfromMedia(video)
+    const [startTimestamp, endTimestamp] = getTimestampsFromMedia(video)
 
     if (privacyMode) {
       return await presence.setActivity({

@@ -11,42 +11,31 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      search: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      viewHome: 'general.viewHome',
-      viewAManga: 'general.viewAManga',
-      viewManga: 'general.viewManga',
-      reading: 'general.reading',
-      viewGenre: 'general.viewGenre',
-    },
-
-  )
+  return presence.getStrings({
+    search: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    viewHome: 'general.viewHome',
+    viewAManga: 'general.viewAManga',
+    viewManga: 'general.viewManga',
+    reading: 'general.reading',
+    viewGenre: 'general.viewGenre',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
   }
-  const [newLang, time, privacy, cover] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [time, privacy, cover] = await Promise.all([
     presence.getSetting<boolean>('time'),
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('cover'),
   ])
   const { pathname } = document.location
+  const strings = await getStrings()
 
   if (time)
     presenceData.startTimestamp = browsingTimestamp
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
 
   if (pathname === '/') {
     presenceData.details = strings.viewHome

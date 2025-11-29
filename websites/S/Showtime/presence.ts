@@ -1,27 +1,24 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '503557087041683458',
 })
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      buttonViewEpisode: 'general.buttonViewEpisode',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      paused: 'general.paused',
-      play: 'general.playing',
-      search: 'general.search',
-      searchFor: 'general.searchFor',
-      viewCategory: 'general.viewCategory',
-      viewHome: 'general.viewHome',
-      viewMovie: 'general.viewMovie',
-      viewShow: 'general.viewShow',
-      watchingVid: 'general.watchingVid',
-    },
-
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    buttonViewEpisode: 'general.buttonViewEpisode',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    paused: 'general.paused',
+    play: 'general.playing',
+    search: 'general.search',
+    searchFor: 'general.searchFor',
+    viewCategory: 'general.viewCategory',
+    viewHome: 'general.viewHome',
+    viewMovie: 'general.viewMovie',
+    viewShow: 'general.viewShow',
+    watchingVid: 'general.watchingVid',
+  })
 }
 
 enum Logo {
@@ -42,13 +39,10 @@ function logoCheck(logoNumber: number) {
           : Logo.RedShowtime // Default (Red)
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 let pathSplit: string[]
 
 presence.on('UpdateData', async () => {
-  const [newLang, privacy, buttons, covers, logo] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons, covers, logo] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('covers'),
@@ -66,11 +60,7 @@ presence.on('UpdateData', async () => {
     ?.textContent
     ?.split(':')
   const video = document.querySelector<HTMLVideoElement>('video')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   switch (hostname.replace('www.', '')) {
     case 'skyshowtime.com': {
@@ -149,7 +139,7 @@ presence.on('UpdateData', async () => {
         }
         case 'playback': {
           if (video && !Number.isNaN(video.duration)) {
-            [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+            [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
             presenceData.smallImageKey = video.paused
               ? Assets.Pause
               : Assets.Play
@@ -244,7 +234,7 @@ presence.on('UpdateData', async () => {
                 }
                 case !!pathSplit[2]?.match(/\d{5}/g): {
                   if (video && !Number.isNaN(video.duration)) {
-                    [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+                    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
                     presenceData.smallImageKey = video.paused
                       ? Assets.Pause
                       : Assets.Play
@@ -277,11 +267,11 @@ presence.on('UpdateData', async () => {
                       ?.toLowerCase()
                       .includes('trailer') // if its a trailer
                       ? document
-                        .querySelector(
-                          '[class="video-metadata__details__title"]',
-                        )
-                        ?.textContent
-                        ?.replace(/Season \d /g, '') // then include trailer info in title
+                          .querySelector(
+                            '[class="video-metadata__details__title"]',
+                          )
+                          ?.textContent
+                          ?.replace(/Season \d /g, '') // then include trailer info in title
                       : title?.[0] // else dont
 
                   presenceData.state = title && title.length > 2

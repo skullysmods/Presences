@@ -5,8 +5,6 @@ enum PresenceClients {
   RedditNetflix = '869992823854870588',
 }
 let presence = new Presence({ clientId: PresenceClients.Reddit })
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/R/Reddit/assets/logo.png',
@@ -14,22 +12,19 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browsing: 'general.browsing',
-      live: 'general.live',
-      profile: 'general.viewProfile',
-      searchSomething: 'general.searchSomething',
-      searching: 'general.search',
-      reading: 'general.readingPost',
-      watching: 'general.watching',
-      readButton: 'general.buttonReadArticle',
-      viewProfileButton: 'general.buttonViewProfile',
-      streamButton: 'general.buttonWatchStream',
-      insubreddit: 'In a subreddit',
-    },
-
-  )
+  return presence.getStrings({
+    browsing: 'general.browsing',
+    live: 'general.live',
+    profile: 'general.viewProfile',
+    searchSomething: 'general.searchSomething',
+    searching: 'general.search',
+    reading: 'general.readingPost',
+    watching: 'general.watching',
+    readButton: 'general.buttonReadArticle',
+    viewProfileButton: 'general.buttonViewProfile',
+    streamButton: 'general.buttonWatchStream',
+    insubreddit: 'In a subreddit',
+  })
 }
 
 const presences: { [key in PresenceClients]?: Presence } = {
@@ -56,8 +51,7 @@ function setClient(clientId: PresenceClients) {
 
 let containsNetflix: boolean = false
 presence.on('UpdateData', async () => {
-  const [newLang, buttons, privacy] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [buttons, privacy] = await Promise.all([
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('privacy'),
   ])
@@ -83,10 +77,7 @@ presence.on('UpdateData', async () => {
     presenceData.largeImageKey = ActivityAssets.Logo
   }
 
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (oldReddit) {
     const subReddit = document.querySelector('.redditname')

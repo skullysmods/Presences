@@ -55,38 +55,30 @@ presence.info(
 let oldUrl: string, elapsed: number
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      readPost: 'x.com.readPost',
-      viewDms: 'x.com.viewDms',
-      viewPosts: 'x.com.viewPosts',
-      viewPostsWithReplies: 'x.com.viewPostsWithReplies',
-      viewMedia: 'x.com.viewMedia',
-      viewLiked: 'x.com.viewLiked',
-      viewList: 'x.com.viewList',
-      bookmarks: 'x.com.bookmarks',
-      notifs: 'x.com.notifs',
-      explore: 'x.com.explore',
-      settings: 'x.com.settings',
-      terms: 'general.terms',
-      privacy: 'general.privacy',
-      browsing: 'general.browsing',
-      search: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      view: 'general.view',
-      profile: 'general.viewProfile',
-    },
-
-  )
+  return presence.getStrings({
+    readPost: 'x.com.readPost',
+    viewDms: 'x.com.viewDms',
+    viewPosts: 'x.com.viewPosts',
+    viewPostsWithReplies: 'x.com.viewPostsWithReplies',
+    viewMedia: 'x.com.viewMedia',
+    viewLiked: 'x.com.viewLiked',
+    viewList: 'x.com.viewList',
+    bookmarks: 'x.com.bookmarks',
+    notifs: 'x.com.notifs',
+    explore: 'x.com.explore',
+    settings: 'x.com.settings',
+    terms: 'general.terms',
+    privacy: 'general.privacy',
+    browsing: 'general.browsing',
+    search: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    view: 'general.view',
+    profile: 'general.viewProfile',
+  })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
-  //* Update strings if user selected another language.
-  const [newLang, privacy, time, twitter] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, time, twitter] = await Promise.all([
     presence.getSetting<number>('privacy'),
     presence.getSetting<boolean>('time'),
     presence.getSetting<boolean>('twitter'),
@@ -100,11 +92,7 @@ presence.on('UpdateData', async () => {
     twitterCheck = twitter
     setClient(PresenceClients.Twitter)
   }
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   let title: string
   let info: string | undefined | null = null

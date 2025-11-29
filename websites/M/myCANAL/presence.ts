@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '503557087041683458',
@@ -182,7 +182,7 @@ presence.on('UpdateData', async () => {
             `#\\3${channelID}_onclick > div > div.card__content_0dae1b.cardContent___DuNAN.ratio--169 > div[class*="cardLogoChannel"] > div > img`,
           )?.alt
         }`;
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(video.currentTime, video.duration)
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(video.currentTime, video.duration)
         presenceData.largeImageKey = showCover
           ? document.querySelector<HTMLImageElement>(
             `#\\3${channelID}_onclick > div > div.card__content_0dae1b.cardContent___DuNAN.ratio--169 > div[class*="cardLogoChannel"] > div > img`,
@@ -198,7 +198,7 @@ presence.on('UpdateData', async () => {
         presenceData.details = document.querySelector(
           '.A6AH2oNkXUuOKJN5IYrL',
         )?.textContent;
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(video.currentTime, video.duration)
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(video.currentTime, video.duration)
         presenceData.largeImageKey = showCover
           ? (presenceData.largeImageKey = await getThumbnail(
               document.querySelector<HTMLMetaElement>('[property=\'og:image\']')
@@ -214,7 +214,7 @@ presence.on('UpdateData', async () => {
       case containsTerm('jeunesse'):
         presenceData.details = titleTvShows[0]?.textContent?.trim()
         presenceData.state = titleTvShows[1]?.textContent?.trim();
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(video.currentTime, video.duration)
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(video.currentTime, video.duration)
         presenceData.largeImageKey = showCover
           ? (presenceData.largeImageKey = await getThumbnail(
               document.querySelector<HTMLMetaElement>('[property=\'og:image\']')

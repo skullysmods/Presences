@@ -1,4 +1,4 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '1071912828027535462',
@@ -9,22 +9,19 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      viewHome: 'general.viewHome',
-      view: 'general.view',
-      search: 'general.search',
-      viewGenre: 'general.viewGenre',
-      play: 'general.watchingVid',
-      pause: 'general.paused',
-      searchSomething: 'general.searchSomething',
-      buttonViewSeries: 'general.buttonViewSeries',
-      viewSeries: 'general.viewSeries',
-      watchingSeries: 'general.watchingSeries',
-      viewPage: 'general.viewPage',
-    },
-    await presence.getSetting<string>('lang').catch(() => 'pl'),
-  )
+  return presence.getStrings({
+    viewHome: 'general.viewHome',
+    view: 'general.view',
+    search: 'general.search',
+    viewGenre: 'general.viewGenre',
+    play: 'general.watchingVid',
+    pause: 'general.paused',
+    searchSomething: 'general.searchSomething',
+    buttonViewSeries: 'general.buttonViewSeries',
+    viewSeries: 'general.viewSeries',
+    watchingSeries: 'general.watchingSeries',
+    viewPage: 'general.viewPage',
+  })
 }
 
 let video = {
@@ -32,8 +29,6 @@ let video = {
   currentTime: 0,
   paused: true,
 }
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 function textContent(tags: string) {
   return document.querySelector(tags)?.textContent?.trim()
@@ -50,8 +45,7 @@ presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
   } as PresenceData
-  const [newLang, privacy, logo, time, buttons] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'pl'),
+  const [privacy, logo, time, buttons] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('logo'),
     presence.getSetting<boolean>('time'),
@@ -59,14 +53,10 @@ presence.on('UpdateData', async () => {
   ])
   const { pathname, href } = document.location
   const path = pathname.split('/')
+  const strings = await getStrings()
   const genres = Array.from(document.querySelectorAll('.genres li[active]'))
     .map(genre => genre.textContent)
     .join(', ')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
 
   switch (path[1]) {
     case '':
@@ -124,7 +114,7 @@ presence.on('UpdateData', async () => {
               delete presenceData.endTimestamp
             }
             else {
-              [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(video.currentTime, video.duration)
+              [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(video.currentTime, video.duration)
             }
           }
           else {

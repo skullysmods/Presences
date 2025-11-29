@@ -1,7 +1,6 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 let elapsed = Math.floor(Date.now() / 1000)
-let oldLang = 'en'
 let prevUrl = document.location.href
 
 const presence = new Presence({
@@ -11,42 +10,37 @@ function getElement(query: string): string | undefined {
   return document.querySelector(query)?.textContent ?? undefined
 }
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      live: 'general.live',
-      viewHome: 'general.viewHome',
-      browse: 'general.browsing',
-      watchingLive: 'general.watchingLive',
-      watchingVid: 'general.watchingVid',
-      viewCategory: 'general.viewCategory',
-      viewTheir: 'twitch.viewTheir',
-      channelSettings: 'twitch.channelSettings',
-      followList: 'twitch.followList',
-      channelAnaly: 'twitch.channelAnaly',
-      streamSum: 'twitch.streamSum',
-      dashboard: 'twitch.dashboard',
-      dashboardManage: 'twitch.dashboardManage',
-      achievements: 'twitch.achievements',
-      camp: 'twitch.camp',
-      campBasic: 'twitch.campBasic',
-      campSetup: 'twitch.campSetup',
-      viewFollow: 'twitch.viewFollow',
-      activity: 'twitch.activity',
-      colls: 'twitch.colls',
-      esport: 'twitch.esports',
-      searchingFor: 'general.searchFor',
-      searchingSomething: 'general.searchSomething',
-      search: 'general.search',
-      watchStream: 'general.buttonWatchStream',
-      watchVideo: 'general.buttonWatchVideo',
-    },
-    oldLang,
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    live: 'general.live',
+    viewHome: 'general.viewHome',
+    browse: 'general.browsing',
+    watchingLive: 'general.watchingLive',
+    watchingVid: 'general.watchingVid',
+    viewCategory: 'general.viewCategory',
+    viewTheir: 'twitch.viewTheir',
+    channelSettings: 'twitch.channelSettings',
+    followList: 'twitch.followList',
+    channelAnaly: 'twitch.channelAnaly',
+    streamSum: 'twitch.streamSum',
+    dashboard: 'twitch.dashboard',
+    dashboardManage: 'twitch.dashboardManage',
+    achievements: 'twitch.achievements',
+    camp: 'twitch.camp',
+    campBasic: 'twitch.campBasic',
+    campSetup: 'twitch.campSetup',
+    viewFollow: 'twitch.viewFollow',
+    activity: 'twitch.activity',
+    colls: 'twitch.colls',
+    esport: 'twitch.esports',
+    searchingFor: 'general.searchFor',
+    searchingSomething: 'general.searchSomething',
+    search: 'general.search',
+    watchStream: 'general.buttonWatchStream',
+    watchVideo: 'general.buttonWatchVideo',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -56,7 +50,6 @@ presence.on('UpdateData', async () => {
   const { pathname, href } = document.location
   const [
     showTimestamps,
-    newLang,
     privacy,
     vidDetail,
     vidState,
@@ -66,7 +59,6 @@ presence.on('UpdateData', async () => {
     buttons,
   ] = await Promise.all([
     presence.getSetting<boolean>('timestamp'),
-    presence.getSetting<string>('lang').catch(() => 'en'),
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<string>('vidDetail'),
     presence.getSetting<string>('vidState'),
@@ -82,11 +74,7 @@ presence.on('UpdateData', async () => {
     ':is(div.nimo-rm_sub-title > h1, #meta-info div.anchor-name.n-as-text-over > a > h2, .nimo-player__room-meta__nick)',
   )
   const game = getElement('div.nimo-anchor-broadcast-game > a > h4')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (href !== prevUrl) {
     prevUrl = href
@@ -200,7 +188,7 @@ presence.on('UpdateData', async () => {
         delete presenceData.startTimestamp
 
         if (!paused) {
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(currentTime, duration)
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(currentTime, duration)
         }
 
         presenceData.buttons = [

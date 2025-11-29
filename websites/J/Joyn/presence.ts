@@ -5,43 +5,32 @@ const presence = new Presence({
 })
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browsing: 'general.browsing',
-      live: 'general.live',
-      searching: 'general.search',
-      viewMovie: 'general.viewMovie',
-      watchingMovie: 'general.watchingMovie',
-      watchingSeries: 'general.watchingSeries',
-      watchMovie: 'general.buttonViewMovie',
-      watchSeries: 'general.buttonViewSeries',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browsing: 'general.browsing',
+    live: 'general.live',
+    searching: 'general.search',
+    viewMovie: 'general.viewMovie',
+    watchingMovie: 'general.watchingMovie',
+    watchingSeries: 'general.watchingSeries',
+    watchMovie: 'general.buttonViewMovie',
+    watchSeries: 'general.buttonViewSeries',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/J/Joyn/assets/logo.jpg',
     type: ActivityType.Watching,
   }
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-  const setting = {
-    timeRemaining: await presence.getSetting<boolean>('timeRemaining'),
-    showButtons: await presence.getSetting<boolean>('showButtons'),
-  }
+  const [timeRemaining, showButtons] = await Promise.all([
+    presence.getSetting<boolean>('timeRemaining'),
+    presence.getSetting<boolean>('showButtons'),
+  ])
   const urlpath = window.location.pathname.split('/')
   const video = document.querySelector<HTMLVideoElement>('div video')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (
     document.location.hostname === 'www.joyn.de'
@@ -67,7 +56,7 @@ presence.on('UpdateData', async () => {
           if (!compilation)
             presenceData.state = document.querySelector('.hXdaOG')?.textContent
 
-          if (setting.showButtons) {
+          if (showButtons) {
             presenceData.buttons = [
               {
                 label: 'Watch Compilation',
@@ -86,7 +75,7 @@ presence.on('UpdateData', async () => {
           if (!film)
             presenceData.state = document.querySelector('.hXdaOG')?.textContent
 
-          if (setting.showButtons) {
+          if (showButtons) {
             presenceData.buttons = [
               {
                 label: strings.watchMovie,
@@ -105,7 +94,7 @@ presence.on('UpdateData', async () => {
           if (!serie)
             presenceData.state = document.querySelector('.hXdaOG')?.textContent
 
-          if (setting.showButtons) {
+          if (showButtons) {
             presenceData.buttons = [
               {
                 label: strings.watchSeries,
@@ -136,7 +125,7 @@ presence.on('UpdateData', async () => {
             )
             presenceData.state = 'Movie'
             if (video && !video.paused) {
-              if (setting.timeRemaining) {
+              if (timeRemaining) {
                 [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
               }
               presenceData.smallImageKey = Assets.Play
@@ -146,7 +135,7 @@ presence.on('UpdateData', async () => {
               presenceData.smallImageKey = Assets.Pause
               presenceData.smallImageText = strings.pause
             }
-            if (setting.showButtons) {
+            if (showButtons) {
               presenceData.buttons = [
                 {
                   label: strings.watchMovie,
@@ -159,7 +148,7 @@ presence.on('UpdateData', async () => {
             presenceData.details = document.title.replace('streamen', '')
             presenceData.state = 'Series'
             if (video && !video.paused) {
-              if (setting.timeRemaining) {
+              if (timeRemaining) {
                 [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
               }
               presenceData.smallImageKey = Assets.Play
@@ -170,7 +159,7 @@ presence.on('UpdateData', async () => {
               presenceData.smallImageText = strings.pause
             }
 
-            if (setting.showButtons) {
+            if (showButtons) {
               presenceData.buttons = [
                 {
                   label: strings.watchSeries,
@@ -183,7 +172,7 @@ presence.on('UpdateData', async () => {
             presenceData.details = document.title.replace('Trailer | Joyn', '')
             presenceData.state = 'Trailer'
             if (video && !video.paused) {
-              if (setting.timeRemaining) {
+              if (timeRemaining) {
                 [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
               }
               presenceData.smallImageKey = Assets.Play
@@ -203,7 +192,7 @@ presence.on('UpdateData', async () => {
             presenceData.smallImageKey = Assets.Live
             presenceData.smallImageText = strings.live
 
-            if (setting.showButtons) {
+            if (showButtons) {
               presenceData.buttons = [
                 {
                   label: 'Watch show',
@@ -216,7 +205,7 @@ presence.on('UpdateData', async () => {
             presenceData.details = document.title.replace('| Joyn', '')
             presenceData.state = 'Compilation'
             if (video && !video.paused) {
-              if (setting.timeRemaining) {
+              if (timeRemaining) {
                 [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
               }
               presenceData.smallImageKey = Assets.Play
@@ -227,7 +216,7 @@ presence.on('UpdateData', async () => {
               presenceData.smallImageText = strings.pause
             }
 
-            if (setting.showButtons) {
+            if (showButtons) {
               presenceData.buttons = [
                 {
                   label: 'Watch Compilation',
@@ -242,7 +231,7 @@ presence.on('UpdateData', async () => {
             )?.textContent
             presenceData.state = 'Sport'
             if (video && !video.paused) {
-              if (setting.timeRemaining) {
+              if (timeRemaining) {
                 [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
               }
               presenceData.smallImageKey = Assets.Play
@@ -253,7 +242,7 @@ presence.on('UpdateData', async () => {
               presenceData.smallImageText = strings.pause
             }
 
-            if (setting.showButtons) {
+            if (showButtons) {
               presenceData.buttons = [
                 {
                   label: 'Watch sports show',

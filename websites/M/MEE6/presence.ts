@@ -6,16 +6,13 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      browse: 'general.browsing',
-      search: 'general.searchFor',
-      viewCategory: 'general.viewCategory',
-      buttonViewPage: 'general.buttonViewPage',
-      viewHome: 'general.viewHome',
-    },
-
-  )
+  return presence.getStrings({
+    browse: 'general.browsing',
+    search: 'general.searchFor',
+    viewCategory: 'general.viewCategory',
+    buttonViewPage: 'general.buttonViewPage',
+    viewHome: 'general.viewHome',
+  })
 }
 
 function capitalizeFirstLetter(string: string) {
@@ -31,26 +28,20 @@ enum ActivityAssets {
   Loading = 'https://cdn.rcd.gg/PreMiD/websites/M/MEE6/assets/0.gif',
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/M/MEE6/assets/1.png',
 }
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
     startTimestamp: browsingTimestamp,
   }
   const { pathname, hostname, href } = document.location
-  const [newLang, privacy, buttons, covers] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons, covers] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('covers'),
   ])
   const pathnameSplit = pathname.split('/')
+  const strings = await getStrings()
 
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
   if (privacy) {
     presenceData.details = strings.browse
     presence.setActivity(presenceData)

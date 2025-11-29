@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '684410680392286247',
@@ -64,7 +64,7 @@ presence.on('UpdateData', async () => {
           presenceData.state = season.textContent
 
           if (iFrameVideo === true && !Number.isNaN(duration)) {
-            [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
+            [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
               Math.floor(currentTime),
               Math.floor(duration),
             )
@@ -106,7 +106,7 @@ presence.on('UpdateData', async () => {
         presenceData.state = `${year?.textContent} - ${rating}`
 
         if (iFrameVideo === true && !Number.isNaN(duration)) {
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(
             Math.floor(currentTime),
             Math.floor(duration),
           )

@@ -4,18 +4,13 @@ const presence = new Presence({
   clientId: '736620343279484959',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browsing: 'general.browsing',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browsing: 'general.browsing',
+  })
 }
-let strings: Awaited<ReturnType<typeof getStrings>>
 // Pre-declare variable
-let oldLang: string | null = null
 let radioStation = ''
 let startTimeStamp = Date.now()
 
@@ -28,14 +23,9 @@ presence.on('UpdateData', async () => {
       { label: `Listen to ${codeChannel}`, url: document.location.href },
     ],
   }
-  const [newLang, isTimeVisible] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
-    presence.getSetting<boolean>('isTimeVisible'),
-  ])
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const isTimeVisible = await presence.getSetting<boolean>('isTimeVisible')
+  const strings = await getStrings()
+
   // In Radio
   if (
     (document.querySelector('#stream-player') as HTMLElement).style.display

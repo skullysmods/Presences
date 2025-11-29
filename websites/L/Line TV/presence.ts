@@ -1,20 +1,17 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '813392002526871592',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      paused: 'general.paused',
-      browse: 'general.browsing',
-      viewSeries: 'general.viewSeries',
-      searchSomething: 'general.searchSomething',
-      buttonViewEpisode: 'general.buttonViewEpisode',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    paused: 'general.paused',
+    browse: 'general.browsing',
+    viewSeries: 'general.viewSeries',
+    searchSomething: 'general.searchSomething',
+    buttonViewEpisode: 'general.buttonViewEpisode',
+  })
 }
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 const shortenedURLs: Record<string, string> = {}
@@ -36,21 +33,13 @@ async function shortenURL(url: string) {
   }
 }
 
-let oldLang: string | null = null
-let strings: Awaited<ReturnType<typeof getStrings>>
-
 presence.on('UpdateData', async () => {
   const { pathname } = document.location
-  const [newLang, showButton, cover] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [showButton, cover] = await Promise.all([
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('cover'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   const presenceData: PresenceData = {
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/L/Line%20TV/assets/logo.png',
@@ -70,14 +59,14 @@ presence.on('UpdateData', async () => {
       presenceData.details = title?.join('：')
       presenceData.state = episodeTitle;
 
-      [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
 
       presenceData.largeImageKey = cover
         ? await shortenURL(
-          document.querySelector<HTMLImageElement>(
-            `img[alt='${title?.join('：')}']`,
-          )?.src ?? '',
-        )
+            document.querySelector<HTMLImageElement>(
+              `img[alt='${title?.join('：')}']`,
+            )?.src ?? '',
+          )
         : 'linetv_logo'
 
       presenceData.smallImageKey = video.paused ? Assets.Pause : Assets.Play

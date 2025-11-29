@@ -1,4 +1,4 @@
-import { ActivityType, Assets } from 'premid'
+import { ActivityType, Assets, getTimestamps, getTimestampsFromMedia, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '809093093600133165',
@@ -11,28 +11,25 @@ let cached: {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      playing: 'general.playing',
-      paused: 'general.paused',
-      live: 'general.live',
-      browse: 'general.browsing',
-      forYou: 'tiktok.forYou',
-      following: 'tiktok.following',
-      buttonViewProfile: 'general.buttonViewProfile',
-      viewProfile: 'general.viewProfile',
-      viewAProfile: 'general.viewAProfile',
-      viewTikTok: 'tiktok.viewing',
-      buttonViewTikTok: 'tiktok.buttonViewTikTok',
-      browseThrough: 'tiktok.browseThrough',
-      watchingLive: 'general.watchingLive',
-      readingADM: 'general.readingADM',
-      exploringWithTag: 'tiktok.exploringWithTag',
-      viewAPlaylist: 'general.viewAPlaylist',
-      buttonWatchStream: 'general.buttonWatchStream',
-    },
-
-  )
+  return presence.getStrings({
+    playing: 'general.playing',
+    paused: 'general.paused',
+    live: 'general.live',
+    browse: 'general.browsing',
+    forYou: 'tiktok.forYou',
+    following: 'tiktok.following',
+    buttonViewProfile: 'general.buttonViewProfile',
+    viewProfile: 'general.viewProfile',
+    viewAProfile: 'general.viewAProfile',
+    viewTikTok: 'tiktok.viewing',
+    buttonViewTikTok: 'tiktok.buttonViewTikTok',
+    browseThrough: 'tiktok.browseThrough',
+    watchingLive: 'general.watchingLive',
+    readingADM: 'general.readingADM',
+    exploringWithTag: 'tiktok.exploringWithTag',
+    viewAPlaylist: 'general.viewAPlaylist',
+    buttonWatchStream: 'general.buttonWatchStream',
+  })
 }
 
 function getVideo(video: HTMLVideoElement | null) {
@@ -52,17 +49,13 @@ function getVideo(video: HTMLVideoElement | null) {
   }
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     type: ActivityType.Watching,
     largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/T/TikTok/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
-  const [newLang, privacy, buttons, showProfileUsernames] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons, showProfileUsernames] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('show-profile-usernames'),
@@ -83,11 +76,7 @@ presence.on('UpdateData', async () => {
   const description = document.querySelector('[data-e2e="user-profile-live-title"]')
     ?.textContent
     ?? document.querySelector('[data-e2e="browse-video-desc"]')?.textContent // Video/livestream description
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   switch (true) {
     case pathname === '/following':
@@ -126,7 +115,7 @@ presence.on('UpdateData', async () => {
         /https:\/\/www\.tiktok\.com\/@.*\/video\/\d{19}/,
       )
       const creatorURLMatch = creatorURL.match(
-        /http(s)?:\/\/(www\.)?tiktok\.com\/@([\w.]{0,23}\w)(?:\/\S*)?\//,
+        /https?:\/\/(?:www\.)?tiktok\.com\/@[\w.]{0,23}\w(?:\/\S*)?\//,
       )?.[0]
       const paused = video
         ?.closest('div[data-e2e="feed-video"]')
@@ -171,7 +160,7 @@ presence.on('UpdateData', async () => {
       }
 
       if (!paused && video?.duration && video?.currentTime) {
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
       }
       presenceData.smallImageKey = paused ? Assets.Pause : Assets.Play
       presenceData.smallImageText = paused ? strings.paused : strings.playing
@@ -191,13 +180,13 @@ presence.on('UpdateData', async () => {
         video = {
           paused: !!document.querySelector('[aria-label="Pause"]')
             || !!document.querySelector('[class*=\'DivPlayIconContainer\']'),
-          currentTime: presence.timestampFromFormat(
+          currentTime: timestampFromFormat(
             document
               .querySelector('[class*=\'DivSeekBarTimeContainer\']')
               ?.textContent
               ?.split('/')[0] ?? '',
           ),
-          duration: presence.timestampFromFormat(
+          duration: timestampFromFormat(
             document
               .querySelector('[class*=\'DivSeekBarTimeContainer\']')
               ?.textContent
@@ -221,7 +210,7 @@ presence.on('UpdateData', async () => {
         ? strings.paused
         : strings.playing
       if (!video.paused) {
-        [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(video.currentTime, video.duration)
+        [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(video.currentTime, video.duration)
       }
       presenceData.buttons = [
         { label: strings.buttonViewTikTok, url: href },

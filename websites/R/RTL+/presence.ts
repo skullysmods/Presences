@@ -1,16 +1,13 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '1033504954763198545',
 })
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+  })
 }
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
@@ -20,16 +17,13 @@ enum ActivityAssets {
 
 let video: HTMLVideoElement | null = null
 let vidTitle: string | undefined
-let strings: Awaited<ReturnType<typeof getStrings>>
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     largeImageKey: ActivityAssets.Logo,
   }
   const { pathname, href } = document.location
-
-  if (!strings)
-    strings = await getStrings()
+  const strings = await getStrings()
 
   if (document.querySelector('#bitmovinplayer-video-player_container')) {
     video = document.querySelector<HTMLVideoElement>(
@@ -42,7 +36,7 @@ presence.on('UpdateData', async () => {
 
       presenceData.smallImageKey = video.paused ? Assets.Pause : Assets.Play
       presenceData.smallImageText = video.paused ? strings.pause : strings.play;
-      [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
       presenceData.buttons = [
         {
           label: 'View',

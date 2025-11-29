@@ -7,28 +7,22 @@ function pathIncludes(string: string): boolean {
 const host = document.location.hostname
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      reading: 'general.readingAbout',
-      leaderboard: 'juniperbot.leaderboard',
-      viewMainPage: 'juniperbot.mainpage',
-      serverdash: 'juniperbot.serverdash',
-      serverdashname: 'juniperbot.serverdashname',
-      donate: 'juniperbot.donate',
-      servers: 'juniperbot.servers',
-      commands: 'juniperbot.commands',
-      stats: 'juniperbot.stats',
-      usercard: 'juniperbot.usercard',
-      terms: 'general.terms',
-      privacy: 'general.privacy',
-      cookies: 'juniperbot.cookies',
-    },
-
-  )
+  return presence.getStrings({
+    reading: 'general.readingAbout',
+    leaderboard: 'juniperbot.leaderboard',
+    viewMainPage: 'juniperbot.mainpage',
+    serverdash: 'juniperbot.serverdash',
+    serverdashname: 'juniperbot.serverdashname',
+    donate: 'juniperbot.donate',
+    servers: 'juniperbot.servers',
+    commands: 'juniperbot.commands',
+    stats: 'juniperbot.stats',
+    usercard: 'juniperbot.usercard',
+    terms: 'general.terms',
+    privacy: 'general.privacy',
+    cookies: 'juniperbot.cookies',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/J/Juniperbot/assets/logo.png',
@@ -39,12 +33,7 @@ enum ActivityAssets {
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = { largeImageKey: ActivityAssets.Logo }
-  const newLang = await presence.getSetting<string>('lang').catch(() => 'en')
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (host === 'juniper.bot') {
     presenceData.startTimestamp = browsingTimestamp

@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps, timestampFromFormat } from 'premid'
 
 const presence = new Presence({
   clientId: '514771696134389760',
@@ -41,10 +41,10 @@ function getVKTrackTimePassed(duration: number) {
   let timePassed
 
   if (playerDuration && !playerDuration?.startsWith('-')) {
-    timePassed = presence.timestampFromFormat(playerDuration)
+    timePassed = timestampFromFormat(playerDuration)
   }
   else if (playerDuration) {
-    timePassed = duration - presence.timestampFromFormat(playerDuration.slice(1))
+    timePassed = duration - timestampFromFormat(playerDuration.slice(1))
   }
 
   return timePassed
@@ -100,7 +100,7 @@ presence.on('UpdateData', async () => {
 
     const { duration } = audioPlayer.find(x => x.duration)!
 
-    timestamps = presence.getTimestamps(
+    timestamps = getTimestamps(
       getVKTrackTimePassed(duration)!,
       duration,
     )
@@ -121,7 +121,7 @@ presence.on('UpdateData', async () => {
       [presenceData.startTimestamp, presenceData.endTimestamp] = timestamps
     }
 
-    presence.setActivity(presenceData, true)
+    presence.setActivity(presenceData)
   }
   else if (window.location.href.match(/https:\/\/vk.com\/.*?z=video.*/)) {
     isPlaying = document.querySelector('.videoplayer_ui')?.getAttribute('data-state')
@@ -136,7 +136,7 @@ presence.on('UpdateData', async () => {
       .textContent!
       .split(':')
 
-    timestamps = presence.getTimestamps(
+    timestamps = getTimestamps(
       Math.floor(
         Number(videoCurrentTime[0]) * 60 + Number(videoCurrentTime[1]),
       ),
@@ -156,25 +156,25 @@ presence.on('UpdateData', async () => {
       presenceData.smallImageText = gstrings.play;
       [presenceData.startTimestamp, presenceData.endTimestamp] = timestamps
     }
-    presence.setActivity(presenceData, true)
+    presence.setActivity(presenceData)
   }
   else if (document.querySelector('.page_name')) {
     presenceData.details = document.querySelector<HTMLElement>('.page_name')?.textContent
     presenceData.startTimestamp = browsingTimestamp
 
-    presence.setActivity(presenceData, true)
+    presence.setActivity(presenceData)
   }
   else if (document.location.pathname.startsWith('/feed')) {
     presenceData.details = getLocalizedString('BrowsingFeed')
     presenceData.startTimestamp = browsingTimestamp
 
-    presence.setActivity(presenceData, true)
+    presence.setActivity(presenceData)
   }
   else if (document.location.pathname.startsWith('/im')) {
     presenceData.details = getLocalizedString('Chatting')
     presenceData.startTimestamp = browsingTimestamp
 
-    presence.setActivity(presenceData, true)
+    presence.setActivity(presenceData)
   }
   else {
     browsingTimestamp = Math.floor(Date.now() / 1000)

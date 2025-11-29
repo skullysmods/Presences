@@ -1,34 +1,25 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence: Presence = new Presence({
   clientId: '897325334200975360',
 })
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      browsing: 'general.browsing',
-      watchingMovie: 'general.watchingMovie',
-      watchingSeries: 'general.watchingSeries',
-      watchingLive: 'general.watchingLive',
-      watchEpisode: 'general.buttonViewEpisode',
-      watchVideo: 'general.buttonWatchVideo',
-      watchLive: 'general.live',
-      watchStream: 'general.buttonWatchStream',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    browsing: 'general.browsing',
+    watchingMovie: 'general.watchingMovie',
+    watchingSeries: 'general.watchingSeries',
+    watchingLive: 'general.watchingLive',
+    watchEpisode: 'general.buttonViewEpisode',
+    watchVideo: 'general.buttonWatchVideo',
+    watchLive: 'general.live',
+    watchStream: 'general.buttonWatchStream',
+  })
 }
 
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
-
 presence.on('UpdateData', async () => {
-  const newLang: string = await presence
-    .getSetting<string>('lang')
-    .catch(() => 'en')
   const privacy = await presence.getSetting<boolean>('privacy')
   const time = await presence.getSetting<boolean>('time')
   const buttons = await presence.getSetting<boolean>('buttons')
@@ -38,12 +29,7 @@ presence.on('UpdateData', async () => {
     partySize?: number
     partyMax?: number
   } = {}
-
-  // Update strings when user sets language
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   if (isHostSP) {
     presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/S/Star%2B/assets/logo.png'
@@ -94,7 +80,7 @@ presence.on('UpdateData', async () => {
       presenceData.smallImageText = video.paused
         ? (await strings).pause
         : (await strings).play;
-      [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
 
       // remove timestamps if video is paused or user disabled timestamps
       if (video.paused || !time) {

@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestampsFromMedia } from 'premid'
 
 const presence = new Presence({
   clientId: '1044942179958804552',
@@ -6,17 +6,14 @@ const presence = new Presence({
 const browsingStamp = Math.floor(Date.now() / 1000)
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      paused: 'general.paused',
-      browse: 'general.browsing',
-      buttonWatchVideo: 'general.buttonWatchVideo',
-      viewCategory: 'general.viewCategory',
-      search: 'general.searchFor',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    paused: 'general.paused',
+    browse: 'general.browsing',
+    buttonWatchVideo: 'general.buttonWatchVideo',
+    viewCategory: 'general.viewCategory',
+    search: 'general.searchFor',
+  })
 }
 
 interface Directors {
@@ -28,8 +25,6 @@ interface Directors {
 enum ActivityAssets {
   Logo = 'https://cdn.rcd.gg/PreMiD/websites/M/MUBI/assets/logo.png',
 }
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
@@ -37,8 +32,7 @@ presence.on('UpdateData', async () => {
     largeImageKey: ActivityAssets.Logo,
   }
   const { href, pathname } = document.location
-  const [newLang, privacy, buttons, covers, viewState] = await Promise.all([
-    presence.getSetting<string>('lang').catch(() => 'en'),
+  const [privacy, buttons, covers, viewState] = await Promise.all([
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('buttons'),
     presence.getSetting<boolean>('covers'),
@@ -47,11 +41,8 @@ presence.on('UpdateData', async () => {
   const search = document.querySelectorAll(
     'input[name="query"]',
   )[1] as HTMLInputElement
+  const strings = await getStrings()
 
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
   if (privacy) {
     presenceData.details = strings.browse
     presence.setActivity(presenceData)
@@ -171,7 +162,7 @@ presence.on('UpdateData', async () => {
           ?.split('|')[0]
           ?? document.querySelector('title')?.textContent?.split('|')[0]
         if (video.duration && !video.paused) {
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestampsfromMedia(video)
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestampsFromMedia(video)
         }
         presenceData.largeImageKey = document
           .querySelector('#__NEXT_DATA__')

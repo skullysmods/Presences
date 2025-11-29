@@ -1,4 +1,4 @@
-import { Assets } from 'premid'
+import { Assets, getTimestamps } from 'premid'
 
 const presence = new Presence({
   clientId: '802964241179082822',
@@ -8,20 +8,17 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      play: 'general.playing',
-      pause: 'general.paused',
-      viewSeries: 'general.buttonViewSeries',
-      viewMovie: 'general.buttonViewMovie',
-      watchEpisode: 'general.buttonViewEpisode',
-      view: 'general.view',
-      searching: 'general.searchFor',
-      episode: 'general.episode',
-      browse: 'general.browsing',
-    },
-
-  )
+  return presence.getStrings({
+    play: 'general.playing',
+    pause: 'general.paused',
+    viewSeries: 'general.buttonViewSeries',
+    viewMovie: 'general.buttonViewMovie',
+    watchEpisode: 'general.buttonViewEpisode',
+    view: 'general.view',
+    searching: 'general.searchFor',
+    episode: 'general.episode',
+    browse: 'general.browsing',
+  })
 }
 
 let browsingTimestamp = Math.floor(Date.now() / 1000)
@@ -33,8 +30,6 @@ let video = {
 }
 let lastPlaybackState: boolean = false
 let playback: boolean
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 presence.on(
   'iFrameData',
@@ -54,26 +49,21 @@ presence.on('UpdateData', async () => {
     largeImageKey: ActivityAssets.Logo,
     startTimestamp: browsingTimestamp,
   }
-  const [buttons, newLang, cover] = await Promise.all([
+  const [buttons, cover] = await Promise.all([
     presence.getSetting<boolean>('buttons'),
-    presence.getSetting<string>('lang'),
     presence.getSetting<boolean>('episode-cover'),
   ])
   const { pathname, hostname, href } = document.location
   const fullUrl = (string: string) =>
     string ? `https://${hostname}${string}` : ActivityAssets.Logo
-
-  if (oldLang !== newLang) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
   switch (true) {
     case video.exists: {
       if (playback && !Number.isNaN(video.duration)) {
         presenceData.smallImageKey = video.paused ? Assets.Pause : Assets.Play
         presenceData.smallImageText = video.paused ? 'Paused' : 'Playing'
         if (!video.paused) {
-          [presenceData.startTimestamp, presenceData.endTimestamp] = presence.getTimestamps(video.currentTime, video.duration)
+          [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(video.currentTime, video.duration)
         }
         presenceData.buttons = [
           {
@@ -98,7 +88,7 @@ presence.on('UpdateData', async () => {
           ?.iterateNext()
           ?.textContent
           ?.match(/title_en:".{1,256}",/g)?.[0]
-          ?.replace(/(title_en:")|(",)/g, '')
+          ?.replace(/title_en:"|",/g, '')
       presenceData.state = document
         .querySelector('[name="og:title"]')
         ?.getAttribute('content')
