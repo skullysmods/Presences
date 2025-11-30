@@ -29,7 +29,7 @@ presence.on('UpdateData', async () => {
   }
   else if (
     pathname.startsWith('/manga/')
-    && window.location.search.substr(0, 5) === '?page'
+    && window.location.search.slice(0, 5) === '?page'
   ) {
     presenceData.details = document.querySelector('.back')?.textContent
     presenceData.state = `📖 Bölüm ${pathname.substring(
@@ -52,7 +52,7 @@ presence.on('UpdateData', async () => {
     presenceData.state = document.querySelector('.name')?.textContent
     presenceData.smallImageKey = Assets.Viewing
   }
-  else if (pathname === '/mangalar' && search?.substr(0, 7) === '?search') {
+  else if (pathname === '/mangalar' && search?.slice(0, 7) === '?search') {
     presenceData.details = 'Arıyor:'
     presenceData.state = new URLSearchParams(search).get('search')
     presenceData.smallImageKey = Assets.Search

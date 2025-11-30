@@ -12,21 +12,15 @@ enum ActivityAssets {
 }
 
 async function getStrings() {
-  return presence.getStrings(
-    {
-      search: 'general.search',
-      view: 'general.viewing',
-      viewHome: 'general.viewHome',
-      searchFor: 'general.searchFor',
-      searchSomething: 'general.searchSomething',
-      watching: 'general.watching',
-    },
-    await presence.getSetting<string>('lang').catch(() => 'ru'),
-  )
+  return presence.getStrings({
+    search: 'general.search',
+    view: 'general.viewing',
+    viewHome: 'general.viewHome',
+    searchFor: 'general.searchFor',
+    searchSomething: 'general.searchSomething',
+    watching: 'general.watching',
+  })
 }
-
-let strings: Awaited<ReturnType<typeof getStrings>>
-let oldLang: string | null = null
 
 function textContent(tags: string) {
   return document.querySelector(tags)?.textContent
@@ -37,17 +31,13 @@ presence.on('UpdateData', async () => {
     largeImageKey: ActivityAssets.Logo,
     startTimestamp: browsingTimestamp,
   }
-  const [newLang, privacy, logo, time] = await Promise.all([
+  const [lang, privacy, logo, time] = await Promise.all([
     presence.getSetting<string>('lang').catch(() => 'ru'),
     presence.getSetting<boolean>('privacy'),
     presence.getSetting<boolean>('logo'),
     presence.getSetting<boolean>('time'),
   ])
-
-  if (oldLang !== newLang || !strings) {
-    oldLang = newLang
-    strings = await getStrings()
-  }
+  const strings = await getStrings()
 
   switch (host) {
     case 'ya.ru':
@@ -75,7 +65,7 @@ presence.on('UpdateData', async () => {
           presenceData.state = `${strings.searchFor} ${homepageInput?.value}`
           if (document.querySelector('.CbirPreview-Preview')) {
             presenceData.state = `${strings.search} ${
-              oldLang === 'ru' ? 'по картинке' : 'by images'
+              lang === 'ru' ? 'по картинке' : 'by images'
             }`
             if (logo && !privacy) {
               presenceData.largeImageKey = document.querySelector<HTMLImageElement>(
@@ -109,7 +99,7 @@ presence.on('UpdateData', async () => {
 
         case 'pogoda':
           presenceData.details = `${strings.watching} ${
-            oldLang === 'ru' ? 'погоду' : 'weather'
+            lang === 'ru' ? 'погоду' : 'weather'
           }`
           presenceData.state = document
             .querySelector<HTMLTitleElement>('title')
@@ -121,14 +111,14 @@ presence.on('UpdateData', async () => {
 
         case 'collections':
           presenceData.details = `${strings.watching} ${
-            oldLang === 'ru' ? 'избранное' : 'favourites'
+            lang === 'ru' ? 'избранное' : 'favourites'
           }`
           presenceData.state = document.querySelector(
             '.cl-cards-type-filter__button_active',
           )?.firstChild?.textContent
           if (document.querySelector('.cl-board-header-title__name')) {
             presenceData.details = `${strings.watching} ${
-              oldLang === 'ru' ? 'папку в избранном' : 'folder in favourites'
+              lang === 'ru' ? 'папку в избранном' : 'folder in favourites'
             }`
             presenceData.state = document.querySelector(
               '.cl-board-header-title__name',

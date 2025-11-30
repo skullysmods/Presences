@@ -45,7 +45,7 @@ presence.on('UpdateData', async () => {
         .querySelector('body div.summary-block > p')
         ?.firstChild
         ?.textContent
-        ?.substr(
+        ?.substring(
           0,
           document
             .querySelector('body div.summary-block > p')
