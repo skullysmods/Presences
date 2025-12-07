@@ -10,9 +10,9 @@
     "en": "Rythm is a Discord music bot with a web dashboard where you can browse tracks, control playback in voice channels, or manage the queue directly from your browser."
   },
   "url": "rythm.fm",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/3qPPbjU.gif",
-  "thumbnail": "https://i.imgur.com/q5xxXRR.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/R/Rythm/assets/logo.gif",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/R/Rythm/assets/thumbnail.png",
   "color": "#147AFE",
   "category": "music",
   "tags": [
@@ -20,14 +20,12 @@
     "media"
   ],
   "settings": [
-
     {
       "id": "privacy",
       "title": "Privacy Mode",
       "icon": "fad fa-shield-alt",
       "value": false
     },
-
     {
       "id": "hidePaused",
       "title": "Hide Paused",
@@ -37,7 +35,6 @@
         "privacy": false
       }
     },
-
     {
       "id": "timesTamps",
       "title": "Hide Timestamps",
@@ -47,7 +44,6 @@
         "privacy": false
       }
     },
-
     {
       "id": "largeImage",
       "title": "Pick large image style",
@@ -62,7 +58,6 @@
         "Rythm static logo"
       ]
     },
-
     {
       "id": "buttonType",
       "title": "Pick small button style",
@@ -78,7 +73,6 @@
         "Rythm aways animated logo"
       ]
     },
-
     {
       "id": "displayType",
       "title": "Pick Status Display",
@@ -93,6 +87,5 @@
         "Activity Name"
       ]
     }
-
   ]
 }
