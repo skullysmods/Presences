@@ -21,10 +21,10 @@
     "www.hyakanime.fr"
   ],
   "regExp": "^https?[:][/][/](www[.])?hyakanime[.]fr[/]",
-  "version": "2.1.0",
-  "logo": "https://cdn.rcd.gg/PreMiD/websites/H/Hyakanime/assets/logo.png",
-  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/H/Hyakanime/assets/thumbnail.png",
-  "color": "#089BEF",
+  "version": "2.1.1",
+  "logo": "https://i.imgur.com/kSomZoz.png",
+  "thumbnail": "https://i.imgur.com/nBCtYDW.png",
+  "color": "#0085FE",
   "category": "anime",
   "tags": [
     "anime",
