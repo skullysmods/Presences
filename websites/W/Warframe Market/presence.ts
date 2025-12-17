@@ -37,7 +37,7 @@ function findImageByLink(keyword: string): string | undefined {
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
-    largeImageKey: 'https://img.icons8.com/color/512/warframe.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/W/Warframe%20Market/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
 

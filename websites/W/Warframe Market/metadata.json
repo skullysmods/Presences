@@ -11,9 +11,9 @@
   },
   "url": "warframe.market",
   "regExp": "^https?:[/][/](www[.])?warframe[.]market[/]",
-  "version": "1.0.0",
-  "logo": "https://img.icons8.com/color/512/warframe.png",
-  "thumbnail": "https://warframe.market/static/assets/user/background/5c17e096953bc3001392f576.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/W/Warframe%20Market/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/W/Warframe%20Market/assets/thumbnail.png",
   "color": "#000000",
   "category": "games",
   "tags": [
