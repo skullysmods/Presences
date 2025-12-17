@@ -12,9 +12,9 @@
   },
   "url": "chat.zalo.me",
   "regExp": "^https?:[/][/]chat[.]zalo[.]me[/]",
-  "version": "1.0.0",
-  "logo": "https://i.postimg.cc/MGWktXQT/Icon-of-Zalo.png",
-  "thumbnail": "https://i.postimg.cc/HWZgGVMJ/NWm-Ka-BVGpe.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/Z/Zalo/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/Z/Zalo/assets/thumbnail.png",
   "color": "#0068ff",
   "category": "socials",
   "tags": [
@@ -30,7 +30,6 @@
       "value": false,
       "description": "Thay thế dòng đầu tiên trong trạng thái"
     },
-
     {
       "id": "customText",
       "title": "Edit Custom Text",
@@ -41,6 +40,5 @@
         "btnCustomText": true
       }
     }
-
   ]
 }
