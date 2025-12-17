@@ -44,16 +44,16 @@ async function getStrings() {
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/V58nPdz.png',
-  OldLogo = 'https://i.imgur.com/eCEEw2y.jpeg',
-  NewLogo = 'https://i.imgur.com/k3THrqd.png',
-  TBMFid = 'https://i.imgur.com/N7EXvDG.png',
-  Routes = 'https://i.imgur.com/8nhzMN3.png',
-  Schedules = 'https://i.imgur.com/85krl3t.png',
-  Traffic = 'https://i.imgur.com/Y0blXna.png',
-  Lines = 'https://i.imgur.com/bjGzNRG.png',
-  Bike = 'https://i.imgur.com/MFFwTFg.png',
-  Parking = 'https://i.imgur.com/ERKYYEB.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/T/TBM/assets/logo.png',
+  OldLogo = 'https://cdn.rcd.gg/PreMiD/websites/T/TBM/assets/0.jpeg',
+  NewLogo = 'https://cdn.rcd.gg/PreMiD/websites/T/TBM/assets/1.png',
+  TBMFid = 'https://cdn.rcd.gg/PreMiD/websites/T/TBM/assets/2.png',
+  Routes = 'https://cdn.rcd.gg/PreMiD/websites/T/TBM/assets/3.png',
+  Schedules = 'https://cdn.rcd.gg/PreMiD/websites/T/TBM/assets/4.png',
+  Traffic = 'https://cdn.rcd.gg/PreMiD/websites/T/TBM/assets/5.png',
+  Lines = 'https://cdn.rcd.gg/PreMiD/websites/T/TBM/assets/6.png',
+  Bike = 'https://cdn.rcd.gg/PreMiD/websites/T/TBM/assets/7.png',
+  Parking = 'https://cdn.rcd.gg/PreMiD/websites/T/TBM/assets/8.png',
 }
 
 async function svgToPng(svgUrl: string): Promise<string | undefined> {
