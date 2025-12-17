@@ -44,7 +44,7 @@ async function fetchCover(bookUrl: string): Promise<string | null> {
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
-    largeImageKey: 'https://i.postimg.cc/657F6vxh/Novelfire-logo.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/N/Novelfire/assets/logo.png',
     startTimestamp: browsingTimestamp,
     name: 'Novelfire',
     type: ActivityType.Watching,
@@ -63,7 +63,7 @@ presence.on('UpdateData', async () => {
     if (searchInput && searchInput.value) {
       presenceData.state = `Query: ${searchInput.value}`
     }
-    presenceData.largeImageKey = 'https://i.postimg.cc/657F6vxh/Novelfire-logo.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/N/Novelfire/assets/logo.png'
   }
 
   // 2. Homepage
