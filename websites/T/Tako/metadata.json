@@ -14,9 +14,9 @@
     "help.tako.id"
   ],
   "regExp": "^https?:[/][/]([a-z0-9-]+[.])*tako[.]id[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/eva2pp3.jpeg",
-  "thumbnail": "https://i.imgur.com/H8SqO9a.jpeg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/T/Tako/assets/logo.jpeg",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/T/Tako/assets/thumbnail.jpeg",
   "color": "#37a2e8",
   "category": "socials",
   "tags": [
