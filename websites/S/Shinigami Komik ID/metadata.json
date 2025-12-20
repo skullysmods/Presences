@@ -21,9 +21,9 @@
     "www.shinigami.asia"
   ],
   "regExp": "^https?:[/][/]([a-z0-9-]+[.])*shinigami[.](id|bio|asia)[/]",
-  "version": "1.0.0",
-  "logo": "https://i.postimg.cc/4ySd7DXp/unnamed.jpg",
-  "thumbnail": "https://i.postimg.cc/J4zZy85z/Screenshot-2025-11-28-125724.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Shinigami%20Komik%20ID/assets/logo.jpg",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Shinigami%20Komik%20ID/assets/thumbnail.png",
   "color": "#807F81",
   "category": "other",
   "tags": [
