@@ -43,10 +43,6 @@ jobs:
           delete-branch: true
           commit-message: 'chore: remove activities with failed DNS checks'
           title: 'chore: remove activities with failed DNS checks'
-          body-path: dns-check-summary.md
+          body-path: ${{ steps.dns-check.outputs.summary_path }}
           committer: PreMiD Automations <contact@premid.app>
           author: PreMiD Automations <contact@premid.app>
-
-      - name: Cleanup summary file
-        if: steps.dns-check.outputs.has_changes == 'true'
-        run: rm -f dns-check-summary.md
