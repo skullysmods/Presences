@@ -9,10 +9,15 @@
     "en": "AnimeAv1 is an Anime streaming platform offering high-quality content with Spanish subtitles."
   },
   "url": "animeav1.com",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/Xk3y6wK.png",
-  "thumbnail": "https://i.imgur.com/siQRcFt.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/A/AnimeAv1/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/A/AnimeAv1/assets/thumbnail.png",
   "color": "#FF66CC",
   "category": "media",
-  "tags": ["anime", "video", "stream", "español"]
+  "tags": [
+    "anime",
+    "video",
+    "stream",
+    "español"
+  ]
 }
