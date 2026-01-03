@@ -5,7 +5,7 @@ const presence = new Presence({
   clientId: '1253802090774532176',
 })
 
-const LOGO_URL = 'https://i.imgur.com/cfWB8O0.png'
+const LOGO_URL = 'https://cdn.rcd.gg/PreMiD/websites/A/AnimeUnity/assets/logo.png'
 
 let pageStartTs = Math.floor(Date.now() / 1000)
 let lastHref = ''
