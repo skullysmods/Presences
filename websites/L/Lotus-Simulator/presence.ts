@@ -3,7 +3,7 @@ const presence = new Presence({
 })
 
 enum ActivityAssets {
-  Logo = 'https://cdn.iknow13.de/3672-6fa138b8-large_512x512.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/L/Lotus-Simulator/assets/logo.png',
 }
 
 // --- HELPER FUNCTIONS ---
