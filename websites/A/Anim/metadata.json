@@ -18,9 +18,9 @@
   },
   "url": "anim.lol",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*anim[.]lol[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/HyzMYTv.png",
-  "thumbnail": "https://i.imgur.com/n68iApD.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/A/Anim/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/A/Anim/assets/thumbnail.png",
   "color": "#000000",
   "category": "anime",
   "tags": [
