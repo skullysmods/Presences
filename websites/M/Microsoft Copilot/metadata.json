@@ -12,9 +12,9 @@
   },
   "url": "copilot.microsoft.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*copilot[.]microsoft[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/hw9Nbpb.png",
-  "thumbnail": "https://i.imgur.com/slgHdU8.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/M/Microsoft%20Copilot/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/M/Microsoft%20Copilot/assets/thumbnail.png",
   "color": "#E14F9D",
   "category": "other",
   "tags": [

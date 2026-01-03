@@ -4,8 +4,8 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Talking = 'https://i.imgur.com/aWWXjuc.png',
-  Logo = 'https://i.imgur.com/hw9Nbpb.png',
+  Talking = 'https://cdn.rcd.gg/PreMiD/websites/M/Microsoft%20Copilot/assets/0.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/M/Microsoft%20Copilot/assets/logo.png',
 }
 
 presence.on('UpdateData', async () => {
