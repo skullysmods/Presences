@@ -11,9 +11,9 @@
   },
   "url": "4anime.gg",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*4anime[.]gg[/]",
-  "version": "1.0.0",
-  "logo": "https://imgur.com/cQ3grYp.png",
-  "thumbnail": "https://imgur.com/c78HJR4.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/0-9/4Anime/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/0-9/4Anime/assets/thumbnail.png",
   "color": "#000000",
   "category": "anime",
   "tags": [
