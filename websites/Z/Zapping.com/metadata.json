@@ -16,9 +16,9 @@
     "app.zapping.com"
   ],
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*zapping[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://us-east-1.tixte.net/uploads/memilio-cdn.tixte.co/zapping.png",
-  "thumbnail": "https://us-east-1.tixte.net/uploads/memilio-cdn.tixte.co/thumbzapping.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/Z/Zapping.com/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/Z/Zapping.com/assets/thumbnail.png",
   "color": "#ef4270",
   "category": "videos",
   "tags": [
