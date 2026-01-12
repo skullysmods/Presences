@@ -6,7 +6,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://imgur.com/nrVsqoB.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/V/Vix/assets/logo.png',
 }
 
 let cache: {

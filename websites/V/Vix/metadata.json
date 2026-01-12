@@ -12,9 +12,9 @@
   },
   "url": "vix.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*vix[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://imgur.com/nrVsqoB.png",
-  "thumbnail": "https://imgur.com/QUskhNc.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/V/Vix/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/V/Vix/assets/thumbnail.png",
   "color": "#000000",
   "category": "videos",
   "tags": [
