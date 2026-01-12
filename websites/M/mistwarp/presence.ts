@@ -4,7 +4,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://raw.githubusercontent.com/MistWarp/.github/refs/heads/main/logo.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/M/mistwarp/assets/logo.png',
 }
 
 function handleEditor(presenceData: PresenceData) {

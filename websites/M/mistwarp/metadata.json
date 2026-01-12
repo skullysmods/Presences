@@ -11,9 +11,9 @@
   },
   "url": "warp.mistium.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*warp[.]mistium[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://raw.githubusercontent.com/MistWarp/.github/refs/heads/main/logo.png",
-  "thumbnail": "https://raw.githubusercontent.com/MistWarp/.github/refs/heads/main/thumbnail.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/M/mistwarp/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/M/mistwarp/assets/thumbnail.png",
   "color": "#d399e5",
   "category": "other",
   "tags": [
