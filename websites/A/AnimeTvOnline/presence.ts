@@ -30,7 +30,7 @@ presence.on('UpdateData', async () => {
     const currentSlug = searchParams.get('slug')
 
     activityData = {
-      largeImageKey: 'https://i.imgur.com/kAalrFw.png',
+      largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/A/AnimeTvOnline/assets/0.png',
       startTimestamp: browsingTimestamp,
       details: animeTitle === 'Caricamento...' ? 'Scegliendo un Anime...' : animeTitle,
       state: `Episodio ${epNumber}`,
@@ -56,7 +56,7 @@ presence.on('UpdateData', async () => {
     const title = titleElement ? titleElement.textContent : document.title
 
     activityData = {
-      largeImageKey: 'https://i.imgur.com/kAalrFw.png',
+      largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/A/AnimeTvOnline/assets/0.png',
       startTimestamp: browsingTimestamp,
       details: 'Sta guardando la scheda di:',
       state: title?.replace('AnimeTvOnline - ', '').trim(),
@@ -71,7 +71,7 @@ presence.on('UpdateData', async () => {
   else if (path.includes('profilo')) {
     // 3. PROFILO
     activityData = {
-      largeImageKey: 'https://i.imgur.com/kAalrFw.png',
+      largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/A/AnimeTvOnline/assets/0.png',
       startTimestamp: browsingTimestamp,
       details: 'Visualizzando un profilo',
       state: 'Utente AnimeTvOnline',
@@ -80,7 +80,7 @@ presence.on('UpdateData', async () => {
   else if (path === '/' || path.includes('index') || path === '' || path.includes('login')) {
     // 4. HOMEPAGE
     activityData = {
-      largeImageKey: 'https://i.imgur.com/kAalrFw.png',
+      largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/A/AnimeTvOnline/assets/0.png',
       startTimestamp: browsingTimestamp,
       details: 'In Homepage',
       state: 'Cercando un anime da guardare...',
@@ -89,7 +89,7 @@ presence.on('UpdateData', async () => {
   else {
     // 5. DEFAULT
     activityData = {
-      largeImageKey: 'https://i.imgur.com/kAalrFw.png',
+      largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/A/AnimeTvOnline/assets/0.png',
       startTimestamp: browsingTimestamp,
       details: 'Navigando su AnimeTvOnline',
       state: 'Streaming Anime ITA',
