@@ -5,7 +5,7 @@ const presence = new Presence({
 })
 
 const API_URL = 'https://panel.symphradio.live/api/stats'
-const LOGO_512 = 'https://panel.symphradio.live/avatars/logo-premid-512.png'
+const LOGO_512 = 'https://cdn.rcd.gg/PreMiD/websites/S/Symphony%20Radio/assets/logo.png'
 
 let lastTrackId: string | null = null
 let lastStart = 0

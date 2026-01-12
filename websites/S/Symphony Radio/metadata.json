@@ -11,9 +11,9 @@
   },
   "url": "symphonyradio.co.uk",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*symphonyradio[.]co[.]uk[/]",
-  "version": "1.0.0",
-  "logo": "https://panel.symphradio.live/avatars/logo-premid-512.png",
-  "thumbnail": "https://panel.symphradio.live/avatars/v1-banner.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Symphony%20Radio/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Symphony%20Radio/assets/thumbnail.png",
   "color": "#7C3AED",
   "category": "music",
   "tags": [
