@@ -7,8 +7,8 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://imgur.com/AR0tCPd.png',
-  Gif = 'https://i.imgur.com/5o2kSjJ.gif',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/S/Sushi%20Animes/assets/logo.png',
+  Gif = 'https://cdn.rcd.gg/PreMiD/websites/S/Sushi%20Animes/assets/0.gif',
 }
 
 async function getBannerAnime(text: string) {
