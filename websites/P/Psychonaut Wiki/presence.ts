@@ -30,7 +30,7 @@ presence.on('UpdateData', async () => {
       || action === 'submit'
 
   const presenceData: PresenceData = {
-    largeImageKey: 'https://i.imgur.com/GPxHYOV.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/P/Psychonaut%20Wiki/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
 

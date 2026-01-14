@@ -14,9 +14,9 @@
   },
   "url": "psychonautwiki.org",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*psychonautwiki[.]org[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/GPxHYOV.png",
-  "thumbnail": "https://i.imgur.com/QwNGXcq.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/P/Psychonaut%20Wiki/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/P/Psychonaut%20Wiki/assets/thumbnail.png",
   "color": "#808080",
   "category": "other",
   "tags": [
