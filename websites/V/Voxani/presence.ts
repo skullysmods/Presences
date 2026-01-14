@@ -11,8 +11,8 @@ let durTime = 0
 let isPaused = true
 
 enum ActivityAssets {
-  Logo = 'https://imgur.com/nkyTI9D.png',
-  Gif = 'https://i.imgur.com/0X67ZB7.gif',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/V/Voxani/assets/logo.png',
+  Gif = 'https://cdn.rcd.gg/PreMiD/websites/V/Voxani/assets/0.gif',
 }
 
 let cache: {

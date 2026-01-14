@@ -11,9 +11,9 @@
   },
   "url": "voxani.live",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*voxani[.]live[/]",
-  "version": "1.0.0",
-  "logo": "https://imgur.com/nkyTI9D.png",
-  "thumbnail": "https://imgur.com/XoUqqZH.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/V/Voxani/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/V/Voxani/assets/thumbnail.png",
   "color": "#000000",
   "category": "anime",
   "tags": [
