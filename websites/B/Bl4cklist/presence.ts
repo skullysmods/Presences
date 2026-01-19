@@ -23,7 +23,7 @@ presence.on('UpdateData', async (): Promise<void> => {
   const matchedPage: string | undefined = Object.keys(pages).find((key: string): boolean => href.includes(key))
 
   const presenceData: PresenceData = {
-    largeImageKey: 'https://i.imgur.com/IlaDOsb.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/B/Bl4cklist/assets/0.png',
     smallImageKey: Assets.Reading,
     startTimestamp: browsingTimestamp,
   }
