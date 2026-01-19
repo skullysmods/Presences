@@ -11,9 +11,9 @@
   },
   "url": "openplace.live",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*openplace[.]live[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/POz1IBa.png",
-  "thumbnail": "https://i.imgur.com/a0Myl9w.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/O/OpenPlace/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/O/OpenPlace/assets/thumbnail.png",
   "color": "#2e5cf1",
   "category": "games",
   "tags": [
