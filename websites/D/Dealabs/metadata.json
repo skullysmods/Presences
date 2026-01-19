@@ -12,9 +12,9 @@
   },
   "url": "dealabs.com",
   "regExp": "^https?://(www\\.)?dealabs\\.com/.*",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/Bg9ddtg.png",
-  "thumbnail": "https://i.imgur.com/1nIb9QZ.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/D/Dealabs/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/D/Dealabs/assets/thumbnail.png",
   "color": "#36bca1",
   "category": "socials",
   "tags": [
