@@ -5,7 +5,7 @@ const presence = new Presence({
 })
 
 enum ActivityAssets {
-  Logo = 'https://cdn.rcd.gg/PreMiD/websites/S/Spotify%20Podcasts/assets/logo.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/S/Spotify/assets/logo.png',
 }
 
 async function getStrings() {

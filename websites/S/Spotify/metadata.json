@@ -25,9 +25,9 @@
   },
   "url": "open.spotify.com",
   "regExp": "^https?[:][/][/]open[.]spotify[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Spotify%20Podcasts/assets/logo.png",
-  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Spotify%20Podcasts/assets/thumbnail.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Spotify/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Spotify/assets/thumbnail.png",
   "color": "#1DB954",
   "category": "music",
   "tags": [
