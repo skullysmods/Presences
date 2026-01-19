@@ -14,9 +14,9 @@
   },
   "url": "itaku.ee",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*itaku[.]ee[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/od6sCq6.png",
-  "thumbnail": "https://i.imgur.com/UnCwDtS.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/I/Itaku/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/I/Itaku/assets/thumbnail.png",
   "color": "#FF6B6B",
   "category": "socials",
   "tags": [

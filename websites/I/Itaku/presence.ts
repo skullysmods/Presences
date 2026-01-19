@@ -48,7 +48,7 @@ presence.on('UpdateData', async () => {
   }
 
   const presenceData: PresenceData = {
-    largeImageKey: 'https://i.imgur.com/od6sCq6.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/I/Itaku/assets/logo.png',
     startTimestamp: currentTimestamp,
   }
 
