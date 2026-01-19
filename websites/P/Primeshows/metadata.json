@@ -11,9 +11,9 @@
   },
   "url": "www.primeshows.live",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*primeshows[.]live[/]",
-  "version": "1.0.0",
-  "logo": "https://i.ibb.co/fdn3gFWS/logo.png",
-  "thumbnail": "https://i.ibb.co/7NtK5cn6/image.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/P/Primeshows/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/P/Primeshows/assets/thumbnail.png",
   "color": "#121212",
   "category": "videos",
   "tags": [
