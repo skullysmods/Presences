@@ -11,9 +11,9 @@
   },
   "url": "www.sudomemo.net",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*sudomemo[.]net[/]",
-  "version": "1.0.0",
-  "logo": "https://raw.githubusercontent.com/sirschubert/assets/refs/heads/main/assets/sudomemo-logo.png",
-  "thumbnail": "https://support.sudomemo.net/wp-content/uploads/2024/07/image1.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Sudomemo/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Sudomemo/assets/thumbnail.png",
   "color": "#000000",
   "category": "videos",
   "tags": [

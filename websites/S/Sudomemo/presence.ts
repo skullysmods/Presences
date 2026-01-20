@@ -7,7 +7,7 @@ const presence = new Presence({
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     type: ActivityType.Watching,
-    largeImageKey: 'https://raw.githubusercontent.com/sirschubert/assets/refs/heads/main/assets/sudomemo-logo.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/S/Sudomemo/assets/logo.png',
   }
 
   const { pathname } = document.location
