@@ -17,7 +17,7 @@ presence.on('UpdateData', async () => {
 
   const presenceData: any = {
     type: ActivityType.Watching,
-    largeImageKey: 'https://cdn.aptoide.com/imgs/b/c/8/bc87071060372ad5bbd0ee5470c05dda_icon.jpg',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/M/MovieBoxPro/assets/logo.jpg',
     details: 'Browsing Library',
     state: 'Choosing a movie...',
   }

@@ -11,9 +11,9 @@
   },
   "url": "movieboxpro.app",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*movieboxpro[.]app[/]",
-  "version": "1.0.0",
-  "logo": "https://cdn.aptoide.com/imgs/b/c/8/bc87071060372ad5bbd0ee5470c05dda_icon.jpg",
-  "thumbnail": "https://raw.githubusercontent.com/sirschubert/assets/refs/heads/main/assets/movieboxpro.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/M/MovieBoxPro/assets/logo.jpg",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/M/MovieBoxPro/assets/thumbnail.png",
   "color": "#fcba03",
   "category": "videos",
   "tags": [
