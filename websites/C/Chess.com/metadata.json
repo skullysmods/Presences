@@ -21,9 +21,9 @@
   },
   "url": "www.chess.com",
   "regExp": "^https?[:][/][/](www[.])?chess[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://cdn.rcd.gg/PreMiD/websites/C/Chess/assets/logo.png",
-  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/C/Chess/assets/thumbnail.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/C/Chess.com/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/C/Chess.com/assets/thumbnail.png",
   "color": "#4d7737",
   "category": "games",
   "tags": [
@@ -54,7 +54,11 @@
       "title": "Display Format",
       "icon": "fas fa-paragraph",
       "value": 0,
-      "values": ["Vs Opponent", "Player vs Opponent", "Player Only"],
+      "values": [
+        "Vs Opponent",
+        "Player vs Opponent",
+        "Player Only"
+      ],
       "if": {
         "privacyMode": false
       }
