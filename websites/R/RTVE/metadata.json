@@ -12,9 +12,9 @@
   },
   "url": "rtve.es",
   "regExp": "^https?[:][/][/](www[.])?rtve[.]es[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/0begwZJ.png",
-  "thumbnail": "https://i.imgur.com/flAGyNL.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/R/RTVE/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/R/RTVE/assets/thumbnail.png",
   "color": "#f56b0d",
   "category": "videos",
   "tags": [

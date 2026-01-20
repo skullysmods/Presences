@@ -7,8 +7,8 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  RTVE = 'https://i.imgur.com/0begwZJ.png',
-  RTVE_PLAY = 'https://i.imgur.com/Ru8b2AX.png',
+  RTVE = 'https://cdn.rcd.gg/PreMiD/websites/R/RTVE/assets/logo.png',
+  RTVE_PLAY = 'https://cdn.rcd.gg/PreMiD/websites/R/RTVE/assets/0.png',
 }
 
 function getCleanTitle(): string {
