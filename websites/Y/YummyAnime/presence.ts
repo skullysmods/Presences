@@ -19,7 +19,7 @@ presence.on('UpdateData', async () => {
   const { pathname } = document.location
 
   const presenceData: any = {
-    largeImageKey: 'https://i.imgur.com/6XnAGga.jpeg',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/Y/YummyAnime/assets/logo.jpeg',
     largeImageText: 'YummyAnime',
     type: ActivityType.Watching,
   }

@@ -12,12 +12,15 @@
   },
   "url": "yummyani.me",
   "regExp": "^https?[:][/][/](www[.])?(site[.])?(en[.])?yummyani[.]me[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/6XnAGga.jpeg",
-  "thumbnail": "https://i.imgur.com/Z7z6N5g.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/Y/YummyAnime/assets/logo.jpeg",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/Y/YummyAnime/assets/thumbnail.png",
   "color": "#FF5722",
   "category": "anime",
-  "tags": ["anime", "video"],
+  "tags": [
+    "anime",
+    "video"
+  ],
   "iframe": true,
   "iFrameRegExp": "(kodik\\.(info|cc|biz|online)|aniqit\\.com)"
 }
