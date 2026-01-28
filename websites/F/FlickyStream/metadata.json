@@ -11,9 +11,9 @@
   },
   "url": "flickystream.ru",
   "regExp": "^https?[:][/][/](www[.])?flickystream[.]ru[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/M4LL1F8.png",
-  "thumbnail": "https://i.imgur.com/87Bezq3.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/F/FlickyStream/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/F/FlickyStream/assets/thumbnail.png",
   "color": "#E53935",
   "category": "videos",
   "tags": [
