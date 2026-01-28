@@ -11,9 +11,9 @@
   },
   "url": "www.1flex.nl",
   "regExp": "^https?[:][/][/](www[.])?1flex[.]nl[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/lZe2Tbj.png",
-  "thumbnail": "https://i.imgur.com/h7ugqHB.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/0-9/1Flex/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/0-9/1Flex/assets/thumbnail.png",
   "color": "#E53935",
   "category": "videos",
   "tags": [
