@@ -15,9 +15,9 @@
   },
   "url": "app.studio.design",
   "regExp": "^https?[:][/][/]app[.]studio[.]design[/]",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Studio.Design/assets/logo.png",
-  "thumbnail": "https://i.imgur.com/sL0Qztq.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Studio.Design/assets/thumbnail.png",
   "color": "#222222",
   "category": "other",
   "tags": [
