@@ -8,10 +8,10 @@ const browsingTimestamp = Math.floor(Date.now() / 1000)
 let studioTimestamp = 0
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/xTXlFCo.png',
-  Paused = 'https://i.imgur.com/5NduiGp.png',
-  Playing = 'https://i.imgur.com/uyEA1oc.png',
-  Search = 'https://i.imgur.com/MtruCL0.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/B/BandLab/assets/logo.png',
+  Paused = 'https://cdn.rcd.gg/PreMiD/websites/B/BandLab/assets/0.png',
+  Playing = 'https://cdn.rcd.gg/PreMiD/websites/B/BandLab/assets/1.png',
+  Search = 'https://cdn.rcd.gg/PreMiD/websites/B/BandLab/assets/2.png',
 }
 
 presence.on('UpdateData', async () => {
