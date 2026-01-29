@@ -87,7 +87,7 @@ presence.on('UpdateData', async () => {
   })
 
   const presenceData: PresenceData = {
-    largeImageKey: 'https://i.imgur.com/ipFHHUi.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
 
@@ -129,7 +129,7 @@ presence.on('UpdateData', async () => {
     presenceData.state = price ? `${price} | ${strings.seller}: ${sellerName || strings.unknown}` : `${strings.seller}: ${sellerName || strings.unknown}`
 
     if (badges.length > 0) {
-      presenceData.smallImageKey = 'https://i.imgur.com/Q2gWRtY.png'
+      presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/0.png'
       presenceData.smallImageText = badges.join(' • ')
     }
 
@@ -324,7 +324,7 @@ presence.on('UpdateData', async () => {
       presenceData.state = `${strings.page} ${currentPage} ${strings.of} ${totalPages}`
     }
 
-    presenceData.smallImageKey = 'https://i.imgur.com/XBf1cGW.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/1.png'
     presenceData.buttons = [
       {
         label: strings.viewSearch,
@@ -335,16 +335,16 @@ presence.on('UpdateData', async () => {
   else if (path.includes('/m-meine-anzeigen.html')) {
     presenceData.details = strings.managingAds
     presenceData.state = strings.myAds
-    presenceData.smallImageKey = 'https://i.imgur.com/ZSiPGqT.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/2.png'
   }
   else if (path.includes('/m-nachrichten.html')) {
     presenceData.details = strings.readingMessages
     presenceData.state = strings.inbox
-    presenceData.smallImageKey = 'https://i.imgur.com/GmdAyQk.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/3.png'
   }
   else if (path.includes('/m-einstellungen.html')) {
     presenceData.details = strings.inSettings
-    presenceData.smallImageKey = 'https://i.imgur.com/GASIlZP.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/4.png'
     if (window.location.hash.includes('personal-info')) {
       presenceData.state = strings.managingProfileInfo
     }
@@ -386,17 +386,17 @@ presence.on('UpdateData', async () => {
     const savedArticles = document.querySelectorAll('#wtchlst-msg ~ ul li').length || 0
     presenceData.details = strings.browsingWatchlist
     presenceData.state = `${savedArticles} ${strings.savedAds}`
-    presenceData.smallImageKey = 'https://i.imgur.com/DzXeiWS.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/5.png'
   }
   else if (path.includes('/m-meine-nutzer.html')) {
     presenceData.details = strings.managingUsers
     presenceData.state = strings.followedSellers
-    presenceData.smallImageKey = 'https://i.imgur.com/ZSiPGqT.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/2.png'
   }
   else if (path.includes('/m-meine-suchen.html')) {
     presenceData.details = strings.managingSearches
     presenceData.state = strings.savedSearches
-    presenceData.smallImageKey = 'https://i.imgur.com/XBf1cGW.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/1.png'
   }
   else if (path.includes('/p-anzeige-aufgeben') || path.includes('/p-anzeige-abschicken')) {
     const category = document.querySelector('#postad-category-path')?.textContent?.trim()
@@ -417,7 +417,7 @@ presence.on('UpdateData', async () => {
       presenceData.smallImageText = `${price} EUR ${priceType}`
     }
 
-    presenceData.smallImageKey = 'https://i.imgur.com/u91zmaE.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/6.png'
   }
 
   else if (path.includes('/s-bestandsliste.html')) {
@@ -430,7 +430,7 @@ presence.on('UpdateData', async () => {
     }
     presenceData.details = strings.viewingSellerProfile
     presenceData.state = sellerName || strings.sellerProfile
-    presenceData.smallImageKey = 'https://i.imgur.com/ZSiPGqT.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/2.png'
     presenceData.buttons = [
       {
         label: strings.viewProfile,
@@ -440,22 +440,22 @@ presence.on('UpdateData', async () => {
   }
   else if (path.includes('/m-benachrichtigungen.html')) {
     presenceData.details = strings.managingNotifications
-    presenceData.smallImageKey = 'https://i.imgur.com/PVJdOfm.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/7.png'
   }
   else if (path === '/' || path === '/index.html') {
     presenceData.details = strings.onHomepage
     presenceData.state = strings.browsingOffers
-    presenceData.smallImageKey = 'https://i.imgur.com/d0u9KBC.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/8.png'
   }
   else if (path.includes('/m-abgemeldet.html')) {
     presenceData.details = strings.loggedOut
-    presenceData.smallImageKey = 'https://i.imgur.com/FsZPn7h.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/9.png'
   }
   else if (path.match(/^\/s-[^/]+\/c\d+$/)) {
     const categoryName = document.querySelector('h1')?.textContent?.trim()
     presenceData.details = strings.browsingCategory
     presenceData.state = categoryName || strings.browsingAds
-    presenceData.smallImageKey = 'https://i.imgur.com/XBf1cGW.png'
+    presenceData.smallImageKey = 'https://cdn.rcd.gg/PreMiD/websites/K/Kleinanzeigen/assets/1.png'
   }
 
   if (presenceData.details) {
