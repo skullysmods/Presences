@@ -6,16 +6,19 @@
     "name": "roo7k1d"
   },
   "service": "WOW TV",
-  "altnames": ["WOW", "WOWTV"],
+  "altnames": [
+    "WOW",
+    "WOWTV"
+  ],
   "description": {
     "de": "Mit WOW kannst Du jederzeit und überall unbegrenzt Serien, Filme und Live-Sport schauen.",
     "en": "With WOW you can watch unlimited amounts of TV Shows, Movies and Live Sports anywhere and anytime."
   },
   "url": "wowtv.de",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*wowtv[.]de[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/a1KWJiO.png",
-  "thumbnail": "https://i.imgur.com/G2ZmDRx.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/W/WOW%20TV/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/W/WOW%20TV/assets/thumbnail.png",
   "color": "#00818a",
   "category": "videos",
   "tags": [
@@ -40,7 +43,6 @@
       "title": "Show Timestamps",
       "icon": "fad fa-stopwatch",
       "value": true
-
     }
   ]
 }
