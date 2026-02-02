@@ -6,7 +6,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/8a23coO.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/A/AntiRaid/assets/logo.png',
 }
 
 function formatNumber(num: number | string): string {

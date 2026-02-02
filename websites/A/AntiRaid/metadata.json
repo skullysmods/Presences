@@ -9,11 +9,14 @@
   "description": {
     "en": "Advanced protection for your Discord server with powerful, automated security features."
   },
-  "url": ["antiraid.bot", "antiraid.xyz"],
+  "url": [
+    "antiraid.bot",
+    "antiraid.xyz"
+  ],
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*antiraid[.](bot|xyz)[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/8a23coO.png",
-  "thumbnail": "https://i.imgur.com/v7Vb24l.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/A/AntiRaid/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/A/AntiRaid/assets/thumbnail.png",
   "color": "#180A0A",
   "category": "other",
   "tags": [
