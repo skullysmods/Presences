@@ -55,7 +55,7 @@ presence.on('UpdateData', async () => {
   let presenceData: PresenceData = {
     details: strings.home,
     type: ActivityType.Watching,
-    largeImageKey: 'https://i.imgur.com/XjhdbIo.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/V/Voiranime/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
 

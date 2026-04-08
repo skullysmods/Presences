@@ -28,9 +28,9 @@
   },
   "url": "voir-anime.to",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*voir-anime[.]to[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/XjhdbIo.png",
-  "thumbnail": "https://i.imgur.com/566TY04.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/V/Voiranime/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/V/Voiranime/assets/thumbnail.png",
   "color": "#1a1920",
   "category": "anime",
   "tags": [
