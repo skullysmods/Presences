@@ -61,7 +61,7 @@ interface PresenceContext {
 }
 
 enum ActivityAsset {
-  Logo = 'https://i.imgur.com/SZzhg15.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/S/StudySapuri/assets/logo.png',
 }
 
 const LOCALIZED_TEXT: Record<SupportedLanguage, ActivityTextSet> = {
