@@ -11,9 +11,9 @@
   },
   "url": "melofy.jene.in",
   "regExp": "^https?[:][/][/]melofy[.]jene[.]in[/]",
-  "version": "1.0.0",
-  "logo": "https://i.ibb.co/HpfVk6KN/melofy.png",
-  "thumbnail": "https://i.ibb.co/sd7RpbJs/Screenshot-2026-04-02-123540.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/M/Melofy/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/M/Melofy/assets/thumbnail.png",
   "color": "#000000",
   "category": "music",
   "tags": [
