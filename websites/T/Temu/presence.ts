@@ -3,7 +3,7 @@ const presence = new Presence({
 })
 
 enum ActivityAssets {
-  Logo = 'https://images2.imgbox.com/eb/0f/4V9TX7r7_o.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/T/Temu/assets/logo.png',
 }
 
 let elapsed = Math.floor(Date.now() / 1000)

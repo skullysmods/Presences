@@ -11,9 +11,9 @@
   },
   "url": "www.temu.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])?temu[.]com",
-  "version": "1.0.0",
-  "logo": "https://images2.imgbox.com/eb/0f/4V9TX7r7_o.png",
-  "thumbnail": "https://images2.imgbox.com/a6/dd/8N5YJXsF_o.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/T/Temu/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/T/Temu/assets/thumbnail.png",
   "color": "#FB6D13",
   "category": "other",
   "tags": [
