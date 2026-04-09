@@ -11,12 +11,16 @@
   },
   "url": "www.youku.tv",
   "regExp": "^https?:[/][/]([a-z0-9-]+[.])*youku[.]tv[/]",
-  "version": "1.0.0",
-  "logo": "https://i.ibb.co/NnJWvgQT/logo-1.png",
-  "thumbnail": "https://i.ibb.co/WW7GQR1k/image.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/Y/Youku/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/Y/Youku/assets/thumbnail.png",
   "color": "#2fb3ff",
   "category": "videos",
-  "tags": ["video", "streaming", "chinese-drama"],
+  "tags": [
+    "video",
+    "streaming",
+    "chinese-drama"
+  ],
   "settings": [
     {
       "id": "privacy",

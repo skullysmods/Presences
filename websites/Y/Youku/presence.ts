@@ -77,7 +77,7 @@ presence.on('UpdateData', async () => {
 
   const data: PresenceData = {
     type: ActivityType.Watching,
-    largeImageKey: posterImage || 'https://cdn-icons-png.flaticon.com/512/2111/2111710.png', // 512x512 Youku logo
+    largeImageKey: posterImage || 'https://cdn.rcd.gg/PreMiD/websites/Y/Youku/assets/0.png', // 512x512 Youku logo
     largeImageText: 'Youku',
   }
 
