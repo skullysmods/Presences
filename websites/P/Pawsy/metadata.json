@@ -12,9 +12,9 @@
   },
   "url": "pawsy.fun",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*pawsy[.]fun[/]",
-  "version": "1.0.1",
-  "logo": "https://i.imgur.com/DZb1KAE.jpeg",
-  "thumbnail": "https://i.imgur.com/YRnNFnj.png",
+  "version": "1.0.2",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/P/Pawsy/assets/logo.jpeg",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/P/Pawsy/assets/thumbnail.png",
   "color": "#f4efeb",
   "category": "other",
   "tags": [
