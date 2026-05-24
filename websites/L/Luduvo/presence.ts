@@ -1,7 +1,7 @@
 import { Assets } from 'premid'
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/VARG8gC.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/L/Luduvo/assets/logo.png',
 }
 
 const presence = new Presence({

@@ -16,9 +16,9 @@
     "forum.luduvo.com"
   ],
   "regExp": "^https?[:][/][/]((api|www|alpha|forum)[.])?luduvo[.]com",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/VARG8gC.png",
-  "thumbnail": "https://i.imgur.com/c5DaQWi.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/L/Luduvo/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/L/Luduvo/assets/thumbnail.png",
   "color": "#d20a2e",
   "category": "games",
   "tags": [
