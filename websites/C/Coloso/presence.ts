@@ -10,7 +10,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/AZjrJho.jpeg',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/C/Coloso/assets/logo.jpeg',
 }
 
 let iFrameData: {
