@@ -16,7 +16,7 @@ presence.on('UpdateData', async () => {
     sessionStartTime = Math.floor(Date.now() / 1000)
 
   const presenceData: PresenceData = {
-    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/C/Comix/assets/thumbnail.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/C/Comix/assets/logo.png',
     startTimestamp: sessionStartTime,
   }
 
