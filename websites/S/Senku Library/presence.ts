@@ -161,7 +161,7 @@ presence.on('UpdateData', async () => {
   const { pathname, href } = document.location
 
   const presenceData: PresenceData = {
-    largeImageKey: 'https://senkulibrary.app/favicon.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/S/Senku%20Library/assets/logo.png',
     largeImageText: 'Senku\'s Library',
     type: ActivityType.Watching,
   }
