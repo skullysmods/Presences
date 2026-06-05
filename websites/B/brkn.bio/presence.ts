@@ -6,7 +6,7 @@ const startTimestamp = Math.floor(Date.now() / 1000)
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
-    largeImageKey: 'https://i.imgur.com/vHHYr08.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/B/brkn.bio/assets/logo.png',
     startTimestamp,
   }
 
