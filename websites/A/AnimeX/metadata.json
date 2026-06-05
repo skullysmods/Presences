@@ -11,12 +11,15 @@
   },
   "url": "animex.one",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*animex[.]one[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/QLfdRng.png",
-  "thumbnail": "https://i.imgur.com/UWAcwDI.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/A/AnimeX/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/A/AnimeX/assets/thumbnail.png",
   "color": "#E63946",
   "category": "anime",
-  "tags": ["anime", "streaming"],
+  "tags": [
+    "anime",
+    "streaming"
+  ],
   "settings": [
     {
       "id": "showTimestamp",

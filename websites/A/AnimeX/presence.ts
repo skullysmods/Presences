@@ -3,7 +3,7 @@ import { ActivityType, Assets, getTimestamps } from 'premid'
 const presence = new Presence({ clientId: '1508462512339943425' })
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/QLfdRng.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/A/AnimeX/assets/logo.png',
 }
 
 let browsingTimestamp = Math.floor(Date.now() / 1000)
