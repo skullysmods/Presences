@@ -1,6 +1,6 @@
 import { ActivityType } from 'premid'
 
-const LOGO = 'https://i.imgur.com/FV46abR.png'
+const LOGO = 'https://cdn.rcd.gg/PreMiD/websites/V/VertexMovies/assets/logo.png'
 const presence = new Presence({
   clientId: '1508084972991549551',
 })

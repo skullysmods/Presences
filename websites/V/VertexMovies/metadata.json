@@ -11,9 +11,9 @@
   },
   "url": "vertexmovies.com",
   "regExp": "^https?[:][/][/](www[.])?vertexmovies[.](com|net)[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/FV46abR.png",
-  "thumbnail": "https://i.imgur.com/UELJRyw.jpeg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/V/VertexMovies/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/V/VertexMovies/assets/thumbnail.jpeg",
   "color": "#0C6BCB",
   "category": "videos",
   "tags": [
