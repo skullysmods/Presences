@@ -11,7 +11,7 @@ presence.on('UpdateData', () => {
 
   const presenceData: PresenceData = {
     type: ActivityType.Watching,
-    largeImageKey: 'https://i.imgur.com/0Qraju1.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/O/okiso.net/assets/logo.png',
     largeImageText: 'okiso.net',
     startTimestamp: browsingTimestamp,
   }
