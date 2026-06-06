@@ -3,7 +3,7 @@ import { ActivityType } from 'premid'
 const presence = new Presence({
   clientId: '1511505666664038460',
 })
-const NintendoMusicLogo = 'https://i.imgur.com/thYBiff.png'
+const NintendoMusicLogo = 'https://cdn.rcd.gg/PreMiD/websites/N/Nintendo%20Music/assets/logo.png'
 
 presence.on('UpdateData', async () => {
   const { pathname } = document.location
