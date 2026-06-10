@@ -6,8 +6,8 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://imgur.com/ybR9zKq.png',
-  Gif = 'https://imgur.com/qarC5Qm.gif',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/J/JKAnime/assets/logo.png',
+  Gif = 'https://cdn.rcd.gg/PreMiD/websites/J/JKAnime/assets/0.gif',
 }
 
 let iframePlayback = false
