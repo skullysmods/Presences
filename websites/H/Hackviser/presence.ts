@@ -272,7 +272,7 @@ presence.on('UpdateData', async () => {
 
   const presenceData: PresenceData = {
     startTimestamp,
-    largeImageKey: 'https://i.imgur.com/119NBYA.jpeg',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/H/Hackviser/assets/logo.jpeg',
   }
 
   // 265. Satır: ESLint Brace Style Düzeltmesi
