@@ -16,9 +16,9 @@
   },
   "url": "apps.abacus.ai",
   "regExp": "^https?[:][/][/]apps[.]abacus[.]ai[/]",
-  "version": "1.0.1",
-  "logo": "https://play-lh.googleusercontent.com/O35u7LcmgKHsRpEQvHmT9ACfvDvP5S6HRIVmz-x-spUhojXIcnk0wbMEqaBSWPUJYQ?.png",
-  "thumbnail": "https://www.hrkatha.com/wp-content/uploads/2022/01/Abacus.png",
+  "version": "1.0.2",
+  "logo": "https://i.imgur.com/js6my4s.png",
+  "thumbnail": "https://i.imgur.com/9rEJpeU.png",
   "color": "#4F46E5",
   "category": "other",
   "tags": [
