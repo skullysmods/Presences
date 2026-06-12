@@ -12,9 +12,9 @@
   },
   "url": "basketball-reference.com",
   "regExp": "^https?:[/][/]([a-z0-9-]+[.])*basketball-reference[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/P9C7QLZ.png",
-  "thumbnail": "https://i.imgur.com/uZWtmoG.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/B/Basketball%20Reference/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/B/Basketball%20Reference/assets/thumbnail.png",
   "color": "#ff9900",
   "category": "other",
   "tags": [
