@@ -12,9 +12,9 @@
   },
   "url": "cripsum.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*cripsum[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/QfiBrJL.jpeg",
-  "thumbnail": "https://i.imgur.com/6ai8WUr.jpeg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/C/Cripsum.com/assets/logo.jpeg",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/C/Cripsum.com/assets/thumbnail.jpeg",
   "color": "#230954",
   "category": "other",
   "tags": [

@@ -7,7 +7,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/QfiBrJL.jpeg',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/C/Cripsum.com/assets/logo.jpeg',
 }
 
 let currentEditCard: Element | null = null
@@ -406,7 +406,7 @@ presence.on('UpdateData', async () => {
   else if (path.includes('banned')) {
     presenceData.details = strings.banned
     presenceData.state = strings.skillIssue
-    presenceData.largeImageKey = 'https://i.imgur.com/zhWqqwv.jpeg'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/C/Cripsum.com/assets/0.jpeg'
   }
 
   else if (path.includes('impostazioni')) {
