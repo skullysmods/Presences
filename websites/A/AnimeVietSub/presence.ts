@@ -17,7 +17,7 @@ let iFrameData: {
 } | null = null
 
 enum ActivityAssets {
-  Logo = 'https://i.postimg.cc/NfrMNCn3/anvs.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/A/AnimeVietSub/assets/logo.png',
 }
 
 presence.on(
