@@ -104,7 +104,7 @@ presence.on('UpdateData', async () => {
       }
 
       const sharedTracking: PresenceData = {
-        largeImageKey: 'https://i.imgur.com/E0XR3mN.png',
+        largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/C/Clockify/assets/logo.png',
         detailsUrl: document.location.href,
         smallImageKey: Assets.Play,
         smallImageText: 'Tracking time',
@@ -141,7 +141,7 @@ presence.on('UpdateData', async () => {
     }
 
     const presenceData: PresenceData = {
-      largeImageKey: 'https://i.imgur.com/E0XR3mN.png',
+      largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/C/Clockify/assets/logo.png',
       startTimestamp: browsingTimestamp,
       details: 'Clockify',
       state: 'Browsing',
@@ -205,7 +205,7 @@ presence.on('UpdateData', async () => {
 
       if (dailyFormatted || weeklyFormatted) {
         const totalsSlide: PresenceData = {
-          largeImageKey: 'https://i.imgur.com/E0XR3mN.png',
+          largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/C/Clockify/assets/logo.png',
           details: dailyFormatted ? `📅 | ${dailyFormatted} today` : '📊 | Time Summary',
           detailsUrl: document.location.href,
           smallImageKey: Assets.Pause,
@@ -222,7 +222,7 @@ presence.on('UpdateData', async () => {
   catch (err) {
     console.error('Clockify presence error:', err)
     presence.setActivity({
-      largeImageKey: 'https://i.imgur.com/E0XR3mN.png',
+      largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/C/Clockify/assets/logo.png',
       details: '🌐 | Clockify',
       state: '🔍 | Browsing workspace',
     })

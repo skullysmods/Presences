@@ -12,9 +12,9 @@
   },
   "url": "clockify.me",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*clockify[.]me[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/E0XR3mN.png",
-  "thumbnail": "https://i.imgur.com/4fjcJ9L.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/C/Clockify/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/C/Clockify/assets/thumbnail.png",
   "color": "#03A9F4",
   "category": "other",
   "tags": [
