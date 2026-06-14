@@ -11,9 +11,9 @@
   },
   "url": "hotstar.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*hotstar[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.ibb.co/Gfs3F52W/unnamed-1.png",
-  "thumbnail": "https://i.ibb.co/d0KNM0g8/Jio-Hot-Star-1-1-1.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/J/JioHotstar/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/J/JioHotstar/assets/thumbnail.png",
   "color": "#000000",
   "category": "videos",
   "tags": [

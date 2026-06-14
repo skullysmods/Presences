@@ -10,7 +10,7 @@ presence.on('UpdateData', async () => {
       type: ActivityType.Watching,
       details: 'Browsing',
       state: 'Home',
-      largeImageKey: 'https://i.ibb.co/Gfs3F52W/unnamed-1.png',
+      largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/J/JioHotstar/assets/logo.png',
       largeImageText: 'JioHotstar',
     })
 
