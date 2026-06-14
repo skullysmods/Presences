@@ -12,9 +12,9 @@
   },
   "url": "composer.boidu.dev",
   "regExp": "^https?[:][/][/]composer[.]boidu[.]dev[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/EV6MBCV.png",
-  "thumbnail": "https://i.imgur.com/cFB6l17.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/C/Composer%20TTML/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/C/Composer%20TTML/assets/thumbnail.png",
   "color": "#f20c32",
   "category": "music",
   "tags": [
