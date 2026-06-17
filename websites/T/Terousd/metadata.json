@@ -11,9 +11,9 @@
   },
   "url": "stream.terousd.online",
   "regExp": "^https?[:][/][/]stream[.]terousd[.]online[/]",
-  "version": "1.0.0",
-  "logo": "https://raw.githubusercontent.com/aethxrix/premid-assets/master/terousd/logo.png",
-  "thumbnail": "https://raw.githubusercontent.com/aethxrix/premid-assets/master/terousd/thumbnail.jpg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/T/Terousd/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/T/Terousd/assets/thumbnail.jpg",
   "color": "#E50914",
   "category": "videos",
   "tags": [
