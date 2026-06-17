@@ -7,7 +7,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://cdn.tubecraftsmp.com/assets/Tubecraft-Logo-Small.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/T/TubeCraft%20SMP/assets/logo.png',
 }
 
 function titleCase(value: string): string {

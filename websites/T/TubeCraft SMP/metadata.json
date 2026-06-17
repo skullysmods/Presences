@@ -11,9 +11,9 @@
   },
   "url": "tubecraftsmp.com",
   "regExp": "^https?:[/][/]([a-z0-9-]+[.])*tubecraftsmp[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://cdn.tubecraftsmp.com/assets/Tubecraft-Logo-Small.png",
-  "thumbnail": "https://cdn.tubecraftsmp.com/assets/TubecraftSMP-Thumbnail.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/T/TubeCraft%20SMP/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/T/TubeCraft%20SMP/assets/thumbnail.png",
   "color": "#5BC66B",
   "category": "videos",
   "tags": [
