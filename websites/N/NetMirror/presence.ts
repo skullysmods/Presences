@@ -31,7 +31,7 @@ presence.on('iFrameData', (data: IFrameVideoData) => {
 })
 
 enum ActivityAssets {
-  Logo = 'https://netmirror.io/images/icon-512.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/N/NetMirror/assets/logo.png',
 }
 
 function cleanText(text?: string | null): string | undefined {
