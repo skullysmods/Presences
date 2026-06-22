@@ -11,9 +11,9 @@
   },
   "url": "sapph.xyz",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*sapph[.]xyz[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/apPbYWb.png",
-  "thumbnail": "https://i.imgur.com/BIVbVuG.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Sapphire/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Sapphire/assets/thumbnail.png",
   "color": "#00a2ff",
   "category": "other",
   "tags": [
