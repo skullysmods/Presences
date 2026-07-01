@@ -11,9 +11,9 @@
   },
   "url": "kitsu.live",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*kitsu[.]live[/]",
-  "version": "1.0.0",
-  "logo": "https://kitsu.live/favicon.png",
-  "thumbnail": "https://kitsu.live/assets/hero_banner.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/K/kitsu.live/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/K/kitsu.live/assets/thumbnail.png",
   "color": "#8b5cf6",
   "category": "anime",
   "tags": [

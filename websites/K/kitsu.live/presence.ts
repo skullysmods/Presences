@@ -26,7 +26,7 @@ presence.on('UpdateData', () => {
     state,
     largeImageKey,
     largeImageText,
-    smallImageKey: 'https://kitsu.live/favicon.png',
+    smallImageKey: 'https://cdn.rcd.gg/PreMiD/websites/K/kitsu.live/assets/logo.png',
     smallImageText: 'kitsu.live',
     startTimestamp,
     endTimestamp,
