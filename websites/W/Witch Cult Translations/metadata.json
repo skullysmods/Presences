@@ -11,9 +11,9 @@
   },
   "url": "witchculttranslation.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*witchculttranslation[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/sHlFaYG.png",
-  "thumbnail": "https://i.imgur.com/jfrYMuW.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/W/Witch%20Cult%20Translations/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/W/Witch%20Cult%20Translations/assets/thumbnail.png",
   "color": "#5B39A8",
   "category": "other",
   "tags": [

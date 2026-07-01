@@ -24,7 +24,7 @@ presence.on('UpdateData', async () => {
   })
 
   const presenceData: PresenceData = {
-    largeImageKey: 'https://i.imgur.com/sHlFaYG.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/W/Witch%20Cult%20Translations/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
 
