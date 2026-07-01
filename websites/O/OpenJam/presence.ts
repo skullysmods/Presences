@@ -8,7 +8,7 @@ let elapsedSinceChange = 0
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
-    largeImageKey: 'https://files.catbox.moe/oz8aca.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/O/OpenJam/assets/logo.png',
   }
 
   const [showButtons, showTimestamps] = await Promise.all([
