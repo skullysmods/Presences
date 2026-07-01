@@ -9,17 +9,17 @@ enum ActivityAssets {
   FaceIt = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/logo.png',
   CounterStrike = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/0.png',
   LevelUnranked = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/1.jpeg', // Have to find this one yet
-  LevelOne = 'https://i.imgur.com/zfPjOpW.png',
-  LevelTwo = 'https://i.imgur.com/uGg07ME.png',
-  LevelThree = 'https://i.imgur.com/rBZNQw1.png',
-  LevelFour = 'https://i.imgur.com/332osDz.png',
-  LevelFive = 'https://i.imgur.com/r467Gdi.png',
-  LevelSix = 'https://i.imgur.com/QIokBiU.png',
-  LevelSeven = 'https://i.imgur.com/lpKwHTa.png',
-  LevelEight = 'https://i.imgur.com/LLrEhec.png',
-  LevelNine = 'https://i.imgur.com/QuVe40E.png',
-  LevelTen = 'https://i.imgur.com/H8bBSgU.png',
-  LevelEleven = 'https://i.imgur.com/P1QjPqd.png',
+  LevelOne = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/2.png',
+  LevelTwo = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/3.png',
+  LevelThree = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/4.png',
+  LevelFour = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/5.png',
+  LevelFive = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/6.png',
+  LevelSix = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/7.png',
+  LevelSeven = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/8.png',
+  LevelEight = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/9.png',
+  LevelNine = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/10.png',
+  LevelTen = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/11.png',
+  LevelEleven = 'https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/12.png',
 }
 
 function getLevelAsset(level: string): string | null {

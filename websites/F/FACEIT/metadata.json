@@ -12,7 +12,7 @@
   },
   "url": "faceit.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*faceit[.]com[/]",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "logo": "https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/logo.png",
   "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/F/FACEIT/assets/thumbnail.png",
   "color": "#FF5500",
@@ -54,7 +54,11 @@
       "icon": "fas fa-gamepad",
       "description": "Only when in-game.",
       "value": 0,
-      "values": ["FACEIT: Counter-Strike 2", "Counter-Strike 2", "FACEIT"]
+      "values": [
+        "FACEIT: Counter-Strike 2",
+        "Counter-Strike 2",
+        "FACEIT"
+      ]
     }
   ]
 }
