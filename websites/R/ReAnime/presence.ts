@@ -12,8 +12,8 @@ interface IframeVideoState {
 }
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/yjaL5qi.png',
-  Thumbnail = 'https://i.imgur.com/sKRJo3W.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/R/ReAnime/assets/0.png',
+  Thumbnail = 'https://cdn.rcd.gg/PreMiD/websites/R/ReAnime/assets/1.png',
 }
 
 let browsingTimestamp = Math.floor(Date.now() / 1000)
