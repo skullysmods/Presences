@@ -12,9 +12,9 @@
   },
   "url": "nelvix.xyz",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*nelvix[.]xyz[/]",
-  "version": "1.0.0",
-  "logo": "https://res.cloudinary.com/debvitdiw/image/upload/w_512,h_512,c_scale/v1782274767/Nelvix.png",
-  "thumbnail": "https://res.cloudinary.com/debvitdiw/image/upload/embeds/nelvix_dynamic_og.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/N/Nelvix/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/N/Nelvix/assets/thumbnail.png",
   "color": "#e50914",
   "category": "videos",
   "tags": [
