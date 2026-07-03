@@ -4,7 +4,7 @@ const presence = new Presence({
   clientId: '1515468425487581234',
 })
 
-const LOGO = 'https://raw.githack.com/Spicy-AMLL-Music-Online/spicy-amll-player/main/icon.png'
+const LOGO = 'https://cdn.rcd.gg/PreMiD/websites/S/Spicy%20AMLL%20Player/assets/logo.png'
 
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 

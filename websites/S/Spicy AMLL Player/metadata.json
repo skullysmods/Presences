@@ -11,9 +11,9 @@
   },
   "url": "spicyamll.online",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*spicyamll[.]online[/]",
-  "version": "1.0.0",
-  "logo": "https://raw.githack.com/Spicy-AMLL-Music-Online/spicy-amll-player/main/icon.png",
-  "thumbnail": "https://raw.githack.com/Spicy-AMLL-Music-Online/spicy-amll-player/main/banner.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Spicy%20AMLL%20Player/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Spicy%20AMLL%20Player/assets/thumbnail.png",
   "color": "#93254c",
   "category": "music",
   "tags": [
