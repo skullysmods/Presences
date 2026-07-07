@@ -11,9 +11,9 @@
   },
   "url": "lunaranime.ru",
   "regExp": "^https?[:][/][/](www[.])?lunaranime[.]ru[/]",
-  "version": "1.0.0",
-  "logo": "https://api.lunaranime.ru/static/rpc/icon.png",
-  "thumbnail": "https://api.lunaranime.ru/static/rpc/thumbnail.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/L/Lunar/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/L/Lunar/assets/thumbnail.png",
   "color": "#895AF6",
   "category": "anime",
   "tags": [
