@@ -26,7 +26,7 @@ presence.on('UpdateData', async () => {
   }
 
   const presenceData: PresenceData = {
-    largeImageKey: 'https://i.imgur.com/s6GY1qt.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/W/WorldGuessr/assets/logo.png',
   }
 
   if (isPlaying) {
