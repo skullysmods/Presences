@@ -76,8 +76,6 @@ presence.on('UpdateData', async () => {
         const chatUserPic = document.querySelector<HTMLImageElement>(`.reader-nav-page a[href="${chatUserTag}"] img`)?.src || document.querySelector<HTMLImageElement>(`.reader-nav-page a[href="/@${chatUserTag?.split('@')[1]}"] img`)?.src
         presenceData.details = privacy ? 'Chatting with someone' : `Chatting with ${chatUserName}`
         presenceData.largeImageKey = !privacy && userPic && chatUserTag ? resizeImageUrl(chatUserPic || ActivityAssets.Logo, 512) : ActivityAssets.Logo
-        if (chatUserPic)
-          presenceData.smallImageKey = ActivityAssets.Logo
         cacheInfoChat = {
           username: chatUserName,
           picture: chatUserPic || ActivityAssets.Logo,
@@ -86,16 +84,12 @@ presence.on('UpdateData', async () => {
       else if (/^\/chat\/[^/]+\/post/.test(pathname)) {
         presenceData.details = privacy ? 'Viewing a Post in Chat' : `Viewing a Post in ${cacheInfoChat?.username} Chat` || 'Viewing a Post in Chat'
         presenceData.largeImageKey = !privacy && cacheInfoChat?.picture ? cacheInfoChat.picture : ActivityAssets.Logo
-        if (cacheInfoChat?.picture)
-          presenceData.smallImageKey = ActivityAssets.Logo
       }
     }
     else if (/^\/@[^/]+$/.test(pathname) || /^\/@[^/]+\/notes$/.test(pathname)) {
       presenceData.details = privacy ? 'Viewing someones Activity' : `Viewing ${username}'s Activity`
       if (!privacy) {
         presenceData.largeImageKey = userPic && userProfilePicture ? resizeImageUrl(userProfilePicture, 512) : ActivityAssets.Logo
-        if (userProfilePicture)
-          presenceData.smallImageKey = ActivityAssets.Logo
         if (buttons) {
           presenceData.buttons = [
             {
@@ -110,8 +104,6 @@ presence.on('UpdateData', async () => {
       presenceData.details = privacy ? 'Viewing someones Posts' : `Viewing ${username}'s Posts`
       if (!privacy) {
         presenceData.largeImageKey = userPic && userProfilePicture ? resizeImageUrl(userProfilePicture, 512) : ActivityAssets.Logo
-        if (userProfilePicture)
-          presenceData.smallImageKey = ActivityAssets.Logo
         if (buttons) {
           presenceData.buttons = [
             {
@@ -126,8 +118,6 @@ presence.on('UpdateData', async () => {
       presenceData.details = privacy ? 'Viewing someones Likes & Replies' : `Viewing ${username}'s Likes & Replies`
       if (!privacy) {
         presenceData.largeImageKey = userPic && userProfilePicture ? resizeImageUrl(userProfilePicture, 512) : ActivityAssets.Logo
-        if (userProfilePicture)
-          presenceData.smallImageKey = ActivityAssets.Logo
         if (buttons) {
           presenceData.buttons = [
             {
@@ -142,8 +132,6 @@ presence.on('UpdateData', async () => {
       presenceData.details = privacy ? 'Viewing someones Reads' : `Viewing ${username}'s Reads`
       if (!privacy) {
         presenceData.largeImageKey = userPic && userProfilePicture ? resizeImageUrl(userProfilePicture, 512) : ActivityAssets.Logo
-        if (userProfilePicture)
-          presenceData.smallImageKey = ActivityAssets.Logo
         if (buttons) {
           presenceData.buttons = [
             {
@@ -158,8 +146,6 @@ presence.on('UpdateData', async () => {
       presenceData.details = privacy ? 'Viewing someones Note' : `Viewing ${username}'s Note`
       if (!privacy) {
         presenceData.largeImageKey = userPic && userProfilePicture ? resizeImageUrl(userProfilePicture, 512) : ActivityAssets.Logo
-        if (userProfilePicture)
-          presenceData.smallImageKey = ActivityAssets.Logo
         if (buttons) {
           presenceData.buttons = [
             {
@@ -188,6 +174,9 @@ presence.on('UpdateData', async () => {
       presenceData.details = `Viewing page: ${document.title?.split(/\s*[|\-–—•·:~]\s*(?=Substack$)/i)[0]?.trim()}` || 'Browsing...'
     }
   }
+
+  if (presenceData.largeImageKey !== ActivityAssets.Logo && !presenceData.smallImageKey)
+    presenceData.smallImageKey = ActivityAssets.Logo
 
   presence.setActivity(presenceData)
 })
