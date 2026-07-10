@@ -13,7 +13,7 @@
   "url": "substack.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*substack[.]com[/]",
   "version": "1.0.0",
-  "logo": "https://substack.com/img/manifest-icons/app-512.png",
+  "logo": "https://i.imgur.com/AfQCzdX.png",
   "thumbnail": "https://i.imgur.com/yKjxvZM.jpeg",
   "color": "#FE8247",
   "category": "socials",
