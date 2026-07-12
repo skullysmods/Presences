@@ -30,7 +30,7 @@ presence.on('UpdateData', async () => {
     type: ActivityType.Watching,
     largeImageKey:
       logoUrl
-      ?? 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cc/0e/46/cc0e4697-6748-4d0d-81b4-e882be3c7df6/Placeholder.mill/512x512.png',
+      ?? 'https://cdn.rcd.gg/PreMiD/websites/M/MagentaTV%20Deutschland/assets/logo.png',
   }
 
   const parts = title.split(' - ')
