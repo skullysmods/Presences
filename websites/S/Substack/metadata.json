@@ -12,9 +12,9 @@
   },
   "url": "substack.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*substack[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/AfQCzdX.png",
-  "thumbnail": "https://i.imgur.com/yKjxvZM.jpeg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Substack/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Substack/assets/thumbnail.jpeg",
   "color": "#FE8247",
   "category": "socials",
   "tags": [

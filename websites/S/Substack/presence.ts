@@ -6,7 +6,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/AfQCzdX.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/S/Substack/assets/logo.png',
 }
 
 function resizeImageUrl(url: string, size: number): string {
