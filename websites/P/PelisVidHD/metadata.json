@@ -12,9 +12,9 @@
   },
   "url": "pelisvidhd.icu",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*pelisvidhd[.]icu[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/RQ28HKd.png",
-  "thumbnail": "https://i.imgur.com/vVzwIrm.jpeg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/P/PelisVidHD/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/P/PelisVidHD/assets/thumbnail.jpeg",
   "color": "#FF0000",
   "category": "videos",
   "tags": [

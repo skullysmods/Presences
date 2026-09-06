@@ -11,7 +11,7 @@ let mediaTimestamp = browsingTimestamp
 let lastKey = ''
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/RQ28HKd.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/P/PelisVidHD/assets/logo.png',
 }
 
 // Datos que manda iframe.ts (currTime/dur/paused) cuando encuentra un <video>
