@@ -6,19 +6,29 @@
     "id": "1228414171020787823"
   },
   "service": "Nakios",
-  "altnames": ["NAKIOS"],
+  "altnames": [
+    "NAKIOS"
+  ],
   "description": {
     "en": "Nakios is a French streaming platform offering movies, series, anime and live TV channels in HD, for free.",
     "fr": "Nakios est une plateforme de streaming française qui propose films, séries, animés et chaînes TV en direct, en HD et gratuitement."
   },
   "url": "nakios.website",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*nakios[.](website|cyou)[/]",
-  "version": "1.0.0",
-  "logo": "https://nakios.website/premid/icon.png",
-  "thumbnail": "https://nakios.website/premid/banner.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/N/Nakios/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/N/Nakios/assets/thumbnail.png",
   "color": "#F97316",
   "category": "videos",
-  "tags": ["streaming", "movies", "series", "anime", "tv", "french", "video"],
+  "tags": [
+    "streaming",
+    "movies",
+    "series",
+    "anime",
+    "tv",
+    "french",
+    "video"
+  ],
   "settings": [
     {
       "id": "privacy",
@@ -33,7 +43,9 @@
       "icon": "fas fa-clock",
       "value": true,
       "description": "Show elapsed and remaining time while a video is playing.",
-      "if": { "privacy": false }
+      "if": {
+        "privacy": false
+      }
     },
     {
       "id": "covers",
@@ -41,7 +53,9 @@
       "icon": "fas fa-image",
       "value": true,
       "description": "Use the poster of the movie or series as the large image.",
-      "if": { "privacy": false }
+      "if": {
+        "privacy": false
+      }
     },
     {
       "id": "buttons",
@@ -49,7 +63,9 @@
       "icon": "fas fa-compress-arrows-alt",
       "value": true,
       "description": "Show buttons linking to the matching Nakios page.",
-      "if": { "privacy": false }
+      "if": {
+        "privacy": false
+      }
     }
   ]
 }
