@@ -5,7 +5,7 @@ const presence = new Presence({
 })
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/eCsBmqZ.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/H/Hami%20Video/assets/logo.png',
 }
 
 enum ContentType {

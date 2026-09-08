@@ -5,20 +5,36 @@
     "name": "Baidairay",
     "id": "774619334646824960"
   },
-
   "service": "Hami Video",
-  "altnames": ["HamiVideo", "中華電信 Hami Video", "hamivideo"],
+  "altnames": [
+    "HamiVideo",
+    "中華電信 Hami Video",
+    "hamivideo"
+  ],
   "description": {
     "en": "Automatically shows what you're watching on Hami Video — movies, TV series, anime, documentaries, kids' content, variety shows, and live or replayed sports."
   },
   "url": "hamivideo.hinet.net",
   "regExp": "^https[:][/][/](?:www[.])?hamivideo[.]hinet[.]net[/].*$",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/eCsBmqZ.png",
-  "thumbnail": "https://i.imgur.com/pUTIwh1.jpeg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/H/Hami%20Video/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/H/Hami%20Video/assets/thumbnail.jpeg",
   "color": "#EE1B58",
   "category": "videos",
-  "tags": ["video", "streaming", "movies", "tv", "anime", "documentary", "kids", "variety", "sports", "taiwan", "hinet", "live"],
+  "tags": [
+    "video",
+    "streaming",
+    "movies",
+    "tv",
+    "anime",
+    "documentary",
+    "kids",
+    "variety",
+    "sports",
+    "taiwan",
+    "hinet",
+    "live"
+  ],
   "settings": [
     {
       "id": "lang",
@@ -37,7 +53,9 @@
       "icon": "fas fa-heading",
       "value": true,
       "description": "Show the movie or series title",
-      "if": { "privacyMode": false }
+      "if": {
+        "privacyMode": false
+      }
     },
     {
       "id": "showEpisodeNumber",
@@ -45,7 +63,9 @@
       "icon": "fas fa-list-ol",
       "value": true,
       "description": "Show the season/episode number (e.g. S01E05)",
-      "if": { "privacyMode": false }
+      "if": {
+        "privacyMode": false
+      }
     },
     {
       "id": "showEpisodeTitle",
@@ -53,7 +73,9 @@
       "icon": "fas fa-closed-captioning",
       "value": true,
       "description": "Show the episode's own title, if available",
-      "if": { "privacyMode": false }
+      "if": {
+        "privacyMode": false
+      }
     },
     {
       "id": "showLiveBadge",
@@ -61,7 +83,9 @@
       "icon": "fas fa-broadcast-tower",
       "value": true,
       "description": "Show a LIVE badge as the small image during live broadcasts",
-      "if": { "privacyMode": false }
+      "if": {
+        "privacyMode": false
+      }
     },
     {
       "id": "showButtons",
@@ -69,7 +93,9 @@
       "icon": "fas fa-compress-arrows-alt",
       "value": true,
       "description": "Show the \"Watch on Hami Video\" button",
-      "if": { "privacyMode": false }
+      "if": {
+        "privacyMode": false
+      }
     },
     {
       "id": "showTimestamp",
