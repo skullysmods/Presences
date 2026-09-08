@@ -14,9 +14,9 @@
     "www.flix2watch.com"
   ],
   "regExp": "^https?[:][/][/](www[.])?flix2watch[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://flix2watch.com/flix2watch-premid-logo-512-v231.png",
-  "thumbnail": "https://flix2watch.com/flix2watch-share-v214.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/F/Flix2Watch/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/F/Flix2Watch/assets/thumbnail.png",
   "color": "#ef172c",
   "category": "videos",
   "tags": [

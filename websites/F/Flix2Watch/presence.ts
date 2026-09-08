@@ -7,7 +7,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://flix2watch.com/flix2watch-premid-logo-512-v231.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/F/Flix2Watch/assets/logo.png',
 }
 
 function pageState(pathname: string): string {
