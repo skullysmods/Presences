@@ -9,7 +9,7 @@ const presence = new Presence({
 })
 
 enum ActivityAssets {
-  Logo = 'https://raw.githubusercontent.com/STAELH81/premid-assets/main/logo.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/S/Soundtrap/assets/0.png',
 }
 
 function formatTime(seconds: number): string {

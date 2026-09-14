@@ -12,9 +12,9 @@
   },
   "url": "soundtrap.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*soundtrap[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/EuIrH5x.png",
-  "thumbnail": "https://i.imgur.com/puVy77T.jpeg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Soundtrap/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Soundtrap/assets/thumbnail.jpeg",
   "color": "#000000",
   "category": "music",
   "tags": [
