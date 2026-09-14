@@ -18,7 +18,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000) // Show elapsed time
 
 enum ActivityAssets {
-  Logo = 'https://fridge.dev/resources/icons/icon-512.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/F/fridge.dev/assets/logo.png',
 }
 
 function normalizePath(pathname: string): string {

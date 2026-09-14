@@ -14,9 +14,9 @@
     "m.fridge.dev"
   ],
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*fridge[.]dev[/]",
-  "version": "1.0.0",
-  "logo": "https://fridge.dev/resources/icons/icon-512.png",
-  "thumbnail": "https://fridge.dev/resources/images/banner.jpg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/F/fridge.dev/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/F/fridge.dev/assets/thumbnail.jpg",
   "color": "#6caaa7",
   "category": "other",
   "tags": [
