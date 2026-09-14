@@ -130,7 +130,7 @@ async function updateActivity() {
 
   // Store art: metadata logo/thumbnail go live on the CDN at merge time.
   // Until then the activity's own imgur logo keeps art working everywhere.
-  const logoUrl = 'https://i.imgur.com/8byHs8E.jpeg'
+  const logoUrl = 'https://cdn.rcd.gg/PreMiD/websites/A/Anikage/assets/logo.jpeg'
   const presenceData: PresenceData = {
     type: ActivityType.Watching,
     largeImageKey: logoUrl,

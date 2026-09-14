@@ -11,9 +11,9 @@
   },
   "url": "anikage.cc",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*anikage[.]cc[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/8byHs8E.jpeg",
-  "thumbnail": "https://i.imgur.com/2c98voU.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/A/Anikage/assets/logo.jpeg",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/A/Anikage/assets/thumbnail.png",
   "color": "#201224",
   "category": "anime",
   "tags": [
