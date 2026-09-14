@@ -4,7 +4,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets { // Other default assets can be found at index.d.ts
-  Logo = 'https://i.imgur.com/wrdklQH.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/T/TrackGeek/assets/logo.png',
 }
 
 async function getStrings() {

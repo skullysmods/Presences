@@ -13,9 +13,9 @@
   },
   "url": "trackgeek.net",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*trackgeek[.]net[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/wrdklQH.png",
-  "thumbnail": "https://i.imgur.com/ttf7YuM.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/T/TrackGeek/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/T/TrackGeek/assets/thumbnail.png",
   "color": "#10b981",
   "category": "socials",
   "tags": [
