@@ -12,9 +12,9 @@
   },
   "url": "crazygames.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*crazygames[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/ajxwR7R.png",
-  "thumbnail": "https://i.postimg.cc/zvVNzfkL/unnamed.webp",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/C/CrazyGames/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/C/CrazyGames/assets/thumbnail.webp",
   "color": "#6842FF",
   "category": "games",
   "tags": [
