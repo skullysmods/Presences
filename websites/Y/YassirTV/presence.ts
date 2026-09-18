@@ -5,7 +5,7 @@ const presence = new Presence({
 })
 
 enum ActivityAssets {
-  Logo = 'https://i.ibb.co/cG1v62y/6aaaf2912fe1c2-59830015-Processed.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/Y/YassirTV/assets/logo.png',
 }
 
 interface IFrameData {
