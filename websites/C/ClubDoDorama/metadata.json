@@ -12,9 +12,9 @@
   },
   "url": "clubdodorama.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*clubdodorama[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/NG3A7fd.png",
-  "thumbnail": "https://i.imgur.com/c2s1fU2.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/C/ClubDoDorama/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/C/ClubDoDorama/assets/thumbnail.png",
   "color": "#000000",
   "category": "videos",
   "tags": [

@@ -33,7 +33,7 @@ presence.on('UpdateData', async () => {
 
   const presenceData: PresenceData = {
     type: ActivityType.Watching,
-    largeImageKey: 'https://i.imgur.com/NG3A7fd.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/C/ClubDoDorama/assets/logo.png',
     largeImageText: 'ClubDoDorama',
   }
 
