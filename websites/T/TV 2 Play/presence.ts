@@ -4,7 +4,7 @@ const presence = new Presence({
   clientId: '1546656432051454054',
 })
 
-const logoUrl = 'https://i.imgur.com/3dAnDrb.png'
+const logoUrl = 'https://cdn.rcd.gg/PreMiD/websites/T/TV%202%20Play/assets/logo.png'
 
 async function getStrings() {
   return presence.getStrings({

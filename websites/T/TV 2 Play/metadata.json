@@ -12,9 +12,9 @@
   },
   "url": "play.tv2.no",
   "regExp": "^https?[:][/][/]play[.]tv2[.]no[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/3dAnDrb.png",
-  "thumbnail": "https://i.imgur.com/yX01NEg.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/T/TV%202%20Play/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/T/TV%202%20Play/assets/thumbnail.png",
   "color": "#7000FF",
   "category": "videos",
   "tags": [
