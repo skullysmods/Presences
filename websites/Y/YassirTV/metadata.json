@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.premid.app/metadata/1.17",
+  "apiVersion": 1,
+  "author": {
+    "name": "Hamza",
+    "id": "944919875674071060"
+  },
+  "service": "YassirTV",
+  "altnames": ["Siiir.tv", "Sir TV"],
+  "description": {
+    "ar": "شاهد مباريات كرة القدم المباشرة على YassirTV.",
+    "en": "Watch live football matches streamed on YassirTV."
+  },
+  "url": ["fabor.tv", "yassirtv.com", "fabor-tv.to"],
+  "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*(yassirtv[.]com|fabor[.]tv|fabor-tv[.]to)[/]",
+  "version": "1.0.0",
+  "logo": "https://i.ibb.co/cG1v62y/6aaaf2912fe1c2-59830015-Processed.png",
+  "thumbnail": "https://i.ibb.co/k2JsKY9Y/Screenshot-2026-09-15-211137.png",
+  "color": "#c0392b",
+  "category": "videos",
+  "tags": ["football", "soccer", "live", "sports", "matches", "uefa-champions-league", "la-liga"],
+  "iframe": true,
+  "iFrameRegExp": "[a-z0-9]+[.]yasirtv[.]com/playerv5[.]php.*",
+  "settings": [
+    {
+      "id": "lang",
+      "multiLanguage": true
+    }
+  ]
+}
