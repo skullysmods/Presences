@@ -7,7 +7,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://authsrng.xyz/assets/favicons/android-chrome-512x512.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/A/auth%27s%20RNG/assets/logo.png',
 }
 
 function getStat(key: string): string | null {

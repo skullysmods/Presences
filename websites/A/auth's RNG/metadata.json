@@ -11,9 +11,9 @@
   },
   "url": "authsrng.xyz",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*authsrng[.]xyz[/]",
-  "version": "1.0.0",
-  "logo": "https://authsrng.xyz/assets/favicons/android-chrome-512x512.png",
-  "thumbnail": "https://nightly.authsrng.xyz/assets/promo.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/A/auth%27s%20RNG/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/A/auth%27s%20RNG/assets/thumbnail.png",
   "color": "#000000",
   "category": "games",
   "tags": [
