@@ -3,7 +3,7 @@ const presence = new Presence({
 })
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/t5SEQD2.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/W/WikiMasters/assets/logo.png',
 }
 
 presence.on('UpdateData', () => {
