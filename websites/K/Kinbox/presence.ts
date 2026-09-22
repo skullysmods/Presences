@@ -4,7 +4,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/eSY9m4v.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/K/Kinbox/assets/logo.png',
 }
 
 // Only fixed section names are shared. Never use page titles, contact names,
