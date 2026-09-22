@@ -17,9 +17,9 @@
   },
   "url": "milezero.live",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*milezero[.]live[/]",
-  "version": "1.0.0",
-  "logo": "https://i.richie.media/u/Rl9BsF.png",
-  "thumbnail": "https://i.richie.media/u/6emwPf.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/M/Mile%20Zero/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/M/Mile%20Zero/assets/thumbnail.png",
   "color": "#3424AD",
   "category": "music",
   "tags": [
