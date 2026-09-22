@@ -17,9 +17,9 @@
   },
   "url": "tcgmini.com",
   "regExp": "^https?[:][/][/](www[.])?tcgmini[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/Ks9Sgo1.png",
-  "thumbnail": "https://i.imgur.com/NPYiipr.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/T/TCGmini/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/T/TCGmini/assets/thumbnail.png",
   "color": "#111118",
   "category": "games",
   "tags": [
