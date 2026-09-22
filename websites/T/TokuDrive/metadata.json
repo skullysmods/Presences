@@ -12,9 +12,9 @@
   },
   "url": "tokusatsus.com",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*tokusatsus[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/4so3zr3.png",
-  "thumbnail": "https://i.imgur.com/P2xOgrk.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/T/TokuDrive/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/T/TokuDrive/assets/thumbnail.png",
   "color": "#e2231a",
   "category": "videos",
   "tags": [

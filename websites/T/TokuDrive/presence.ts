@@ -10,7 +10,7 @@ presence.on('UpdateData', async () => {
 
   const presenceData: PresenceData = {
     type: ActivityType.Watching,
-    largeImageKey: 'https://i.imgur.com/4so3zr3.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/T/TokuDrive/assets/logo.png',
     largeImageText: 'TokuDrive',
   }
 
