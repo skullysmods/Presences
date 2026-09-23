@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.premid.app/metadata/1.17",
+  "apiVersion": 1,
+  "author": {
+    "id": "1063860912173359114",
+    "name": "chromavisionmusic"
+  },
+  "service": "TakeUForward",
+  "description": {
+    "en": "One Stop Learning Platform for TECH Interviews. Learn DSA, System Design, and Core CS Subjects with personalised roadmaps, expert videos, and practice built for results."
+  },
+  "url": "takeuforward.org",
+  "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*takeuforward[.]org[/]",
+  "version": "1.0.0",
+  "logo": "https://res.cloudinary.com/dg9yrubdu/image/upload/w_512,h_512,c_scale/v1790024531/6ab19affb3b543.98664790Processed_pyt5tt.jpg",
+  "thumbnail": "https://static.takeuforward.org/content/1789314070_5PmnWO7-.webp",
+  "color": "#307af3",
+  "category": "other",
+  "tags": [
+    "coding",
+    "interviews",
+    "education"
+  ]
+}
