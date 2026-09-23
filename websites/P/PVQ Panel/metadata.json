@@ -12,12 +12,15 @@
   },
   "url": "pv-q.de",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*pv-q[.]de[/]",
-  "version": "1.0.0",
-  "logo": "https://pv-q.de/favicons/pvq-icon-maskable-512x512.png",
-  "thumbnail": "https://i.imgur.com/9sGJnp4.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/P/PVQ%20Panel/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/P/PVQ%20Panel/assets/thumbnail.png",
   "color": "#3b82f6",
   "category": "other",
-  "tags": ["gameserver", "panel"],
+  "tags": [
+    "gameserver",
+    "panel"
+  ],
   "settings": [
     {
       "id": "showServerName",

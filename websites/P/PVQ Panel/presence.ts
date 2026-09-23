@@ -5,7 +5,7 @@ const presence = new Presence({
 const startTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://pv-q.de/favicons/pvq-icon-maskable-512x512.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/P/PVQ%20Panel/assets/logo.png',
 }
 
 async function getStrings() {
