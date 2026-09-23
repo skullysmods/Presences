@@ -4,7 +4,7 @@ const presence = new Presence({
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
 enum ActivityAssets {
-  Logo = 'https://res.cloudinary.com/dg9yrubdu/image/upload/w_512,h_512,c_scale/v1790024531/6ab19affb3b543.98664790Processed_pyt5tt.jpg',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/T/TakeUForward/assets/logo.jpg',
 }
 
 const routes = [

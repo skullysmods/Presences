@@ -11,9 +11,9 @@
   },
   "url": "takeuforward.org",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*takeuforward[.]org[/]",
-  "version": "1.0.0",
-  "logo": "https://res.cloudinary.com/dg9yrubdu/image/upload/w_512,h_512,c_scale/v1790024531/6ab19affb3b543.98664790Processed_pyt5tt.jpg",
-  "thumbnail": "https://static.takeuforward.org/content/1789314070_5PmnWO7-.webp",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/T/TakeUForward/assets/logo.jpg",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/T/TakeUForward/assets/thumbnail.webp",
   "color": "#307af3",
   "category": "other",
   "tags": [
