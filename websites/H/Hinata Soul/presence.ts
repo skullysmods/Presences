@@ -20,7 +20,7 @@ presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
     type: ActivityType.Watching,
     name: 'Hinata Soul',
-    largeImageKey: 'https://i.imgur.com/BGYco3K.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/H/Hinata%20Soul/assets/logo.png',
     largeImageText: 'Hinata Soul',
   }
 
