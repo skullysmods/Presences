@@ -21,9 +21,9 @@
     "toonarab.com"
   ],
   "regExp": "^https?[:][/][/](?:www[.])?(?:olympustaff[.]com|azorafly[.]com|mangalik[.]net|mangatime[.]org|mangaswan[.]com|mangaclub[.]net|abmics[.]com|toonarab[.]com)(?:[/]|$)",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/KhZr3rL.jpeg",
-  "thumbnail": "https://i.imgur.com/jFmlSjP.jpeg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/A/Arabic%20Manga/assets/logo.jpeg",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/A/Arabic%20Manga/assets/thumbnail.jpeg",
   "color": "#F2C14E",
   "category": "anime",
   "tags": [
