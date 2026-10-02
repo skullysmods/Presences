@@ -5,7 +5,7 @@ const presence = new Presence({
 })
 
 const browsingTimestamp = Math.floor(Date.now() / 1000)
-const GR_LOGO_URL = 'https://i.imgur.com/D3eyWs8.png'
+const GR_LOGO_URL = 'https://cdn.rcd.gg/PreMiD/websites/G/Gensokyo%20Radio/assets/logo.png'
 const GR_WS_URL = 'wss://gensokyoradio.net/wss'
 const REFRESH_INTERVAL_MS = 15000
 
