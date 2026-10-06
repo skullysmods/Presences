@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemas.premid.app/metadata/1.16",
+  "$schema": "https://schemas.premid.app/metadata/1.17",
   "apiVersion": 1,
   "author": {
     "name": "वाह्य",
@@ -13,7 +13,7 @@
   },
   "url": "animesgames.cc",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*animesgames[.]cc[/]",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "logo": "https://cdn.rcd.gg/PreMiD/websites/A/Animes%20Games/assets/logo.png",
   "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/A/Animes%20Games/assets/thumbnail.png",
   "color": "#229050",
