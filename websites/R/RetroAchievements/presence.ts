@@ -72,7 +72,7 @@ presence.on('UpdateData', async () => {
 
   const presenceData: PresenceData = {
     type: ActivityType.Playing,
-    largeImageKey: 'https://i.imgur.com/52pY5VZ.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/R/RetroAchievements/assets/logo.png',
     startTimestamp: browsingTimestamp,
   }
 

@@ -11,9 +11,9 @@
   },
   "url": "retroachievements.org",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*retroachievements[.]org[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/52pY5VZ.png",
-  "thumbnail": "https://i.imgur.com/ortjzzQ.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/R/RetroAchievements/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/R/RetroAchievements/assets/thumbnail.png",
   "color": "#1a1a2e",
   "category": "games",
   "tags": [
