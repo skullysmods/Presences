@@ -11,9 +11,9 @@
   },
   "url": "kartaclub.tn",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*kartaclub[.]tn[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/7JShl3X.png",
-  "thumbnail": "https://i.imgur.com/JIzpQZD.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/K/Karta%20Club/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/K/Karta%20Club/assets/thumbnail.png",
   "color": "#071D19",
   "category": "games",
   "tags": [

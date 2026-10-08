@@ -4,7 +4,7 @@ const presence = new Presence({
   clientId: '1554253475809075341',
 })
 
-const LOGO = 'https://i.imgur.com/7JShl3X.png'
+const LOGO = 'https://cdn.rcd.gg/PreMiD/websites/K/Karta%20Club/assets/logo.png'
 
 function has(selector: string): boolean {
   return document.querySelector(selector) !== null
