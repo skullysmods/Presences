@@ -11,12 +11,16 @@
   },
   "url": "app.rebit.cc",
   "regExp": "^https?[:][/][/]app[.]rebit[.]cc[/]",
-  "version": "1.0.0",
-  "logo": "https://app.rebit.cc/icons/icon-512x512.png",
-  "thumbnail": "https://app.rebit.cc/screenshots/wide.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/R/Rebit%20Play/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/R/Rebit%20Play/assets/thumbnail.png",
   "color": "#2DD4BF",
   "category": "games",
-  "tags": ["retro", "games", "multiplayer"],
+  "tags": [
+    "retro",
+    "games",
+    "multiplayer"
+  ],
   "settings": [
     {
       "id": "showGameDetails",

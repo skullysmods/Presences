@@ -1,7 +1,7 @@
 import { ActivityType } from 'premid'
 
 const presence = new Presence({ clientId: '1555682643553820783' })
-const logo = 'https://app.rebit.cc/icons/icon-512x512.png'
+const logo = 'https://cdn.rcd.gg/PreMiD/websites/R/Rebit%20Play/assets/logo.png'
 
 presence.on('UpdateData', async () => {
   const [showGameDetails, showButtons] = await Promise.all([
