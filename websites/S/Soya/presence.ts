@@ -5,7 +5,7 @@ const presence = new Presence({
 })
 
 const DEFAULT_ASSETS = {
-  logo: 'https://i.ibb.co/21RstdWc/Soya-1-1.png',
+  logo: 'https://cdn.rcd.gg/PreMiD/websites/S/Soya/assets/logo.png',
   play: Assets.Play,
   pause: Assets.Pause,
   lyrics: Assets.Reading,

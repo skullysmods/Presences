@@ -11,9 +11,9 @@
   },
   "url": "soyamusic.in",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*soyamusic[.]in[/]",
-  "version": "1.0.0",
-  "logo": "https://i.ibb.co/21RstdWc/Soya-1-1.png",
-  "thumbnail": "https://i.ibb.co/5WRCV9qv/banner.jpg",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/S/Soya/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/S/Soya/assets/thumbnail.jpg",
   "color": "#10B981",
   "category": "music",
   "tags": [
