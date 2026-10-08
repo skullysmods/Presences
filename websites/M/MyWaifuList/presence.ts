@@ -7,7 +7,7 @@ presence.on('UpdateData', async () => {
   const privacy = await presence.getSetting<boolean>('privacy')
 
   const presenceData: PresenceData = {
-    largeImageKey: 'https://i.imgur.com/dHRZK0D.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png',
   }
 
   // =========================
@@ -16,7 +16,7 @@ presence.on('UpdateData', async () => {
   if (pathname === '/') {
     presenceData.details = 'Browsing MyWaifuList'
     presenceData.state = 'Anime Character Database'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -229,7 +229,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/popular') {
     presenceData.details = 'Browsing Popular Waifus'
     presenceData.state = 'Most voted characters of all time'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -238,7 +238,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/best') {
     presenceData.details = 'Browsing Top Tier Waifus'
     presenceData.state = 'Best of the best by weighted votes'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -247,7 +247,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/trash') {
     presenceData.details = 'Browsing Top Trash'
     presenceData.state = 'Most disliked characters'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -256,7 +256,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/current/best') {
     presenceData.details = 'Browsing Seasonal Best Girls'
     presenceData.state = 'Top Waifus of the current season'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -265,7 +265,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/add/waifu') {
     presenceData.details = 'Adding a Waifu'
     presenceData.state = 'Creating a new character entry'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -274,7 +274,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/add/seiyuu') {
     presenceData.details = 'Adding a Voice Actor'
     presenceData.state = 'Creating a new voice actor entry'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -283,7 +283,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/browse/seiyuu') {
     presenceData.details = 'Browsing Voice Actors'
     presenceData.state = 'Japanese anime voice actors'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -292,7 +292,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/studios') {
     presenceData.details = 'Browsing Anime Studios'
     presenceData.state = 'Discover animation studios'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -301,7 +301,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/series') {
     presenceData.details = 'Browsing Anime Series'
     presenceData.state = 'Discover anime and manga series'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -310,7 +310,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/husbandos') {
     presenceData.details = 'Browsing Husbandos'
     presenceData.state = 'Find the best anime husbandos'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
@@ -319,7 +319,7 @@ presence.on('UpdateData', async () => {
   else if (pathname === '/browse') {
     presenceData.details = 'Browsing Waifus'
     presenceData.state = 'Discover anime characters'
-    presenceData.largeImageKey = 'https://i.imgur.com/dHRZK0D.png'
+    presenceData.largeImageKey = 'https://cdn.rcd.gg/PreMiD/websites/M/MyWaifuList/assets/logo.png'
   }
 
   // =========================
