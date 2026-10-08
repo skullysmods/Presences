@@ -69,7 +69,7 @@ function setVideo(presenceData: PresenceData, t: { paused: string, watching: str
 
 presence.on('UpdateData', async () => {
   const presenceData: PresenceData = {
-    largeImageKey: 'https://plus2tele.com/icons/pwa-512.png',
+    largeImageKey: 'https://cdn.rcd.gg/PreMiD/websites/%23/%2B2T%C3%A9l%C3%A9/assets/logo.png',
     type: ActivityType.Watching,
     startTimestamp: browsingTimestamp,
   }

@@ -12,9 +12,9 @@
   },
   "url": "plus2tele.com",
   "regExp": "^https?[:][/][/](www[.])?plus2tele[.]com[/]",
-  "version": "1.0.0",
-  "logo": "https://plus2tele.com/icons/pwa-512.png",
-  "thumbnail": "https://i.ibb.co/fYHYjbkx/thumbnail.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/%23/%2B2T%C3%A9l%C3%A9/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/%23/%2B2T%C3%A9l%C3%A9/assets/thumbnail.png",
   "color": "#5073D4",
   "category": "videos",
   "tags": [
