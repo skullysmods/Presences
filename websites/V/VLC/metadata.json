@@ -31,5 +31,13 @@
   "tags": [
     "videolan",
     "media-player"
+  ],
+  "settings": [
+    {
+      "id": "showTitle",
+      "title": "Show Title as Presence",
+      "icon": "fa-solid fa-film",
+      "value": true
+    }
   ]
 }
