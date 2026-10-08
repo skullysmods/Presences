@@ -109,6 +109,15 @@
       "value": true
     },
     {
+      "id": "showOverview",
+      "title": "Show Plot Summary",
+      "icon": "fad fa-align-left",
+      "value": false,
+      "if": {
+        "privacy": false
+      }
+    },
+    {
       "id": "localImageExtraction",
       "title": "Force Local Image Extraction",
       "icon": "fad fa-download",
