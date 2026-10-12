@@ -11,9 +11,9 @@
   },
   "url": "flystream.net",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*flystream[.]net[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/Ltlbamw.png",
-  "thumbnail": "https://i.imgur.com/cGZGhpO.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/F/FlyStream/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/F/FlyStream/assets/thumbnail.png",
   "color": "#e5372a",
   "category": "videos",
   "tags": [
