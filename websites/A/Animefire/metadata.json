@@ -12,9 +12,9 @@
   },
   "url": "animefire.one",
   "regExp": "^https?[:][/][/]([a-z0-9-]+[.])*animefire([.][a-z]+)+[/]",
-  "version": "1.0.0",
-  "logo": "https://i.imgur.com/cihx7oo.png",
-  "thumbnail": "https://i.imgur.com/5hdhZfn.png",
+  "version": "1.0.1",
+  "logo": "https://cdn.rcd.gg/PreMiD/websites/A/Animefire/assets/logo.png",
+  "thumbnail": "https://cdn.rcd.gg/PreMiD/websites/A/Animefire/assets/thumbnail.png",
   "color": "#000000",
   "category": "anime",
   "tags": [

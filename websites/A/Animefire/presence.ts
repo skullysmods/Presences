@@ -5,7 +5,7 @@ const presence = new Presence({
 })
 
 enum ActivityAssets {
-  Logo = 'https://i.imgur.com/cihx7oo.png',
+  Logo = 'https://cdn.rcd.gg/PreMiD/websites/A/Animefire/assets/logo.png',
 }
 
 const serviceName = 'Animefire'
