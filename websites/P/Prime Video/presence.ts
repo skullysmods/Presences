@@ -4,7 +4,7 @@ import { ActivityAssets, CLIENT_ID, DETAIL_PATH } from './config/constants.js'
 import { applyBrowsingPresence } from './page/browsing.js'
 import { findBannerImage, findPageTitle, findPlayerVideo } from './page/dom.js'
 import { getPlaybackDisplay } from './player/display.js'
-import { applyPlayerPresence } from './player/player.js'
+import { applyPlayerPresence, resetElapsedTime } from './player/player.js'
 import { getLiveViewerTime } from './player/timeline.js'
 import { injectTimelineHook } from './player/timelineHook.js'
 
@@ -69,11 +69,13 @@ presence.on('UpdateData', async () => {
     })
   }
   else {
+    resetElapsedTime()
     applyBrowsingPresence(presenceData, { pathname: document.location.pathname, pageTitle, bannerImg, showCover, imageType })
   }
 
+  // Without any timestamp, Discord shows a timer that resets after ~1h10: the fixed start is kept
   if (!time) {
-    delete presenceData.startTimestamp
+    presenceData.startTimestamp = browsingTimestamp
     delete presenceData.endTimestamp
   }
 

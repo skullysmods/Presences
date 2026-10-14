@@ -19,20 +19,33 @@ export interface PlayerContext {
   strings: { paused: string, playing: string }
 }
 
+// Start of the current pause or ad break. Without timestamps, Discord still shows a timer that resets
+// after ~1h10: a fixed start, with no end, keeps it as an elapsed time.
+let frozenSince: number | null = null
+
+function showElapsedTime(presenceData: PresenceData): void {
+  frozenSince ??= Math.floor(Date.now() / 1000)
+  presenceData.startTimestamp = frozenSince
+  delete presenceData.endTimestamp
+}
+
+export function resetElapsedTime(): void {
+  frozenSince = null
+}
+
 function applyTimestamps(presenceData: PresenceData, { video, display, viewerTime }: PlayerContext): void {
   // VOD: `currentTime` / `duration` include the Prime Video jingle and ads
   if (Number.isFinite(video.duration)) {
     const { position, duration, inAd } = getTimelineInfo(video)
 
+    // The content position is frozen during an ad break: no position, recalculated after the ad
     if (inAd) {
-      // The content position is frozen during an ad break: no timestamps, recalculated after the ad
-      delete presenceData.startTimestamp
-      delete presenceData.endTimestamp
       presenceData.state = 'Ad break'
+      showElapsedTime(presenceData)
+      return
     }
-    else {
-      [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(position, duration)
-    }
+
+    [presenceData.startTimestamp, presenceData.endTimestamp] = getTimestamps(position, duration)
   }
   // Live event: `currentTime` counts from the beginning, so it also follows a rewind
   else if (display.liveEvent) {
@@ -45,6 +58,8 @@ function applyTimestamps(presenceData: PresenceData, { video, display, viewerTim
     presenceData.startTimestamp = Math.floor((display.airing.startTime + lag) / 1000)
     presenceData.endTimestamp = Math.floor((display.airing.endTime + lag) / 1000)
   }
+
+  resetElapsedTime()
 }
 
 export function applyPlayerPresence(presenceData: PresenceData, context: PlayerContext): void {
@@ -74,7 +89,7 @@ export function applyPlayerPresence(presenceData: PresenceData, context: PlayerC
   if (video.paused) {
     presenceData.smallImageKey = Assets.Pause
     presenceData.smallImageText = strings.paused
-    delete presenceData.startTimestamp
+    showElapsedTime(presenceData)
   }
   else {
     applyTimestamps(presenceData, context)
