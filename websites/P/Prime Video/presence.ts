@@ -6,7 +6,7 @@ import { findBannerImage, findPageTitle, findPlayerVideo } from './page/dom.js'
 import { getPlaybackDisplay } from './player/display.js'
 import { applyPlayerPresence, resetElapsedTime } from './player/player.js'
 import { getLiveViewerTime } from './player/timeline.js'
-import { injectTimelineHook } from './player/timelineHook.js'
+import { startTimelineTracking } from './player/timelineTracker.js'
 
 const presence = new Presence({
   clientId: CLIENT_ID,
@@ -14,7 +14,7 @@ const presence = new Presence({
 
 const browsingTimestamp = Math.floor(Date.now() / 1000)
 
-injectTimelineHook()
+startTimelineTracking(presence)
 
 presence.on('UpdateData', async () => {
   const [usePresenceName, showCover, imageType, useMediaImage, time, strings] = await Promise.all([

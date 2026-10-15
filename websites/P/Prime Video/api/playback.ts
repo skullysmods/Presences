@@ -1,6 +1,6 @@
 import type { PlaybackRequest } from '../config/types.js'
 import { FORWARDED_PARAMS, MAX_TRACKED_TITLES, PLAYBACK_PATH_REGEX, PLAYER_CHROME_PATH } from '../config/constants.js'
-import { readTimelineSnapshot } from '../player/timelineHook.js'
+import { getActiveTitleId } from '../player/timelineTracker.js'
 
 /**
  * The player calls `Get*PlaybackResources?titleId=<gti>` on each playback start (resume, autoplay,
@@ -12,10 +12,10 @@ let latestPlayback: PlaybackRequest | null = null
 
 /**
  * The title played is not always the last requested: a detail page prefetches the trailer and the episode
- * to resume, and "Resume" makes no new request. The injected script tells which one the video plays.
+ * to resume, and "Resume" makes no new request. The timeline tracker tells which one the video plays.
  */
 export function getCurrentPlayback(): PlaybackRequest | null {
-  const activeGti = readTimelineSnapshot()?.active
+  const activeGti = getActiveTitleId()
   if (!activeGti || activeGti === latestPlayback?.gti)
     return latestPlayback
 

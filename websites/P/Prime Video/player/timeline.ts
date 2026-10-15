@@ -1,18 +1,18 @@
 import type { TimelineInfo, TimelineState } from '../config/types.js'
 import { getCurrentPlayback } from '../api/playback.js'
 import { DEFAULT_LIVE_LAG_MS, MAX_TIMELINE_OFFSET_S } from '../config/constants.js'
-import { readTimelineSnapshot } from './timelineHook.js'
+import { getTimelineState } from './timelineTracker.js'
 
 /*
  * The player inserts non-content elements into the video timeline: the Prime Video intro jingle (~6 s)
  * and ads. `currentTime` and `duration` are therefore ahead of the real position.
- * The required state (playlist, ad durations, positions reported by Amazon) is published by the injected
- * page script (see timelineHook.ts); this module derives the real position from it.
+ * The required state (playlist, ad durations, positions reported by Amazon) is built from the player
+ * requests (see timelineTracker.ts); this module derives the real position from it.
  */
 
 function getCurrentTimelineState(): TimelineState | null {
   const gti = getCurrentPlayback()?.gti
-  return gti ? readTimelineSnapshot()?.titles[gti] ?? null : null
+  return gti ? getTimelineState(gti) : null
 }
 
 // Duration (s) of off-content elements before `currentTime`: intro jingle + ad cuts
